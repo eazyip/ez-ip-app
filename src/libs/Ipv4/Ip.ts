@@ -27,4 +27,8 @@ export default class Ip {
     getBinValue(): string {
         return this.binValue
     }
+
+    getBinDottedValue(): string {
+        return this.binValue.match(/.{1,8}/g)!.join('.')
+    }
 }

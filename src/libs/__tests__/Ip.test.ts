@@ -20,4 +20,12 @@ describe('Ip', () => {
             expect(new Ip('127.0.0.1').getBinValue()).toBe('01111111000000000000000000000001')
         })
     })
+
+    describe('getBinDottedValue', () => {
+        it('returns value for valid IP address', () => {
+            expect(new Ip('127.0.0.1').getBinDottedValue()).toBe(
+                '01111111.00000000.00000000.00000001'
+            )
+        })
+    })
 })
