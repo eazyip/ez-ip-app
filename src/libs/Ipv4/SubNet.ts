@@ -1,8 +1,9 @@
 import Ip from './Ip'
 
 export default class SubNet {
-    networkIp: Ip
     mask: Ip
+    wildcardMask: Ip
+    networkIp: Ip
     firstHostIp: Ip
     broadcastIp: Ip
 
@@ -10,6 +11,7 @@ export default class SubNet {
         anyIp = anyIp instanceof Ip ? anyIp : new Ip(anyIp)
 
         this.mask = mask instanceof Ip ? mask : new Ip(mask)
+        this.wildcardMask = this._resolveWildcardMask(this.mask)
         this.networkIp = this._resolveIp(anyIp)
         this.firstHostIp = this._resolveFirstHostIp(this.networkIp)
         this.broadcastIp = this._resolveBroadcastIp(this.networkIp)
@@ -42,10 +44,7 @@ export default class SubNet {
         const broadcastIpBin = networkIp
             .getBinValue()
             .split('')
-            .map(
-                (bit, index) =>
-                    parseInt(bit) | parseInt(this._getWildcardMask().getBinValue()[index])
-            )
+            .map((bit, index) => parseInt(bit) | parseInt(this.wildcardMask.getBinValue()[index]))
             .join('')
 
         const broadcastIpDecimal = broadcastIpBin
@@ -56,8 +55,8 @@ export default class SubNet {
         return new Ip(broadcastIpDecimal)
     }
 
-    private _getWildcardMask(): Ip {
-        const wildcardMaskBin = this.mask
+    private _resolveWildcardMask(mask: Ip): Ip {
+        const wildcardMaskBin = mask
             .getBinValue()
             .split('')
             .map((bit) => parseInt(bit) ^ 1)
@@ -69,6 +68,14 @@ export default class SubNet {
             .join('.')
 
         return new Ip(wildcardMaskDecimal)
+    }
+
+    getMask(): Ip {
+        return this.mask
+    }
+
+    getWildcardMask(): Ip {
+        return this.wildcardMask
     }
 
     getNetworkIp(): Ip {
