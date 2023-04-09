@@ -5,6 +5,7 @@ export default class SubNet {
     wildcardMask: Ip
     networkIp: Ip
     firstHostIp: Ip
+    lastHostIp: Ip
     broadcastIp: Ip
 
     constructor(anyIp: Ip | string, mask: Ip | string) {
@@ -15,6 +16,7 @@ export default class SubNet {
         this.networkIp = this._resolveIp(anyIp)
         this.firstHostIp = this._resolveFirstHostIp(this.networkIp)
         this.broadcastIp = this._resolveBroadcastIp(this.networkIp)
+        this.lastHostIp = this._resolveLastHostIp(this.broadcastIp)
     }
 
     private _resolveIp(anyIp: Ip): Ip {
@@ -70,6 +72,14 @@ export default class SubNet {
         return new Ip(wildcardMaskDecimal)
     }
 
+    private _resolveLastHostIp(broadcastIp: Ip): Ip {
+        const lastHostIp = broadcastIp.getArrValue().slice()
+
+        lastHostIp[3]--
+
+        return new Ip(lastHostIp.join('.'))
+    }
+
     getMask(): Ip {
         return this.mask
     }
@@ -84,6 +94,10 @@ export default class SubNet {
 
     getFirstHostIp(): Ip {
         return this.firstHostIp
+    }
+
+    getLastHostIp(): Ip {
+        return this.lastHostIp
     }
 
     getBroadcastIp(): Ip {
