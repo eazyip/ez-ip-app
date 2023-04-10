@@ -8,6 +8,7 @@ describe('SubNet', () => {
         {
             inputIp: '192.168.1.100',
             mask: '255.255.255.0',
+            size: 254,
             wildCardMask: '0.0.0.255',
             networkIp: '192.168.1.0',
             firstHostIp: '192.168.1.1',
@@ -17,6 +18,7 @@ describe('SubNet', () => {
         {
             inputIp: '10.0.0.1',
             mask: '255.255.0.0',
+            size: 65534,
             wildCardMask: '0.0.255.255',
             networkIp: '10.0.0.0',
             firstHostIp: '10.0.0.1',
@@ -26,6 +28,7 @@ describe('SubNet', () => {
         {
             inputIp: '172.16.0.100',
             mask: '255.255.255.128',
+            size: 126,
             wildCardMask: '0.0.0.127',
             networkIp: '172.16.0.0',
             firstHostIp: '172.16.0.1',
@@ -35,6 +38,7 @@ describe('SubNet', () => {
         {
             inputIp: '192.168.0.1',
             mask: '255.255.255.252',
+            size: 2,
             wildCardMask: '0.0.0.3',
             networkIp: '192.168.0.0',
             firstHostIp: '192.168.0.1',
@@ -45,9 +49,19 @@ describe('SubNet', () => {
 
     it.each(testData)(
         'should correctly calculate the network IP address for %s\n',
-        ({ inputIp, mask, wildCardMask, networkIp, firstHostIp, lastHostIp, broadcastIp }) => {
+        ({
+            inputIp,
+            mask,
+            size,
+            wildCardMask,
+            networkIp,
+            firstHostIp,
+            lastHostIp,
+            broadcastIp
+        }) => {
             const subnet = new SubNet(inputIp, mask)
 
+            expect(subnet.getSize()).toEqual(size)
             expect(subnet.getWildcardMask()).toEqual(new Ip(wildCardMask))
             expect(subnet.getNetworkIp()).toEqual(new Ip(networkIp))
             expect(subnet.getFirstHostIp()).toEqual(new Ip(firstHostIp))
