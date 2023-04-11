@@ -2,6 +2,7 @@ import Ip from './Ip'
 
 export default class SubNet {
     mask: Ip
+    prefix: number
     size: number
     wildcardMask: Ip
     networkIp: Ip
@@ -9,11 +10,13 @@ export default class SubNet {
     lastHostIp: Ip
     broadcastIp: Ip
 
+    // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: Ip | string, mask: Ip | string) {
         anyIp = anyIp instanceof Ip ? anyIp : new Ip(anyIp)
 
         this.mask = mask instanceof Ip ? mask : new Ip(mask)
-        this.size = this._resolveNetworkSize(this.mask)
+        this.prefix = this._resolvePrefix(this.mask)
+        this.size = this._resolveNetworkSize(this.prefix)
         this.wildcardMask = this._resolveWildcardMask(this.mask)
         this.networkIp = this._resolveIp(anyIp)
         this.firstHostIp = this._resolveFirstHostIp(this.networkIp)
@@ -21,14 +24,15 @@ export default class SubNet {
         this.lastHostIp = this._resolveLastHostIp(this.broadcastIp)
     }
 
-    private _resolveNetworkSize(mask: Ip): number {
-        const numHostBits = mask
+    private _resolvePrefix(mask: Ip): number {
+        return mask
             .getBinValue()
             .split('')
-            .map(Number)
-            .reduce((sum, bit) => sum + (bit === 0 ? 1 : 0), 0)
+            .reduce((sum, bit) => sum + (bit === '1' ? 1 : 0), 0)
+    }
 
-        return Math.pow(2, numHostBits) - 2
+    private _resolveNetworkSize(prefix: number): number {
+        return Math.pow(2, 32 - prefix) - 2
     }
 
     private _resolveWildcardMask(mask: Ip): Ip {
@@ -94,6 +98,10 @@ export default class SubNet {
 
     getMask(): Ip {
         return this.mask
+    }
+
+    getPrefix(): number {
+        return this.prefix
     }
 
     getSize(): number {

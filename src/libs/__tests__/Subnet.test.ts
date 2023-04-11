@@ -4,10 +4,11 @@ import Ip from '../Ipv4/Ip'
 import SubNet from '../Ipv4/SubNet'
 
 describe('SubNet', () => {
-    const testData = [
+    it.each([
         {
             inputIp: '192.168.1.100',
             mask: '255.255.255.0',
+            prefix: 24,
             size: 254,
             wildCardMask: '0.0.0.255',
             networkIp: '192.168.1.0',
@@ -18,6 +19,7 @@ describe('SubNet', () => {
         {
             inputIp: '10.0.0.1',
             mask: '255.255.0.0',
+            prefix: 16,
             size: 65534,
             wildCardMask: '0.0.255.255',
             networkIp: '10.0.0.0',
@@ -28,6 +30,7 @@ describe('SubNet', () => {
         {
             inputIp: '172.16.0.100',
             mask: '255.255.255.128',
+            prefix: 25,
             size: 126,
             wildCardMask: '0.0.0.127',
             networkIp: '172.16.0.0',
@@ -38,6 +41,7 @@ describe('SubNet', () => {
         {
             inputIp: '192.168.0.1',
             mask: '255.255.255.252',
+            prefix: 30,
             size: 2,
             wildCardMask: '0.0.0.3',
             networkIp: '192.168.0.0',
@@ -45,13 +49,12 @@ describe('SubNet', () => {
             lastHostIp: '192.168.0.2',
             broadcastIp: '192.168.0.3'
         }
-    ]
-
-    it.each(testData)(
+    ])(
         'should correctly calculate the network IP address for %s\n',
         ({
             inputIp,
             mask,
+            prefix,
             size,
             wildCardMask,
             networkIp,
@@ -61,6 +64,7 @@ describe('SubNet', () => {
         }) => {
             const subnet = new SubNet(inputIp, mask)
 
+            expect(subnet.getPrefix()).toEqual(prefix)
             expect(subnet.getSize()).toEqual(size)
             expect(subnet.getWildcardMask()).toEqual(new Ip(wildCardMask))
             expect(subnet.getNetworkIp()).toEqual(new Ip(networkIp))
