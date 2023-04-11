@@ -1,19 +1,22 @@
 import Ip from './Ip'
 
 export default class SubNet {
-    mask: Ip
-    prefix: number
-    size: number
-    wildcardMask: Ip
-    networkIp: Ip
-    firstHostIp: Ip
-    lastHostIp: Ip
-    broadcastIp: Ip
+    private mask: Ip
+    private prefix: number
+    private size: number
+    private wildcardMask: Ip
+    private networkIp: Ip
+    private firstHostIp: Ip
+    private lastHostIp: Ip
+    private broadcastIp: Ip
+
+    private subnets: { subnet: SubNet; inRange: number }[]
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: Ip | string, mask: Ip | string) {
         anyIp = anyIp instanceof Ip ? anyIp : new Ip(anyIp)
 
+        // TODO: validate mask
         this.mask = mask instanceof Ip ? mask : new Ip(mask)
         this.prefix = this._resolvePrefix(this.mask)
         this.size = this._resolveNetworkSize(this.prefix)
@@ -22,6 +25,14 @@ export default class SubNet {
         this.firstHostIp = this._resolveFirstHostIp(this.networkIp)
         this.broadcastIp = this._resolveBroadcastIp(this.networkIp)
         this.lastHostIp = this._resolveLastHostIp(this.broadcastIp)
+
+        this.subnets = []
+    }
+
+    canContainVlsmSubnets(subnetsSizes: number[]): boolean {
+        return (
+            subnetsSizes.reduce((sum, size) => sum + size, 0) + subnetsSizes.length * 2 < this.size
+        )
     }
 
     private _resolvePrefix(mask: Ip): number {
