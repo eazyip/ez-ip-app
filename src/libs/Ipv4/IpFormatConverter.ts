@@ -22,5 +22,14 @@ class IpFormatConverter {
             .map((octet) => parseInt(octet, 2))
             .join('.')
     }
+
+    maskFromPrefix(prefix: number): string {
+        return '1'
+            .repeat(prefix)
+            .padEnd(32, '0')
+            .match(/.{1,8}/g)!
+            .map((octet) => parseInt(octet, 2))
+            .join('.')
+    }
 }
 export default new IpFormatConverter()
