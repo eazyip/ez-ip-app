@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import Ip from '../Ipv4/Ip'
-import SubNet from '../Ipv4/SubNet'
+import Network from '../Ipv4/Network'
 
-describe('SubNet', () => {
+describe('Network', () => {
     describe('subnet construction+getters', () => {
         it.each([
             {
@@ -63,7 +63,7 @@ describe('SubNet', () => {
                 lastHostIp,
                 broadcastIp
             }) => {
-                const subnet = new SubNet(inputIp, mask)
+                const subnet = new Network(inputIp, mask)
 
                 expect(subnet.getPrefix()).toEqual(prefix)
                 expect(subnet.getSize()).toEqual(size)
@@ -93,7 +93,7 @@ describe('SubNet', () => {
         ])(
             'should correctly check if subent can contain subnets sizes %s\n',
             ({ subnetAddress, mask, sizes, canBeCaintained }) => {
-                const subnet = new SubNet(subnetAddress, mask)
+                const subnet = new Network(subnetAddress, mask)
 
                 expect(subnet.canContainVlsmSubnets(sizes)).toBe(canBeCaintained)
             }

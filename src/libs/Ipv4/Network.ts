@@ -1,6 +1,6 @@
 import Ip from './Ip'
 
-export default class SubNet {
+export default class Network {
     private mask: Ip
     private prefix: number
     private size: number
@@ -10,13 +10,13 @@ export default class SubNet {
     private lastHostIp: Ip
     private broadcastIp: Ip
 
-    private subnets: { subnet: SubNet; inRange: number }[]
+    private subnets: { subnet: Network; inRange: number }[]
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: Ip | string, mask: Ip | string) {
         anyIp = anyIp instanceof Ip ? anyIp : new Ip(anyIp)
 
-        // TODO: validate mask
+        // TODO: validate mask (add IP wrapper classes: mask; wildcard, network...)
         this.mask = mask instanceof Ip ? mask : new Ip(mask)
         this.prefix = this._resolvePrefix(this.mask)
         this.size = this._resolveNetworkSize(this.prefix)
