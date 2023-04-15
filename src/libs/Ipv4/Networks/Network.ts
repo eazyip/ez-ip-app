@@ -1,9 +1,10 @@
 import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingInfoResolver'
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import Mask from '@/libs/Ipv4/Addresses/Mask'
 
 export default class Network {
-    private mask: BinaryFormat
+    private mask: Mask
     private prefix: number
     private size: number
     private wildcardMask: BinaryFormat
@@ -19,7 +20,7 @@ export default class Network {
         anyIp = anyIp instanceof BinaryFormat ? anyIp : anyIp.toBinary()
 
         // TODO: validate mask (add IP wrapper classes: mask; wildcard, network...)
-        this.mask = mask instanceof BinaryFormat ? mask : mask.toBinary()
+        this.mask = new Mask(mask)
         this.prefix = NetworkAddressingInfoResolver.prefixFromMask(this.mask)
         this.size = NetworkAddressingInfoResolver.sizeFromPrefix(this.prefix)
         this.wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(this.mask)
@@ -71,7 +72,7 @@ export default class Network {
     |--------------------------------------------------------------------------
     */
 
-    getMask(): BinaryFormat {
+    getMask(): Mask {
         return this.mask
     }
 

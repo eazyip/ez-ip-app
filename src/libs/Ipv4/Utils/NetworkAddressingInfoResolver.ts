@@ -1,17 +1,18 @@
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
+import type Mask from '@/libs/Ipv4/Addresses/Mask'
 
 class NetworkAddressingInfoResolver {
-    wildcardFromMask(mask: BinaryFormat): BinaryFormat {
+    wildcardFromMask(mask: Mask): BinaryFormat {
         return new BinaryFormat(
-            mask.value
+            mask.binaryValue.value
                 .split('')
                 .map((bit) => parseInt(bit) ^ 1)
                 .join('')
         )
     }
 
-    prefixFromMask(mask: BinaryFormat): number {
-        return mask.value.split('').reduce((sum, bit) => sum + (bit === '1' ? 1 : 0), 0)
+    prefixFromMask(mask: Mask): number {
+        return mask.binaryValue.value.split('').reduce((sum, bit) => sum + (bit === '1' ? 1 : 0), 0)
     }
 
     maskFromPrefix(prefix: number): BinaryFormat {
@@ -22,11 +23,11 @@ class NetworkAddressingInfoResolver {
         return Math.pow(2, 32 - prefix) - 2
     }
 
-    networkAddress(anyIp: BinaryFormat, mask: BinaryFormat): BinaryFormat {
+    networkAddress(anyIp: BinaryFormat, mask: Mask): BinaryFormat {
         return new BinaryFormat(
             anyIp.value
                 .split('')
-                .map((bit, index) => parseInt(bit) & parseInt(mask.value[index]))
+                .map((bit, index) => parseInt(bit) & parseInt(mask.binaryValue.value[index]))
                 .join('')
         )
     }

@@ -2,11 +2,12 @@ import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingInfoResolver'
 
 import { describe, expect, it } from 'vitest'
+import Mask from '@/libs/Ipv4/Addresses/Mask'
 
 describe('NetworkAddressingInfoResolver', () => {
     it('resolves', () => {
         const anyIp = new BinaryFormat('11000000101010000000000100000001') // 192.168.1.1
-        const mask = new BinaryFormat('11111111111111111111111100000000') // 255.255.255.0
+        const mask = new Mask(new BinaryFormat('11111111111111111111111100000000')) // 255.255.255.0
 
         const wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(mask)
         expect(wildcardMask.value).toEqual('00000000000000000000000011111111')
