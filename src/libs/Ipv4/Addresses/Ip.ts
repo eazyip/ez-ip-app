@@ -14,20 +14,4 @@ export default class Ip {
             this.decimalValue = this.binaryValue.toDecimal()
         }
     }
-
-    getValue(): string {
-        return this.decimalValue.value
-    }
-
-    getArrValue(): [number, number, number, number] {
-        return this.decimalValue.arr
-    }
-
-    getBinValue(): string {
-        return this.binaryValue.value
-    }
-
-    getBinDottedValue(): string {
-        return this.binaryValue.dotted
-    }
 }
