@@ -5,9 +5,14 @@ export default class Ip {
     decimalValue: DecimalFormat
     binaryValue: BinaryFormat
 
-    constructor(address: string) {
-        this.decimalValue = new DecimalFormat(address)
-        this.binaryValue = this.decimalValue.toBinary()
+    constructor(address: DecimalFormat | BinaryFormat) {
+        if (address instanceof DecimalFormat) {
+            this.decimalValue = address
+            this.binaryValue = this.decimalValue.toBinary()
+        } else {
+            this.binaryValue = address
+            this.decimalValue = this.binaryValue.toDecimal()
+        }
     }
 
     getValue(): string {

@@ -1,10 +1,11 @@
 import Ip from '@/libs/Ipv4/Addresses/Ip'
+import type BinaryFormat from './Formats/BinaryFormat'
 
 export default class ClassfulIp {
     ip: Ip
     class: string
 
-    constructor(ip: Ip | string) {
+    constructor(ip: Ip | BinaryFormat) {
         this.ip = ip instanceof Ip ? ip : new Ip(ip)
         this.class = this._resolveClass()
     }
