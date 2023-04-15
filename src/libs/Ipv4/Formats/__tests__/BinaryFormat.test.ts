@@ -1,5 +1,5 @@
-import BinaryFormat from '@/libs/Ipv4/Fomats/BinaryFormat'
-import DecimalFormat from '@/libs/Ipv4/Fomats/DecimalFormat'
+import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
+import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
 import { describe, expect, it } from 'vitest'
 

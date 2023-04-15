@@ -1,4 +1,4 @@
-import BinaryFormat from '@/libs/Ipv4/Fomats/BinaryFormat'
+import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 
 class NetworkAddressingInfoResolver {
     wildcardFromMask(mask: BinaryFormat): BinaryFormat {

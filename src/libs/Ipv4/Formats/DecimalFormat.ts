@@ -1,3 +1,5 @@
+import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
+
 export default class DecimalFormat {
     value: string
     arr: [number, number, number, number]
@@ -27,6 +29,4 @@ export default class DecimalFormat {
         )
     }
 
-    // toBinary(): string {
-    // }
 }

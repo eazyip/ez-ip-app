@@ -1,4 +1,4 @@
-import DecimalFormat from '@/libs/Ipv4/Fomats/DecimalFormat'
+import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
 export default class BinaryFormat {
     value: string
@@ -37,6 +37,7 @@ export default class BinaryFormat {
     isWildCard(): boolean {
         const onesIndex = this.value.indexOf('1')
         const zerosIndex = this.value.lastIndexOf('0')
+
         return onesIndex === -1 || zerosIndex === -1 || zerosIndex + 1 === onesIndex
     }
 

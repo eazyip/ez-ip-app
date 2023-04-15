@@ -1,4 +1,4 @@
-import BinaryFormat from '@/libs/Ipv4/Fomats/BinaryFormat'
+import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingInfoResolver'
 
 import { describe, expect, it } from 'vitest'
