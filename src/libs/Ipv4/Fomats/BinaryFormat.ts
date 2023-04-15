@@ -1,9 +1,9 @@
+import DecimalFormat from '@/libs/Ipv4/Fomats/DecimalFormat'
+
 export default class BinaryFormat {
     value: string
     dotted: string
     arr: [string, string, string, string]
-    decimal: string
-    // TODO: hex+octal
 
     constructor(binaryIp: string) {
         if (binaryIp.length !== 32) {
@@ -21,7 +21,6 @@ export default class BinaryFormat {
         this.value = binaryIp
         this.arr = this.value.match(/.{1,8}/g)! as [string, string, string, string]
         this.dotted = this.arr.join('.')
-        this.decimal = this.arr.map((octet) => parseInt(octet, 2).toString()).join('.')
     }
 
     isMask(): boolean {
@@ -35,5 +34,9 @@ export default class BinaryFormat {
         const onesIndex = this.value.indexOf('1')
         const zerosIndex = this.value.lastIndexOf('0')
         return onesIndex === -1 || zerosIndex === -1 || zerosIndex + 1 === onesIndex
+    }
+
+    toDecimal(): DecimalFormat {
+        return new DecimalFormat(this.arr.map((octet) => parseInt(octet, 2).toString()).join('.'))
     }
 }

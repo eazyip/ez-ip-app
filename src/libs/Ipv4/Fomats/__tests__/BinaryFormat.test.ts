@@ -1,4 +1,6 @@
 import BinaryFormat from '@/libs/Ipv4/Fomats/BinaryFormat'
+import DecimalFormat from '@/libs/Ipv4/Fomats/DecimalFormat'
+
 import { describe, expect, it } from 'vitest'
 
 describe('BinaryFormat', () => {
@@ -20,7 +22,7 @@ describe('BinaryFormat', () => {
             expect(bf.value).toEqual('11001100010101010101010101010101')
             expect(bf.dotted).toEqual('11001100.01010101.01010101.01010101')
             expect(bf.arr).toEqual(['11001100', '01010101', '01010101', '01010101'])
-            expect(bf.decimal).toEqual('204.85.85.85')
+            expect(bf.toDecimal()).toEqual(new DecimalFormat('204.85.85.85'))
         })
     })
 
