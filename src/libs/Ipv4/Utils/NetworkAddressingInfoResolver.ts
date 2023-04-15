@@ -14,6 +14,10 @@ class NetworkAddressingInfoResolver {
         return mask.value.split('').reduce((sum, bit) => sum + (bit === '1' ? 1 : 0), 0)
     }
 
+    maskFromPrefix(prefix: number): BinaryFormat {
+        return new BinaryFormat('1'.repeat(prefix).padEnd(32, '0'))
+    }
+
     sizeFromPrefix(prefix: number): number {
         return Math.pow(2, 32 - prefix) - 2
     }

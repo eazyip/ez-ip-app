@@ -1,5 +1,5 @@
 import Ip from '@/libs/Ipv4/Addresses/Ip'
-import IpFormatConverter from '@/libs/Ipv4/Utils/IpFormatConverter'
+import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingInfoResolver'
 
 export default class Network {
     private mask: Ip
@@ -39,7 +39,9 @@ export default class Network {
 
     addSubnetBySize(name: string, subnetSize: number) {
         const subnetPrefix = this.prefix + Math.ceil(Math.log2(subnetSize))
-        const subnetMask = new Ip(IpFormatConverter.maskFromPrefix(subnetPrefix))
+        const subnetMask = new Ip(
+            NetworkAddressingInfoResolver.maskFromPrefix(subnetPrefix).toDecimal().value
+        )
 
         // TODO: calculate subnet Ip
         this.addSubnet(name, new Network(this.networkIp, subnetMask))
