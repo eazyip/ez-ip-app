@@ -2,8 +2,9 @@ import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Ip from '@/libs/Ipv4/Addresses/Ip'
 import Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
+import Mask from '@/libs/Ipv4/Addresses/Mask'
 
-export default class Mask extends Ip {
+export default class Wildcard extends Ip {
     constructor(address: DecimalFormat | BinaryFormat) {
         super(address)
 
@@ -12,18 +13,25 @@ export default class Mask extends Ip {
         }
     }
 
-    bitwiseOr(ip: Ip): Broadcast {
-        return new Broadcast(
+    makeMask(): Mask {
+        return new Mask(
             new BinaryFormat(
-                ip.binaryValue.value
+                this.binaryValue.value
                     .split('')
-                    .map((bit, index) => parseInt(bit) | parseInt(this.binaryValue.value[index]))
+                    .map((bit) => parseInt(bit) ^ 1)
                     .join('')
             )
         )
     }
 
     makeBroadcastAddress(ip: Ip): Broadcast {
-        return this.bitwiseOr(ip)
+        return new Broadcast(new BinaryFormat(this.bitwiseOr(ip)))
+    }
+
+    private bitwiseOr(ip: Ip): string {
+        return ip.binaryValue.value
+            .split('')
+            .map((bit, index) => parseInt(bit) | parseInt(this.binaryValue.value[index]))
+            .join('')
     }
 }

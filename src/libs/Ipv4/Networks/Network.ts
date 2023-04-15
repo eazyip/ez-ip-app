@@ -1,13 +1,13 @@
-import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingInfoResolver'
 import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
 import type Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
 import type Ip from '@/libs/Ipv4/Addresses/Ip'
+import type Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
 export default class Network {
     private mask: Mask
-    private prefix: number
+    private prefix: Prefix
     private size: number
     private wildcardMask: Wildcard
     private networkIp: NetworkAddress
@@ -20,12 +20,12 @@ export default class Network {
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: Ip, mask: Mask) {
         this.mask = mask
-        this.prefix = NetworkAddressingInfoResolver.prefixFromMask(this.mask)
-        this.size = NetworkAddressingInfoResolver.sizeFromPrefix(this.prefix)
-        this.wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(this.mask)
+        this.prefix = this.mask.makePrefix()
+        this.size = this.prefix.size
+        this.wildcardMask = this.mask.makeWildcard()
         this.networkIp = this.mask.makeNetworkAddress(anyIp)
         this.firstHostIp = this.networkIp.makeFirstHostAddress()
-        this.broadcastIp = this.wildcardMask.makeBroadcastAddress(this.networkIp)
+        this.broadcastIp = this.wildcardMask.makeBroadcastAddress(anyIp)
         this.lastHostIp = this.broadcastIp.makeLastHostAddress()
 
         this.subnets = new Map<string, { subnet: Network; inRange: boolean }>()
@@ -70,7 +70,7 @@ export default class Network {
         return this.mask
     }
 
-    getPrefix(): number {
+    getPrefix(): Prefix {
         return this.prefix
     }
 

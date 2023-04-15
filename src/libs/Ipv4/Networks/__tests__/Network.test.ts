@@ -70,7 +70,7 @@ describe('Network', () => {
                     new Mask(new DecimalFormat(mask))
                 )
 
-                expect(subnet.getPrefix()).toEqual(prefix)
+                expect(subnet.getPrefix().value).toEqual(prefix)
                 expect(subnet.getSize()).toEqual(size)
                 expect(subnet.getWildcardMask().decimalValue.value).toEqual(wildCardMask)
                 expect(subnet.getNetworkIp().decimalValue.value).toEqual(networkIp)
