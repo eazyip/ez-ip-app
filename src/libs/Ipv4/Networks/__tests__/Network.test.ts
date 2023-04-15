@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import Ip from '../Ipv4/Ip'
-import Network from '../Ipv4/Network'
+import Ip from '@/libs/Ipv4/Addresses/Ip'
+import Network from '@/libs/Ipv4/Networks/Network'
 
 describe('Network', () => {
     describe('subnet construction+getters', () => {

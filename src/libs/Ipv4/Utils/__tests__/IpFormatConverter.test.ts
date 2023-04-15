@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import IpFormatConverter from '../Ipv4/IpFormatConverter'
+import IpFormatConverter from '@/libs/Ipv4/Utils/IpFormatConverter'
 
 describe('Ip', () => {
     describe('decimalTobin', () => {

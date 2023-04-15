@@ -1,4 +1,5 @@
-import Ip from './Ip'
+import Ip from '@/libs/Ipv4/Addresses/Ip'
+import IpFormatConverter from '@/libs/Ipv4/Utils/IpFormatConverter'
 
 export default class Network {
     private mask: Ip
@@ -10,7 +11,7 @@ export default class Network {
     private lastHostIp: Ip
     private broadcastIp: Ip
 
-    private subnets: { subnet: Network; inRange: number }[]
+    private subnets: Map<string, { subnet: Network; inRange: boolean }>
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: Ip | string, mask: Ip | string) {
@@ -26,14 +27,41 @@ export default class Network {
         this.broadcastIp = this._resolveBroadcastIp(this.networkIp)
         this.lastHostIp = this._resolveLastHostIp(this.broadcastIp)
 
-        this.subnets = []
+        this.subnets = new Map<string, { subnet: Network; inRange: boolean }>()
     }
 
     canContainVlsmSubnets(subnetsSizes: number[]): boolean {
         return (
+            // ! Fix
             subnetsSizes.reduce((sum, size) => sum + size, 0) + subnetsSizes.length * 2 < this.size
         )
     }
+
+    addSubnetBySize(name: string, subnetSize: number) {
+        const subnetPrefix = this.prefix + Math.ceil(Math.log2(subnetSize))
+        const subnetMask = new Ip(IpFormatConverter.maskFromPrefix(subnetPrefix))
+
+        // TODO: calculate subnet Ip
+        this.addSubnet(name, new Network(this.networkIp, subnetMask))
+    }
+
+    addSubnet(name: string, subnet: Network) {
+        this.subnets.set(name, { subnet, inRange: true })
+    }
+
+    getSubnet(name: string): { subnet: Network; inRange: boolean } | undefined {
+        return this.subnets.get(name)
+    }
+
+    removeSubnet(name: string) {
+        this.subnets.delete(name)
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Resolvers
+    |--------------------------------------------------------------------------
+    */
 
     private _resolvePrefix(mask: Ip): number {
         return mask
@@ -106,6 +134,12 @@ export default class Network {
 
         return new Ip(lastHostIp.join('.'))
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Getters
+    |--------------------------------------------------------------------------
+    */
 
     getMask(): Ip {
         return this.mask

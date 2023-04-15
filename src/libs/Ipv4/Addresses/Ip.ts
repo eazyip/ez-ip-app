@@ -1,5 +1,5 @@
-import IpValidator from '@/libs/Ipv4/IpValidator'
-import IpFormatConverter from './IpFormatConverter'
+import IpValidator from '@/libs/Ipv4/Utils/IpValidator'
+import IpFormatConverter from '@/libs/Ipv4/Utils/IpFormatConverter'
 
 export default class Ip {
     value: string

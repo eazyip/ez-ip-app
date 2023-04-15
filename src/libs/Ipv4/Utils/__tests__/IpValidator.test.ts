@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import IpValidator from '@/libs/Ipv4/IpValidator'
+import IpValidator from '@/libs/Ipv4/Utils/IpValidator'
 
 describe('IpValidator', () => {
     describe('passes', () => {

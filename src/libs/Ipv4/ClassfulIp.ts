@@ -1,4 +1,4 @@
-import Ip from '@/libs/Ipv4/Ip'
+import Ip from '@/libs/Ipv4/Addresses/Ip'
 
 export default class ClassfulIp {
     ip: Ip

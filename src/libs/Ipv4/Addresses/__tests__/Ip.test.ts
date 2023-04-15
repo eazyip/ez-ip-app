@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import Ip from '@/libs/Ipv4/Ip'
+import Ip from '@/libs/Ipv4/Addresses/Ip'
 
 describe('Ip', () => {
     describe('getValue', () => {
