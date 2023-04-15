@@ -1,6 +1,6 @@
 import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
-import type Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
+import type BroadcastAddress from '@/libs/Ipv4/Addresses/BroadcastAddress'
 import type Ip from '@/libs/Ipv4/Addresses/Ip'
 import type Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
@@ -13,7 +13,7 @@ export default class Network {
     readonly networkAddress: NetworkAddress
     readonly firstHostAddress: Ip
     readonly lastHostAddress: Ip
-    readonly broadcastAddress: Broadcast
+    readonly broadcastAddress: BroadcastAddress
 
     private subnets: Map<string, { subnet: Network; inRange: boolean }>
 

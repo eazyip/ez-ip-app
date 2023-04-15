@@ -99,7 +99,7 @@ Network address +1
 192.168.1.0/24 -> 192.168.1.1
 ```
 
-### Broadcast
+### Broadcast address
 
 Any address bitwise OR wildcard mask
 

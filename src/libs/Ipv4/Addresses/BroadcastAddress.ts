@@ -2,7 +2,7 @@ import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Ip from '@/libs/Ipv4/Addresses/Ip'
 
-export default class Broadcast extends Ip {
+export default class BroadcastAddress extends Ip {
     constructor(address: DecimalFormat | BinaryFormat) {
         super(address)
 
