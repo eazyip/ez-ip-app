@@ -10,7 +10,7 @@ describe('NetworkAddressingInfoResolver', () => {
         const mask = new Mask(new BinaryFormat('11111111111111111111111100000000')) // 255.255.255.0
 
         const wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(mask)
-        expect(wildcardMask.value).toEqual('00000000000000000000000011111111')
+        expect(wildcardMask.binaryValue.value).toEqual('00000000000000000000000011111111')
 
         const prefix = NetworkAddressingInfoResolver.prefixFromMask(mask)
         expect(prefix).toEqual(24)

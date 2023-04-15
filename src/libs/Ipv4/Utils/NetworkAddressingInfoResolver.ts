@@ -1,5 +1,5 @@
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
-import type Mask from '@/libs/Ipv4/Addresses/Mask'
+import Mask from '@/libs/Ipv4/Addresses/Mask'
 import Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
 
 class NetworkAddressingInfoResolver {
@@ -18,8 +18,8 @@ class NetworkAddressingInfoResolver {
         return mask.binaryValue.value.split('').reduce((sum, bit) => sum + (bit === '1' ? 1 : 0), 0)
     }
 
-    maskFromPrefix(prefix: number): BinaryFormat {
-        return new BinaryFormat('1'.repeat(prefix).padEnd(32, '0'))
+    maskFromPrefix(prefix: number): Mask {
+        return new Mask(new BinaryFormat('1'.repeat(prefix).padEnd(32, '0')))
     }
 
     sizeFromPrefix(prefix: number): number {
