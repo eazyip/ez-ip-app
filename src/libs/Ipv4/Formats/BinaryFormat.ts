@@ -1,25 +1,22 @@
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
 export default class BinaryFormat {
-    value: string
-    dotted: string
-    arr: [string, string, string, string]
+    readonly value: string
+    readonly dotted: string
+    readonly octets: [string, string, string, string]
 
     constructor(binaryIp: string) {
         if (!BinaryFormat.isValid(binaryIp)) {
-            throw new Error(`Invalid binary IPv4 address ${binaryIp}`)
+            throw new InvalidBinaryIpError(`Invalid binary IPv4 address ${binaryIp}`)
         }
 
         this.value = binaryIp
-        this.arr = this.value.match(/.{1,8}/g)! as [string, string, string, string]
-        this.dotted = this.arr.join('.')
+        this.octets = this.value.match(/.{1,8}/g) as [string, string, string, string]
+        Object.freeze(this.octets)
+        this.dotted = this.octets.join('.')
     }
 
     static isValid(binaryIp: string): boolean {
-        if (binaryIp.length !== 32) {
-            return false
-        }
-
         if (!/^[01]{32}$/.test(binaryIp)) {
             return false
         }
@@ -42,6 +39,16 @@ export default class BinaryFormat {
     }
 
     toDecimal(): DecimalFormat {
-        return new DecimalFormat(this.arr.map((octet) => parseInt(octet, 2).toString()).join('.'))
+        // TODO: cache ?
+        return new DecimalFormat(
+            this.octets.map((octet) => parseInt(octet, 2).toString()).join('.')
+        )
+    }
+}
+
+class InvalidBinaryIpError extends Error {
+    constructor(binaryIp: string) {
+        super(`Invalid binary IPv4 address ${binaryIp}`)
+        this.name = 'InvalidBinaryIpError'
     }
 }

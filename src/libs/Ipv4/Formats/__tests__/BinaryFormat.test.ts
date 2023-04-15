@@ -21,7 +21,7 @@ describe('BinaryFormat', () => {
             const bf = new BinaryFormat('11001100010101010101010101010101')
             expect(bf.value).toEqual('11001100010101010101010101010101')
             expect(bf.dotted).toEqual('11001100.01010101.01010101.01010101')
-            expect(bf.arr).toEqual(['11001100', '01010101', '01010101', '01010101'])
+            expect(bf.octets).toEqual(['11001100', '01010101', '01010101', '01010101'])
             expect(bf.toDecimal()).toEqual(new DecimalFormat('204.85.85.85'))
         })
     })

@@ -29,7 +29,7 @@ describe('DecimalFormat', () => {
             const df = new DecimalFormat('192.168.1.3')
 
             expect(df.value).toEqual('192.168.1.3')
-            expect(df.arr).toEqual([192, 168, 1, 3])
+            expect(df.octets).toEqual([192, 168, 1, 3])
             expect(df.toBinary()).toEqual(new BinaryFormat('11000000101010000000000100000011'))
         })
     })

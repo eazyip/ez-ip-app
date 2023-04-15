@@ -11,7 +11,7 @@ export default class ClassfulIp {
     }
 
     private _resolveClass(): string {
-        const firstOctet = this.ip.decimalValue.arr[0]
+        const firstOctet = this.ip.decimalValue.octets[0]
 
         if (firstOctet >= 0 && firstOctet <= 127) return 'A'
         if (firstOctet >= 128 && firstOctet <= 191) return 'B'
