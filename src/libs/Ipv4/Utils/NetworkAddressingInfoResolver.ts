@@ -1,7 +1,6 @@
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
 import Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
-import Ip from '@/libs/Ipv4/Addresses/Ip'
 
 class NetworkAddressingInfoResolver {
     wildcardFromMask(mask: Mask): Wildcard {
@@ -25,14 +24,6 @@ class NetworkAddressingInfoResolver {
 
     sizeFromPrefix(prefix: number): number {
         return Math.pow(2, 32 - prefix) - 2
-    }
-
-    firstHostFromNetworkAddress(networkIp: Ip): Ip {
-        return new Ip(
-            new BinaryFormat(
-                (parseInt(networkIp.binaryValue.value, 2) + 1).toString(2).padStart(32, '0')
-            )
-        )
     }
 }
 

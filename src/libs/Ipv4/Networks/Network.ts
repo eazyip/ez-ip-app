@@ -3,13 +3,14 @@ import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
 import type Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
 import type Ip from '@/libs/Ipv4/Addresses/Ip'
+import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
 export default class Network {
     private mask: Mask
     private prefix: number
     private size: number
     private wildcardMask: Wildcard
-    private networkIp: Ip
+    private networkIp: NetworkAddress
     private firstHostIp: Ip
     private lastHostIp: Ip
     private broadcastIp: Broadcast
@@ -23,7 +24,7 @@ export default class Network {
         this.size = NetworkAddressingInfoResolver.sizeFromPrefix(this.prefix)
         this.wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(this.mask)
         this.networkIp = this.mask.makeNetworkAddress(anyIp)
-        this.firstHostIp = NetworkAddressingInfoResolver.firstHostFromNetworkAddress(this.networkIp)
+        this.firstHostIp = this.networkIp.makeFirstHostAddress()
         this.broadcastIp = this.wildcardMask.makeBroadcastAddress(this.networkIp)
         this.lastHostIp = this.broadcastIp.makeLastHostAddress()
 
