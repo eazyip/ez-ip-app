@@ -3,6 +3,7 @@ import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Ip from '@/libs/Ipv4/Addresses/Ip'
 import Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
+import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 
 export default class Wildcard extends Ip {
     constructor(address: DecimalFormat | BinaryFormat) {
@@ -26,6 +27,12 @@ export default class Wildcard extends Ip {
 
     makeBroadcastAddress(ip: Ip): Broadcast {
         return new Broadcast(new BinaryFormat(this.bitwiseOr(ip)))
+    }
+
+    makePrefix(): Prefix {
+        return new Prefix(
+            this.binaryValue.value.split('').reduce((sum, bit) => sum + (bit === '0' ? 1 : 0), 0)
+        )
     }
 
     private bitwiseOr(ip: Ip): string {

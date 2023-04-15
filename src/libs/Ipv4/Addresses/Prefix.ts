@@ -7,6 +7,10 @@ export default class Prefix {
     readonly size: number
 
     constructor(value: number) {
+        if (value > 32 || value < 0) {
+            throw new Error(`Invalid prfix value ${value}`)
+        }
+
         this.value = value
         this.size = Math.pow(2, 32 - this.value) - 2
     }
