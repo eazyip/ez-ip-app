@@ -29,4 +29,9 @@ export default class DecimalFormat {
         )
     }
 
+    toBinary(): BinaryFormat {
+        return new BinaryFormat(
+            this.arr.map((octet) => octet.toString(2).padStart(8, '0')).join('')
+        )
+    }
 }
