@@ -1,11 +1,11 @@
 import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
-import Ip from '@/libs/Ipv4/Addresses/Ip'
+import IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
 import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 
-export default class Mask extends Ip {
+export default class Mask extends IpAddress {
     constructor(address: DecimalFormat | BinaryFormat) {
         super(address)
 
@@ -25,7 +25,7 @@ export default class Mask extends Ip {
         )
     }
 
-    makeNetworkAddress(ip: Ip): NetworkAddress {
+    makeNetworkAddress(ip: IpAddress): NetworkAddress {
         return new NetworkAddress(new BinaryFormat(this.bitwiseAnd(ip)))
     }
 
@@ -35,7 +35,7 @@ export default class Mask extends Ip {
         )
     }
 
-    private bitwiseAnd(ip: Ip): string {
+    private bitwiseAnd(ip: IpAddress): string {
         return ip.binaryValue.value
             .split('')
             .map((bit, index) => parseInt(bit) & parseInt(this.binaryValue.value[index]))

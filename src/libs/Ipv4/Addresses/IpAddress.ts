@@ -1,7 +1,7 @@
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import type BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 
-export default class Ip {
+export default class IpAddress {
     readonly decimalValue: DecimalFormat
     readonly binaryValue: BinaryFormat
 

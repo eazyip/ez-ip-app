@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import Ip from '@/libs/Ipv4/Addresses/Ip'
+import IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
@@ -41,7 +41,7 @@ describe('WildcardMask', () => {
                     expect(wildCardFromDecimal.makePrefix()).toEqual(expectedPrefix)
                     expect(
                         wildCardFromDecimal.makeBroadcastAddress(
-                            new Ip(new DecimalFormat(hostAddress))
+                            new IpAddress(new DecimalFormat(hostAddress))
                         )
                     ).toEqual(expectedBroadcastAddress)
                 }

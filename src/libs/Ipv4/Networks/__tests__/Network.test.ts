@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import Network from '@/libs/Ipv4/Networks/Network'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import Ip from '@/libs/Ipv4/Addresses/Ip'
+import IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
 
 describe('Network', () => {
@@ -66,7 +66,7 @@ describe('Network', () => {
                 broadcastIp
             }) => {
                 const network = new Network(
-                    new Ip(new DecimalFormat(inputIp)),
+                    new IpAddress(new DecimalFormat(inputIp)),
                     new Mask(new DecimalFormat(mask))
                 )
 

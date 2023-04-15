@@ -1,7 +1,7 @@
 import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import type BroadcastAddress from '@/libs/Ipv4/Addresses/BroadcastAddress'
-import type Ip from '@/libs/Ipv4/Addresses/Ip'
+import type IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
 import type Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
@@ -11,14 +11,14 @@ export default class Network {
     readonly size: number
     readonly wildcardMask: WildcardMask
     readonly networkAddress: NetworkAddress
-    readonly firstHostAddress: Ip
-    readonly lastHostAddress: Ip
+    readonly firstHostAddress: IpAddress
+    readonly lastHostAddress: IpAddress
     readonly broadcastAddress: BroadcastAddress
 
     private subnets: Map<string, { subnet: Network; inRange: boolean }>
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
-    constructor(anyIp: Ip, mask: Mask) {
+    constructor(anyIp: IpAddress, mask: Mask) {
         this.mask = mask
         this.prefix = this.mask.makePrefix()
         this.size = this.prefix.size
@@ -40,11 +40,11 @@ export default class Network {
 
     // addSubnetBySize(name: string, subnetSize: number) {
     //     const subnetPrefix = this.prefix + Math.ceil(Math.log2(subnetSize))
-    //     const subnetMask = new Ip(
+    //     const subnetMask = new IpAddress(
     //         NetworkAddressingInfoResolver.maskFromPrefix(subnetPrefix).toDecimal().value
     //     )
 
-    //     // TODO: calculate subnet Ip
+    //     // TODO: calculate subnet IpAddress
     //     this.addSubnet(name, new Network(this.networkAddress, subnetMask))
     // }
 
