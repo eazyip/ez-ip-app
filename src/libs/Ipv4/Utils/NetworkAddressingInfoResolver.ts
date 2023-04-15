@@ -32,7 +32,7 @@ class NetworkAddressingInfoResolver {
     }
 
     firstHostFromNetworkAddress(networkIp: BinaryFormat): BinaryFormat {
-        return new BinaryFormat((parseInt(networkIp.value, 2) + 1).toString(2))
+        return new BinaryFormat((parseInt(networkIp.value, 2) + 1).toString(2).padStart(32, '0'))
     }
 
     broadcastAddress(networkIp: BinaryFormat, wildcardMask: BinaryFormat): BinaryFormat {
@@ -45,7 +45,7 @@ class NetworkAddressingInfoResolver {
     }
 
     lastHostFromBroadcastAddress(broadcastIp: BinaryFormat): BinaryFormat {
-        return new BinaryFormat((parseInt(broadcastIp.value, 2) - 1).toString(2))
+        return new BinaryFormat((parseInt(broadcastIp.value, 2) - 1).toString(2).padStart(32, '0'))
     }
 }
 
