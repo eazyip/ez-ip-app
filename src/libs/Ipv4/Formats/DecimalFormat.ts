@@ -31,7 +31,6 @@ export default class DecimalFormat {
     }
 
     toBinary(): BinaryFormat {
-        // TODO: cache ?
         return new BinaryFormat(
             this.octets.map((octet) => octet.toString(2).padStart(8, '0')).join('')
         )

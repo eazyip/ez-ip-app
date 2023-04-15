@@ -39,7 +39,6 @@ export default class BinaryFormat {
     }
 
     toDecimal(): DecimalFormat {
-        // TODO: cache ?
         return new DecimalFormat(
             this.octets.map((octet) => parseInt(octet, 2).toString()).join('.')
         )
