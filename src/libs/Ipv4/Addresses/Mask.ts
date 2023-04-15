@@ -1,7 +1,7 @@
 import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Ip from '@/libs/Ipv4/Addresses/Ip'
-import Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
+import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 
@@ -14,8 +14,8 @@ export default class Mask extends Ip {
         }
     }
 
-    makeWildcard(): Wildcard {
-        return new Wildcard(
+    makeWildcard(): WildcardMask {
+        return new WildcardMask(
             new BinaryFormat(
                 this.binaryValue.value
                     .split('')

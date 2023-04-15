@@ -33,7 +33,7 @@ Ones to the left (network part) and zeroes to the right (hosts part)
 
 > Only these decimal numbers may appear in a mask: `0`, `128`, `192`, `224`, `240`, `248`, `252`, `254`, `255`
 
-### Wildcard
+### Wildcard Mask
 
 Reverse of mask
 
@@ -53,7 +53,7 @@ Reverse of mask
 00000000000000000000000000000000 = 0.0.0.0
 ```
 
-> Only these decimal numbers may appear in a wildcard: `255`, `127`, `63`, `31`, `15`, `7`, `3`, `1`, `0`
+> Only these decimal numbers may appear in a wildcard mask: `255`, `127`, `63`, `31`, `15`, `7`, `3`, `1`, `0`
 
 ### Prefix
 
@@ -101,7 +101,7 @@ Network address +1
 
 ### Broadcast
 
-Any address bitwise OR wildcard
+Any address bitwise OR wildcard mask
 
 | A   | B   | A OR B |
 | --- | --- | ------ |

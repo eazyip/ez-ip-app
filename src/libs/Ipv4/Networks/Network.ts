@@ -1,19 +1,19 @@
 import type Mask from '@/libs/Ipv4/Addresses/Mask'
-import type Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
+import type WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import type Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
 import type Ip from '@/libs/Ipv4/Addresses/Ip'
 import type Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
 export default class Network {
-    private mask: Mask
-    private prefix: Prefix
-    private size: number
-    private wildcardMask: Wildcard
-    private networkIp: NetworkAddress
-    private firstHostIp: Ip
-    private lastHostIp: Ip
-    private broadcastIp: Broadcast
+    readonly mask: Mask
+    readonly prefix: Prefix
+    readonly size: number
+    readonly wildcardMask: WildcardMask
+    readonly networkAddress: NetworkAddress
+    readonly firstHostAddress: Ip
+    readonly lastHostAddress: Ip
+    readonly broadcastAddress: Broadcast
 
     private subnets: Map<string, { subnet: Network; inRange: boolean }>
 
@@ -23,10 +23,10 @@ export default class Network {
         this.prefix = this.mask.makePrefix()
         this.size = this.prefix.size
         this.wildcardMask = this.mask.makeWildcard()
-        this.networkIp = this.mask.makeNetworkAddress(anyIp)
-        this.firstHostIp = this.networkIp.makeFirstHostAddress()
-        this.broadcastIp = this.wildcardMask.makeBroadcastAddress(anyIp)
-        this.lastHostIp = this.broadcastIp.makeLastHostAddress()
+        this.networkAddress = this.mask.makeNetworkAddress(anyIp)
+        this.firstHostAddress = this.networkAddress.makeFirstHostAddress()
+        this.broadcastAddress = this.wildcardMask.makeBroadcastAddress(anyIp)
+        this.lastHostAddress = this.broadcastAddress.makeLastHostAddress()
 
         this.subnets = new Map<string, { subnet: Network; inRange: boolean }>()
     }
@@ -45,7 +45,7 @@ export default class Network {
     //     )
 
     //     // TODO: calculate subnet Ip
-    //     this.addSubnet(name, new Network(this.networkIp, subnetMask))
+    //     this.addSubnet(name, new Network(this.networkAddress, subnetMask))
     // }
 
     // addSubnet(name: string, subnet: Network) {
@@ -59,42 +59,4 @@ export default class Network {
     // removeSubnet(name: string) {
     //     this.subnets.delete(name)
     // }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Getters
-    |--------------------------------------------------------------------------
-    */
-
-    getMask(): Mask {
-        return this.mask
-    }
-
-    getPrefix(): Prefix {
-        return this.prefix
-    }
-
-    getSize(): number {
-        return this.size
-    }
-
-    getWildcardMask(): Wildcard {
-        return this.wildcardMask
-    }
-
-    getNetworkIp(): Ip {
-        return this.networkIp
-    }
-
-    getFirstHostIp(): Ip {
-        return this.firstHostIp
-    }
-
-    getLastHostIp(): Ip {
-        return this.lastHostIp
-    }
-
-    getBroadcastIp(): Broadcast {
-        return this.broadcastIp
-    }
 }

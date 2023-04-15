@@ -3,31 +3,33 @@ import { describe, expect, it } from 'vitest'
 import Ip from '@/libs/Ipv4/Addresses/Ip'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
-import Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
+import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
-describe('Wildcard', () => {
+describe('WildcardMask', () => {
     describe('constructor', () => {
         it('thorws exception when invalid mask value', () => {
             const ip = new DecimalFormat('255.255.13.0')
-            expect(() => new Wildcard(ip)).toThrow()
+            expect(() => new WildcardMask(ip)).toThrow()
         })
 
-        describe('Wildcard construction+getters', () => {
+        describe('WildcardMask construction+getters', () => {
             it.each([
                 {
                     mask: '255.255.255.0',
-                    wildCard: '0.0.0.255',
+                    wildCardMask: '0.0.0.255',
                     prefix: 24,
                     hostAddress: '192.168.1.3',
                     BroadcastAddress: '192.168.1.255'
                 }
             ])(
-                'should correctly calculate prefix, wildcard, and broadcast address %s',
-                ({ mask, wildCard, prefix, hostAddress, BroadcastAddress }) => {
-                    const wildCardFromDecimal = new Wildcard(new DecimalFormat(wildCard))
-                    const wildCardFromBinary = new Wildcard(new DecimalFormat(wildCard).toBinary())
+                'should correctly calculate prefix, wildcard mask, and broadcast address %s',
+                ({ mask, wildCardMask, prefix, hostAddress, BroadcastAddress }) => {
+                    const wildCardFromDecimal = new WildcardMask(new DecimalFormat(wildCardMask))
+                    const wildCardFromBinary = new WildcardMask(
+                        new DecimalFormat(wildCardMask).toBinary()
+                    )
                     const expectedMask = new Mask(new DecimalFormat(mask))
                     const expectedPrefix = new Prefix(prefix)
                     const expectedBroadcastAddress = new NetworkAddress(

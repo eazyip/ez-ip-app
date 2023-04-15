@@ -65,18 +65,18 @@ describe('Network', () => {
                 lastHostIp,
                 broadcastIp
             }) => {
-                const subnet = new Network(
+                const network = new Network(
                     new Ip(new DecimalFormat(inputIp)),
                     new Mask(new DecimalFormat(mask))
                 )
 
-                expect(subnet.getPrefix().value).toEqual(prefix)
-                expect(subnet.getSize()).toEqual(size)
-                expect(subnet.getWildcardMask().decimalValue.value).toEqual(wildCardMask)
-                expect(subnet.getNetworkIp().decimalValue.value).toEqual(networkIp)
-                expect(subnet.getFirstHostIp().decimalValue.value).toEqual(firstHostIp)
-                expect(subnet.getLastHostIp().decimalValue.value).toEqual(lastHostIp)
-                expect(subnet.getBroadcastIp().decimalValue.value).toEqual(broadcastIp)
+                expect(network.prefix.value).toEqual(prefix)
+                expect(network.size).toEqual(size)
+                expect(network.wildcardMask.decimalValue.value).toEqual(wildCardMask)
+                expect(network.networkAddress.decimalValue.value).toEqual(networkIp)
+                expect(network.firstHostAddress.decimalValue.value).toEqual(firstHostIp)
+                expect(network.broadcastAddress.decimalValue.value).toEqual(broadcastIp)
+                expect(network.lastHostAddress.decimalValue.value).toEqual(lastHostIp)
             }
         )
     })

@@ -5,12 +5,12 @@ import Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 
-export default class Wildcard extends Ip {
+export default class WildcardMask extends Ip {
     constructor(address: DecimalFormat | BinaryFormat) {
         super(address)
 
         if (!this.binaryValue.isWildCard()) {
-            throw new Error(`Invalid wildcard value ${this.binaryValue.value}`)
+            throw new Error(`Invalid wildcard mask value ${this.binaryValue.value}`)
         }
     }
 

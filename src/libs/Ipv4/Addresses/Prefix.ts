@@ -1,6 +1,6 @@
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
-import Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
+import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 
 export default class Prefix {
     readonly value: number
@@ -19,7 +19,7 @@ export default class Prefix {
         return new Mask(new BinaryFormat('1'.repeat(this.value).padEnd(32, '0')))
     }
 
-    makeWildcard(): Wildcard {
-        return new Wildcard(new BinaryFormat('0'.repeat(this.value).padEnd(32, '1')))
+    makeWildcard(): WildcardMask {
+        return new WildcardMask(new BinaryFormat('0'.repeat(this.value).padEnd(32, '1')))
     }
 }

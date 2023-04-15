@@ -2,8 +2,8 @@ import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import type BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 
 export default class Ip {
-    decimalValue: DecimalFormat
-    binaryValue: BinaryFormat
+    readonly decimalValue: DecimalFormat
+    readonly binaryValue: BinaryFormat
 
     constructor(address: DecimalFormat | BinaryFormat) {
         if (address instanceof DecimalFormat) {
