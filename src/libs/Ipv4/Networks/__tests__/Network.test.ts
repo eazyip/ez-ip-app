@@ -67,7 +67,7 @@ describe('Network', () => {
 
                 expect(subnet.getPrefix()).toEqual(prefix)
                 expect(subnet.getSize()).toEqual(size)
-                expect(subnet.getWildcardMask().toDecimal().value).toEqual(wildCardMask)
+                expect(subnet.getWildcardMask().decimalValue.value).toEqual(wildCardMask)
                 expect(subnet.getNetworkIp().toDecimal().value).toEqual(networkIp)
                 expect(subnet.getFirstHostIp().toDecimal().value).toEqual(firstHostIp)
                 expect(subnet.getLastHostIp().toDecimal().value).toEqual(lastHostIp)

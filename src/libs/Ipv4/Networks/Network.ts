@@ -2,12 +2,13 @@ import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingIn
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
+import type Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
 
 export default class Network {
     private mask: Mask
     private prefix: number
     private size: number
-    private wildcardMask: BinaryFormat
+    private wildcardMask: Wildcard
     private networkIp: BinaryFormat
     private firstHostIp: BinaryFormat
     private lastHostIp: BinaryFormat
@@ -19,7 +20,6 @@ export default class Network {
     constructor(anyIp: BinaryFormat | DecimalFormat, mask: BinaryFormat | DecimalFormat) {
         anyIp = anyIp instanceof BinaryFormat ? anyIp : anyIp.toBinary()
 
-        // TODO: validate mask (add IP wrapper classes: mask; wildcard, network...)
         this.mask = new Mask(mask)
         this.prefix = NetworkAddressingInfoResolver.prefixFromMask(this.mask)
         this.size = NetworkAddressingInfoResolver.sizeFromPrefix(this.prefix)
@@ -84,7 +84,7 @@ export default class Network {
         return this.size
     }
 
-    getWildcardMask(): BinaryFormat {
+    getWildcardMask(): Wildcard {
         return this.wildcardMask
     }
 
