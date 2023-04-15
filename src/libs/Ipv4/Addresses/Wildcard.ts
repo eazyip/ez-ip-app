@@ -1,6 +1,7 @@
 import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Ip from '@/libs/Ipv4/Addresses/Ip'
+import Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
 
 export default class Mask extends Ip {
     constructor(address: DecimalFormat | BinaryFormat) {
@@ -11,8 +12,8 @@ export default class Mask extends Ip {
         }
     }
 
-    bitwiseOr(ip: Ip): Ip {
-        return new Ip(
+    bitwiseOr(ip: Ip): Broadcast {
+        return new Broadcast(
             new BinaryFormat(
                 ip.binaryValue.value
                     .split('')
@@ -22,7 +23,7 @@ export default class Mask extends Ip {
         )
     }
 
-    makeBroadcastAddress(ip: Ip): Ip {
+    makeBroadcastAddress(ip: Ip): Broadcast {
         return this.bitwiseOr(ip)
     }
 }

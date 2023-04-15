@@ -1,6 +1,7 @@
 import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingInfoResolver'
 import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
+import type Broadcast from '@/libs/Ipv4/Addresses/Broadcast'
 import type Ip from '@/libs/Ipv4/Addresses/Ip'
 
 export default class Network {
@@ -11,7 +12,7 @@ export default class Network {
     private networkIp: Ip
     private firstHostIp: Ip
     private lastHostIp: Ip
-    private broadcastIp: Ip
+    private broadcastIp: Broadcast
 
     private subnets: Map<string, { subnet: Network; inRange: boolean }>
 
@@ -24,9 +25,7 @@ export default class Network {
         this.networkIp = this.mask.makeNetworkAddress(anyIp)
         this.firstHostIp = NetworkAddressingInfoResolver.firstHostFromNetworkAddress(this.networkIp)
         this.broadcastIp = this.wildcardMask.makeBroadcastAddress(this.networkIp)
-        this.lastHostIp = NetworkAddressingInfoResolver.lastHostFromBroadcastAddress(
-            this.broadcastIp
-        )
+        this.lastHostIp = this.broadcastIp.makeLastHostAddress()
 
         this.subnets = new Map<string, { subnet: Network; inRange: boolean }>()
     }
@@ -94,7 +93,7 @@ export default class Network {
         return this.lastHostIp
     }
 
-    getBroadcastIp(): Ip {
+    getBroadcastIp(): Broadcast {
         return this.broadcastIp
     }
 }

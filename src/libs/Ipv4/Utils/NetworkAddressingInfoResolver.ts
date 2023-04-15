@@ -34,14 +34,6 @@ class NetworkAddressingInfoResolver {
             )
         )
     }
-
-    lastHostFromBroadcastAddress(broadcastIp: Ip): Ip {
-        return new Ip(
-            new BinaryFormat(
-                (parseInt(broadcastIp.binaryValue.value, 2) - 1).toString(2).padStart(32, '0')
-            )
-        )
-    }
 }
 
 export default new NetworkAddressingInfoResolver()
