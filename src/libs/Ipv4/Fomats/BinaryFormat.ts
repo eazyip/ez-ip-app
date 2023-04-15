@@ -6,21 +6,25 @@ export default class BinaryFormat {
     arr: [string, string, string, string]
 
     constructor(binaryIp: string) {
-        if (binaryIp.length !== 32) {
-            throw new Error(
-                `Invalid input length: expected 32 bits, received ${binaryIp.length} bits (${binaryIp})`
-            )
-        }
-
-        if (!/^[01]{32}$/.test(binaryIp)) {
-            throw new Error(
-                `Invalid input characters: expected only 0's and 1's, received (${binaryIp})`
-            )
+        if (!BinaryFormat.isValid(binaryIp)) {
+            throw new Error(`Invalid binary IPv4 address ${binaryIp}`)
         }
 
         this.value = binaryIp
         this.arr = this.value.match(/.{1,8}/g)! as [string, string, string, string]
         this.dotted = this.arr.join('.')
+    }
+
+    static isValid(binaryIp: string): boolean {
+        if (binaryIp.length !== 32) {
+            return false
+        }
+
+        if (!/^[01]{32}$/.test(binaryIp)) {
+            return false
+        }
+
+        return true
     }
 
     isMask(): boolean {

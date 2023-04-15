@@ -3,7 +3,7 @@ export default class DecimalFormat {
     arr: [number, number, number, number]
 
     constructor(decimalIp: string) {
-        if (!DecimalFormat.isValidDecimalIp(decimalIp)) {
+        if (!DecimalFormat.isValid(decimalIp)) {
             throw new Error(`Invalid decimal IPv4 address ${decimalIp}`)
         }
 
@@ -16,7 +16,7 @@ export default class DecimalFormat {
         ]
     }
 
-    static isValidDecimalIp(decimalIp: string): boolean {
+    static isValid(decimalIp: string): boolean {
         const octets = decimalIp.split('.')
         if (octets.length !== 4) {
             return false
