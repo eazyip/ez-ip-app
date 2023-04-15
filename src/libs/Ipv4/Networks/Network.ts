@@ -21,7 +21,7 @@ export default class Network {
         this.prefix = NetworkAddressingInfoResolver.prefixFromMask(this.mask)
         this.size = NetworkAddressingInfoResolver.sizeFromPrefix(this.prefix)
         this.wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(this.mask)
-        this.networkIp = NetworkAddressingInfoResolver.networkAddress(anyIp, this.mask)
+        this.networkIp = this.mask.makeNetworkAddress(anyIp)
         this.firstHostIp = NetworkAddressingInfoResolver.firstHostFromNetworkAddress(this.networkIp)
         this.broadcastIp = NetworkAddressingInfoResolver.broadcastAddress(
             this.networkIp,

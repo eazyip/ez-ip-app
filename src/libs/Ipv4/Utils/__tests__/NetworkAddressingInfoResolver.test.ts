@@ -19,7 +19,7 @@ describe('NetworkAddressingInfoResolver', () => {
         const size = NetworkAddressingInfoResolver.sizeFromPrefix(24)
         expect(size).toEqual(254)
 
-        const networkIp = NetworkAddressingInfoResolver.networkAddress(anyIp, mask)
+        const networkIp = mask.makeNetworkAddress(anyIp)
         expect(networkIp.binaryValue.value).toEqual('11000000101010000000000100000000')
 
         const broadcastIp = NetworkAddressingInfoResolver.broadcastAddress(networkIp, wildcardMask)

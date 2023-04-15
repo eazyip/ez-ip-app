@@ -27,17 +27,6 @@ class NetworkAddressingInfoResolver {
         return Math.pow(2, 32 - prefix) - 2
     }
 
-    networkAddress(anyIp: Ip, mask: Mask): Ip {
-        return new Ip(
-            new BinaryFormat(
-                anyIp.binaryValue.value
-                    .split('')
-                    .map((bit, index) => parseInt(bit) & parseInt(mask.binaryValue.value[index]))
-                    .join('')
-            )
-        )
-    }
-
     firstHostFromNetworkAddress(networkIp: Ip): Ip {
         return new Ip(
             new BinaryFormat(
