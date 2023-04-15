@@ -1,34 +1,28 @@
-import IpValidator from '@/libs/Ipv4/Utils/IpValidator'
-import IpFormatConverter from '@/libs/Ipv4/Utils/IpFormatConverter'
+import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import type BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 
 export default class Ip {
-    value: string
-    arrValue: [number, number, number, number]
-    binValue: string
+    decimalValue: DecimalFormat
+    binaryValue: BinaryFormat
 
     constructor(address: string) {
-        if (!IpValidator.passes(address)) {
-            throw 'invalid IPv4'
-        }
-
-        this.value = address
-        this.arrValue = IpFormatConverter.strToArr(this.value)
-        this.binValue = IpFormatConverter.decimalTobin(this.value)
+        this.decimalValue = new DecimalFormat(address)
+        this.binaryValue = this.decimalValue.toBinary()
     }
 
     getValue(): string {
-        return this.value
+        return this.decimalValue.value
     }
 
     getArrValue(): [number, number, number, number] {
-        return this.arrValue
+        return this.decimalValue.arr
     }
 
     getBinValue(): string {
-        return this.binValue
+        return this.binaryValue.value
     }
 
     getBinDottedValue(): string {
-        return this.binValue.match(/.{1,8}/g)!.join('.')
+        return this.binaryValue.dotted
     }
 }
