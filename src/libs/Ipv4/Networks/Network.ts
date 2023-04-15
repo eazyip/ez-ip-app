@@ -1,26 +1,23 @@
 import NetworkAddressingInfoResolver from '@/libs/Ipv4/Utils/NetworkAddressingInfoResolver'
-import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
-import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import Mask from '@/libs/Ipv4/Addresses/Mask'
+import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
+import type Ip from '@/libs/Ipv4/Addresses/Ip'
 
 export default class Network {
     private mask: Mask
     private prefix: number
     private size: number
     private wildcardMask: Wildcard
-    private networkIp: BinaryFormat
-    private firstHostIp: BinaryFormat
-    private lastHostIp: BinaryFormat
-    private broadcastIp: BinaryFormat
+    private networkIp: Ip
+    private firstHostIp: Ip
+    private lastHostIp: Ip
+    private broadcastIp: Ip
 
     private subnets: Map<string, { subnet: Network; inRange: boolean }>
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
-    constructor(anyIp: BinaryFormat | DecimalFormat, mask: BinaryFormat | DecimalFormat) {
-        anyIp = anyIp instanceof BinaryFormat ? anyIp : anyIp.toBinary()
-
-        this.mask = new Mask(mask)
+    constructor(anyIp: Ip, mask: Mask) {
+        this.mask = mask
         this.prefix = NetworkAddressingInfoResolver.prefixFromMask(this.mask)
         this.size = NetworkAddressingInfoResolver.sizeFromPrefix(this.prefix)
         this.wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(this.mask)
@@ -88,19 +85,19 @@ export default class Network {
         return this.wildcardMask
     }
 
-    getNetworkIp(): BinaryFormat {
+    getNetworkIp(): Ip {
         return this.networkIp
     }
 
-    getFirstHostIp(): BinaryFormat {
+    getFirstHostIp(): Ip {
         return this.firstHostIp
     }
 
-    getLastHostIp(): BinaryFormat {
+    getLastHostIp(): Ip {
         return this.lastHostIp
     }
 
-    getBroadcastIp(): BinaryFormat {
+    getBroadcastIp(): Ip {
         return this.broadcastIp
     }
 }

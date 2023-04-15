@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest'
 
 import Network from '@/libs/Ipv4/Networks/Network'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import Ip from '@/libs/Ipv4/Addresses/Ip'
+import Mask from '@/libs/Ipv4/Addresses/Mask'
 
 describe('Network', () => {
     describe('subnet construction+getters', () => {
@@ -63,15 +65,18 @@ describe('Network', () => {
                 lastHostIp,
                 broadcastIp
             }) => {
-                const subnet = new Network(new DecimalFormat(inputIp), new DecimalFormat(mask))
+                const subnet = new Network(
+                    new Ip(new DecimalFormat(inputIp)),
+                    new Mask(new DecimalFormat(mask))
+                )
 
                 expect(subnet.getPrefix()).toEqual(prefix)
                 expect(subnet.getSize()).toEqual(size)
                 expect(subnet.getWildcardMask().decimalValue.value).toEqual(wildCardMask)
-                expect(subnet.getNetworkIp().toDecimal().value).toEqual(networkIp)
-                expect(subnet.getFirstHostIp().toDecimal().value).toEqual(firstHostIp)
-                expect(subnet.getLastHostIp().toDecimal().value).toEqual(lastHostIp)
-                expect(subnet.getBroadcastIp().toDecimal().value).toEqual(broadcastIp)
+                expect(subnet.getNetworkIp().decimalValue.value).toEqual(networkIp)
+                expect(subnet.getFirstHostIp().decimalValue.value).toEqual(firstHostIp)
+                expect(subnet.getLastHostIp().decimalValue.value).toEqual(lastHostIp)
+                expect(subnet.getBroadcastIp().decimalValue.value).toEqual(broadcastIp)
             }
         )
     })

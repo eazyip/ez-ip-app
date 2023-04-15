@@ -1,6 +1,7 @@
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
 import Wildcard from '@/libs/Ipv4/Addresses/Wildcard'
+import Ip from '@/libs/Ipv4/Addresses/Ip'
 
 class NetworkAddressingInfoResolver {
     wildcardFromMask(mask: Mask): Wildcard {
@@ -26,32 +27,45 @@ class NetworkAddressingInfoResolver {
         return Math.pow(2, 32 - prefix) - 2
     }
 
-    networkAddress(anyIp: BinaryFormat, mask: Mask): BinaryFormat {
-        return new BinaryFormat(
-            anyIp.value
-                .split('')
-                .map((bit, index) => parseInt(bit) & parseInt(mask.binaryValue.value[index]))
-                .join('')
+    networkAddress(anyIp: Ip, mask: Mask): Ip {
+        return new Ip(
+            new BinaryFormat(
+                anyIp.binaryValue.value
+                    .split('')
+                    .map((bit, index) => parseInt(bit) & parseInt(mask.binaryValue.value[index]))
+                    .join('')
+            )
         )
     }
 
-    firstHostFromNetworkAddress(networkIp: BinaryFormat): BinaryFormat {
-        return new BinaryFormat((parseInt(networkIp.value, 2) + 1).toString(2).padStart(32, '0'))
-    }
-
-    broadcastAddress(networkIp: BinaryFormat, wildcardMask: Wildcard): BinaryFormat {
-        return new BinaryFormat(
-            networkIp.value
-                .split('')
-                .map(
-                    (bit, index) => parseInt(bit) | parseInt(wildcardMask.binaryValue.value[index])
-                )
-                .join('')
+    firstHostFromNetworkAddress(networkIp: Ip): Ip {
+        return new Ip(
+            new BinaryFormat(
+                (parseInt(networkIp.binaryValue.value, 2) + 1).toString(2).padStart(32, '0')
+            )
         )
     }
 
-    lastHostFromBroadcastAddress(broadcastIp: BinaryFormat): BinaryFormat {
-        return new BinaryFormat((parseInt(broadcastIp.value, 2) - 1).toString(2).padStart(32, '0'))
+    broadcastAddress(networkIp: Ip, wildcardMask: Wildcard): Ip {
+        return new Ip(
+            new BinaryFormat(
+                networkIp.binaryValue.value
+                    .split('')
+                    .map(
+                        (bit, index) =>
+                            parseInt(bit) | parseInt(wildcardMask.binaryValue.value[index])
+                    )
+                    .join('')
+            )
+        )
+    }
+
+    lastHostFromBroadcastAddress(broadcastIp: Ip): Ip {
+        return new Ip(
+            new BinaryFormat(
+                (parseInt(broadcastIp.binaryValue.value, 2) - 1).toString(2).padStart(32, '0')
+            )
+        )
     }
 }
 
