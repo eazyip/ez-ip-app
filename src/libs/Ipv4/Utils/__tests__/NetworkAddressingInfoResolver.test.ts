@@ -22,7 +22,7 @@ describe('NetworkAddressingInfoResolver', () => {
         const networkIp = mask.makeNetworkAddress(anyIp)
         expect(networkIp.binaryValue.value).toEqual('11000000101010000000000100000000')
 
-        const broadcastIp = NetworkAddressingInfoResolver.broadcastAddress(networkIp, wildcardMask)
+        const broadcastIp = wildcardMask.makeBroadcastAddress(networkIp)
         expect(broadcastIp.binaryValue.value).toEqual('11000000101010000000000111111111')
 
         const firstHostIp = NetworkAddressingInfoResolver.firstHostFromNetworkAddress(networkIp)

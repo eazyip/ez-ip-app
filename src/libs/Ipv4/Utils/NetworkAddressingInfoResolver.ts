@@ -35,20 +35,6 @@ class NetworkAddressingInfoResolver {
         )
     }
 
-    broadcastAddress(networkIp: Ip, wildcardMask: Wildcard): Ip {
-        return new Ip(
-            new BinaryFormat(
-                networkIp.binaryValue.value
-                    .split('')
-                    .map(
-                        (bit, index) =>
-                            parseInt(bit) | parseInt(wildcardMask.binaryValue.value[index])
-                    )
-                    .join('')
-            )
-        )
-    }
-
     lastHostFromBroadcastAddress(broadcastIp: Ip): Ip {
         return new Ip(
             new BinaryFormat(

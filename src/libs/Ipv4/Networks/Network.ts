@@ -23,10 +23,7 @@ export default class Network {
         this.wildcardMask = NetworkAddressingInfoResolver.wildcardFromMask(this.mask)
         this.networkIp = this.mask.makeNetworkAddress(anyIp)
         this.firstHostIp = NetworkAddressingInfoResolver.firstHostFromNetworkAddress(this.networkIp)
-        this.broadcastIp = NetworkAddressingInfoResolver.broadcastAddress(
-            this.networkIp,
-            this.wildcardMask
-        )
+        this.broadcastIp = this.wildcardMask.makeBroadcastAddress(this.networkIp)
         this.lastHostIp = NetworkAddressingInfoResolver.lastHostFromBroadcastAddress(
             this.broadcastIp
         )
