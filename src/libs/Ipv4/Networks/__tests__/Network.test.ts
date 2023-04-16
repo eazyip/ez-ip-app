@@ -4,6 +4,7 @@ import Network from '@/libs/Ipv4/Networks/Network'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
+import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
 describe('Network', () => {
     describe('subnet construction+getters', () => {
@@ -81,7 +82,37 @@ describe('Network', () => {
         )
     })
 
-    describe('canContainVlsmSubnets', () => {
-        it.todo('')
+    describe('addSubnetBySize', () => {
+        it('add subnets to the network', () => {
+            const network = new Network(
+                new NetworkAddress(new DecimalFormat('10.0.0.0')),
+                new Mask(new DecimalFormat('255.255.255.0'))
+            )
+            network.addSubnetBySize('test1', 4)
+            network.addSubnetBySize('test2', 8)
+
+            expect(() => network.addSubnetBySize('test2', 8)).toThrow()
+
+            network.addSubnet(
+                'test3',
+                new Network(
+                    new NetworkAddress(new DecimalFormat('10.0.0.224')),
+                    new Mask(new DecimalFormat('255.255.255.252'))
+                )
+            )
+
+            const expectedSubnet1 = new Network(
+                new NetworkAddress(new DecimalFormat('10.0.0.0')),
+                new Mask(new DecimalFormat('255.255.255.248'))
+            )
+
+            const expectedSubnet2 = new Network(
+                new NetworkAddress(new DecimalFormat('10.0.0.8')),
+                new Mask(new DecimalFormat('255.255.255.240'))
+            )
+
+            expect(network.getSubnet('test1')!.subnet).toEqual(expectedSubnet1)
+            expect(network.getSubnet('test2')!.subnet).toEqual(expectedSubnet2)
+        })
     })
 })

@@ -2,7 +2,7 @@ import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import type BroadcastAddress from '@/libs/Ipv4/Addresses/BroadcastAddress'
 import type IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
-import type Prefix from '@/libs/Ipv4/Addresses/Prefix'
+import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
 export default class Network {
@@ -15,7 +15,7 @@ export default class Network {
     readonly lastHostAddress: IpAddress
     readonly broadcastAddress: BroadcastAddress
 
-    private subnets: Map<string, { subnet: Network; inRange: boolean }>
+    private subnets: Map<string, { subnet: Network; inRange: boolean }> = new Map()
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: IpAddress, mask: Mask) {
@@ -31,30 +31,33 @@ export default class Network {
         this.subnets = new Map<string, { subnet: Network; inRange: boolean }>()
     }
 
-    // canContainVlsmSubnets(subnetsSizes: number[]): boolean {
-    //     return (
-    //         // ! Fix
-    //         subnetsSizes.reduce((sum, size) => sum + size, 0) + subnetsSizes.length * 2 < this.size
-    //     )
-    // }
+    addSubnetBySize(name: string, subnetSize: number) {
+        if (this.subnets.has(name)) {
+            throw new Error('Subnet name already in use')
+        }
 
-    // addSubnetBySize(name: string, subnetSize: number) {
-    //     const subnetPrefix = this.prefix + Math.ceil(Math.log2(subnetSize))
-    //     const subnetMask = new IpAddress(
-    //         NetworkAddressingInfoResolver.maskFromPrefix(subnetPrefix).toDecimal().value
-    //     )
+        const subnetPrefix = new Prefix(Math.floor(32 - Math.log2(subnetSize + 2)))
+        const subnetMask = subnetPrefix.makeMask()
 
-    //     // TODO: calculate subnet IpAddress
-    //     this.addSubnet(name, new Network(this.networkAddress, subnetMask))
-    // }
+        let subnetAddress
+        if (this.subnets.size === 0) {
+            subnetAddress = this.networkAddress
+        } else {
+            subnetAddress = Array.from(this.subnets.values())[
+                this.subnets.size - 1
+            ].subnet.broadcastAddress.nextAddress()
+        }
 
-    // addSubnet(name: string, subnet: Network) {
-    //     this.subnets.set(name, { subnet, inRange: true })
-    // }
+        this.addSubnet(name, new Network(subnetAddress, subnetMask))
+    }
 
-    // getSubnet(name: string): { subnet: Network; inRange: boolean } | undefined {
-    //     return this.subnets.get(name)
-    // }
+    addSubnet(name: string, subnet: Network) {
+        this.subnets.set(name, { subnet, inRange: true })
+    }
+
+    getSubnet(name: string): { subnet: Network; inRange: boolean } | undefined {
+        return this.subnets.get(name)
+    }
 
     // removeSubnet(name: string) {
     //     this.subnets.delete(name)
