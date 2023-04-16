@@ -26,19 +26,12 @@ export default class Mask extends IpAddress {
     }
 
     makeNetworkAddress(ip: IpAddress): NetworkAddress {
-        return new NetworkAddress(new BinaryFormat(this.bitwiseAnd(ip)))
+        return new NetworkAddress(this.binaryValue.bitwiseAnd(ip.binaryValue))
     }
 
     makePrefix(): Prefix {
         return new Prefix(
             this.binaryValue.value.split('').reduce((sum, bit) => sum + (bit === '1' ? 1 : 0), 0)
         )
-    }
-
-    private bitwiseAnd(ip: IpAddress): string {
-        return ip.binaryValue.value
-            .split('')
-            .map((bit, index) => parseInt(bit) & parseInt(this.binaryValue.value[index]))
-            .join('')
     }
 }

@@ -14,4 +14,12 @@ export default class IpAddress {
             this.decimalValue = this.binaryValue.toDecimal()
         }
     }
+
+    nextAddress(): IpAddress {
+        return new IpAddress(this.binaryValue.add(1))
+    }
+
+    previousAddress(): IpAddress {
+        return new IpAddress(this.binaryValue.substract(1))
+    }
 }

@@ -43,6 +43,34 @@ export default class BinaryFormat {
             this.octets.map((octet) => parseInt(octet, 2).toString()).join('.')
         )
     }
+
+    add(value: number): BinaryFormat {
+        // ! can't if 255.255.255.255
+        return new BinaryFormat((parseInt(this.value, 2) + value).toString(2).padStart(32, '0'))
+    }
+
+    substract(value: number): BinaryFormat {
+        // ! can't if 0.0.0.0
+        return new BinaryFormat((parseInt(this.value, 2) - value).toString(2).padStart(32, '0'))
+    }
+
+    bitwiseAnd(ip: BinaryFormat): BinaryFormat {
+        return new BinaryFormat(
+            ip.value
+                .split('')
+                .map((bit, index) => parseInt(bit) & parseInt(this.value[index]))
+                .join('')
+        )
+    }
+
+    bitwiseOr(ip: BinaryFormat): BinaryFormat {
+        return new BinaryFormat(
+            ip.value
+                .split('')
+                .map((bit, index) => parseInt(bit) | parseInt(this.value[index]))
+                .join('')
+        )
+    }
 }
 
 class InvalidBinaryIpError extends Error {

@@ -26,19 +26,12 @@ export default class WildcardMask extends IpAddress {
     }
 
     makeBroadcastAddress(ip: IpAddress): BroadcastAddress {
-        return new BroadcastAddress(new BinaryFormat(this.bitwiseOr(ip)))
+        return new BroadcastAddress(this.binaryValue.bitwiseOr(ip.binaryValue))
     }
 
     makePrefix(): Prefix {
         return new Prefix(
             this.binaryValue.value.split('').reduce((sum, bit) => sum + (bit === '0' ? 1 : 0), 0)
         )
-    }
-
-    private bitwiseOr(ip: IpAddress): string {
-        return ip.binaryValue.value
-            .split('')
-            .map((bit, index) => parseInt(bit) | parseInt(this.binaryValue.value[index]))
-            .join('')
     }
 }
