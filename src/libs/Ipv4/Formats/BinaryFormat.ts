@@ -71,6 +71,15 @@ export default class BinaryFormat {
                 .join('')
         )
     }
+
+    invert(): BinaryFormat {
+        return new BinaryFormat(
+            this.value
+                .split('')
+                .map((bit) => parseInt(bit) ^ 1)
+                .join('')
+        )
+    }
 }
 
 class InvalidBinaryIpError extends Error {
