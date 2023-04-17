@@ -22,4 +22,24 @@ export default class IpAddress {
     previousAddress(): IpAddress {
         return new IpAddress(this.binaryValue.substract(1))
     }
+
+    less(address: IpAddress): boolean {
+        return this.binaryValue.base10Value < address.binaryValue.base10Value
+    }
+
+    lessOrEqual(address: IpAddress): boolean {
+        return this.binaryValue.base10Value <= address.binaryValue.base10Value
+    }
+
+    equal(address: IpAddress): boolean {
+        return this.binaryValue.base10Value === address.binaryValue.base10Value
+    }
+
+    greaterOrEqual(address: IpAddress): boolean {
+        return this.binaryValue.base10Value >= address.binaryValue.base10Value
+    }
+
+    greater(address: IpAddress): boolean {
+        return this.binaryValue.base10Value > address.binaryValue.base10Value
+    }
 }
