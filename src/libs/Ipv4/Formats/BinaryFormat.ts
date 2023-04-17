@@ -40,12 +40,18 @@ export default class BinaryFormat {
     }
 
     add(value: number): BinaryFormat {
-        // ! can't if 255.255.255.255
+        if (this.base10Value === 4294967295) {
+            throw new Error('Cannot increment IP address beyond 255.255.255.255')
+        }
+
         return new BinaryFormat((this.base10Value + value).toString(2).padStart(32, '0'))
     }
 
     substract(value: number): BinaryFormat {
-        // ! can't if 0.0.0.0
+        if (this.base10Value === 0) {
+            throw new Error('Cannot decrement IP address below 0.0.0.0')
+        }
+
         return new BinaryFormat((this.base10Value - value).toString(2).padStart(32, '0'))
     }
 

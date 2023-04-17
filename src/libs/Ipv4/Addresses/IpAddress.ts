@@ -16,10 +16,12 @@ export default class IpAddress {
     }
 
     nextAddress(): IpAddress {
+        // TODO: try catch
         return new IpAddress(this.binaryValue.add(1))
     }
 
     previousAddress(): IpAddress {
+        // TODO: try catch
         return new IpAddress(this.binaryValue.substract(1))
     }
 

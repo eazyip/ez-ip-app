@@ -11,6 +11,30 @@ describe('IpAddress', () => {
         })
     })
 
+    describe('IpAddress nextAddress() and previousAddress()', () => {
+        const ipAddress1 = new IpAddress(new DecimalFormat('192.168.1.1'))
+        const ipAddress2 = new IpAddress(new DecimalFormat('255.255.255.255'))
+        const ipAddress3 = new IpAddress(new DecimalFormat('0.0.0.0'))
+
+        it('Next address of non-boundary IP', () => {
+            const nextAddress = ipAddress1.nextAddress()
+            expect(nextAddress.decimalValue.value).toBe('192.168.1.2')
+        })
+
+        it('Previous address of non-boundary IP', () => {
+            const previousAddress = ipAddress1.previousAddress()
+            expect(previousAddress.decimalValue.value).toBe('192.168.1.0')
+        })
+
+        it('Next address of boundary IP', () => {
+            expect(() => ipAddress2.nextAddress()).toThrow()
+        })
+
+        it('Previous address of boundary IP', () => {
+            expect(() => ipAddress3.previousAddress()).toThrow()
+        })
+    })
+
     describe('IpAddress comparison methods', () => {
         const ipAddress1 = new IpAddress(new DecimalFormat('192.168.1.1'))
         const ipAddress2 = new IpAddress(new BinaryFormat('11000000101010000000000100000001'))
