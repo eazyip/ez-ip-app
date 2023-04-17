@@ -2,6 +2,7 @@ import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
 export default class BinaryFormat {
     readonly value: string
+    readonly base10Value: number
 
     constructor(binaryIp: string) {
         if (!BinaryFormat.isValid(binaryIp)) {
@@ -9,6 +10,7 @@ export default class BinaryFormat {
         }
 
         this.value = binaryIp
+        this.base10Value = parseInt(this.value, 2)
     }
 
     static isValid(binaryIp: string): boolean {
@@ -39,12 +41,12 @@ export default class BinaryFormat {
 
     add(value: number): BinaryFormat {
         // ! can't if 255.255.255.255
-        return new BinaryFormat((parseInt(this.value, 2) + value).toString(2).padStart(32, '0'))
+        return new BinaryFormat((this.base10Value + value).toString(2).padStart(32, '0'))
     }
 
     substract(value: number): BinaryFormat {
         // ! can't if 0.0.0.0
-        return new BinaryFormat((parseInt(this.value, 2) - value).toString(2).padStart(32, '0'))
+        return new BinaryFormat((this.base10Value - value).toString(2).padStart(32, '0'))
     }
 
     bitwiseAnd(ip: BinaryFormat): BinaryFormat {
