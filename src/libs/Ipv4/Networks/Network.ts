@@ -27,8 +27,6 @@ export default class Network {
         this.firstHostAddress = this.networkAddress.makeFirstHostAddress()
         this.broadcastAddress = this.wildcardMask.makeBroadcastAddress(anyIp)
         this.lastHostAddress = this.broadcastAddress.makeLastHostAddress()
-
-        this.subnets = new Map<string, { subnet: Network; inRange: boolean }>()
     }
 
     addSubnetBySize(name: string, subnetSize: number) {
@@ -52,7 +50,7 @@ export default class Network {
     }
 
     addSubnet(name: string, subnet: Network) {
-        this.subnets.set(name, { subnet, inRange: true })
+        this.subnets.set(name, { subnet, inRange: this.containsSubnet(subnet) })
     }
 
     getSubnet(name: string): { subnet: Network; inRange: boolean } | undefined {
