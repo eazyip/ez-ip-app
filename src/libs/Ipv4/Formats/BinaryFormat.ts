@@ -2,8 +2,6 @@ import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
 export default class BinaryFormat {
     readonly value: string
-    readonly dotted: string
-    readonly octets: [string, string, string, string]
 
     constructor(binaryIp: string) {
         if (!BinaryFormat.isValid(binaryIp)) {
@@ -11,9 +9,6 @@ export default class BinaryFormat {
         }
 
         this.value = binaryIp
-        this.octets = this.value.match(/.{1,8}/g) as [string, string, string, string]
-        Object.freeze(this.octets)
-        this.dotted = this.octets.join('.')
     }
 
     static isValid(binaryIp: string): boolean {
@@ -75,6 +70,14 @@ export default class BinaryFormat {
                 .map((bit) => parseInt(bit) ^ 1)
                 .join('')
         )
+    }
+
+    get octets(): [string, string, string, string] {
+        return this.value.match(/.{1,8}/g) as [string, string, string, string]
+    }
+
+    get dotted(): string {
+        return this.octets.join('.')
     }
 }
 

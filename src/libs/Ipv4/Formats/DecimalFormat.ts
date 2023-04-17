@@ -2,7 +2,6 @@ import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 
 export default class DecimalFormat {
     readonly value: string
-    readonly octets: [number, number, number, number]
 
     constructor(decimalIp: string) {
         if (!DecimalFormat.isValid(decimalIp)) {
@@ -10,13 +9,6 @@ export default class DecimalFormat {
         }
 
         this.value = decimalIp
-        this.octets = this.value.split('.').map((octet) => parseInt(octet, 10)) as [
-            number,
-            number,
-            number,
-            number
-        ]
-        Object.freeze(this.octets)
     }
 
     static isValid(decimalIp: string): boolean {
@@ -34,6 +26,15 @@ export default class DecimalFormat {
         return new BinaryFormat(
             this.octets.map((octet) => octet.toString(2).padStart(8, '0')).join('')
         )
+    }
+
+    get octets(): [number, number, number, number] {
+        return this.value.split('.').map((octet) => parseInt(octet, 10)) as [
+            number,
+            number,
+            number,
+            number
+        ]
     }
 }
 
