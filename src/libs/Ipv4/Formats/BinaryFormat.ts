@@ -54,19 +54,17 @@ export default class BinaryFormat {
 
     bitwiseAnd(ip: BinaryFormat): BinaryFormat {
         return new BinaryFormat(
-            ip.value
-                .split('')
-                .map((bit, index) => parseInt(bit) & parseInt(this.value[index]))
-                .join('')
+            Array.from(ip.value, (bit, index) => parseInt(bit) & parseInt(this.value[index])).join(
+                ''
+            )
         )
     }
 
     bitwiseOr(ip: BinaryFormat): BinaryFormat {
         return new BinaryFormat(
-            ip.value
-                .split('')
-                .map((bit, index) => parseInt(bit) | parseInt(this.value[index]))
-                .join('')
+            Array.from(ip.value, (bit, index) => parseInt(bit) | parseInt(this.value[index])).join(
+                ''
+            )
         )
     }
 
