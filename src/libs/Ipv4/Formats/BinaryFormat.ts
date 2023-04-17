@@ -7,7 +7,7 @@ export default class BinaryFormat {
 
     constructor(binaryIp: string) {
         if (!BinaryFormat.isValid(binaryIp)) {
-            throw new InvalidBinaryIpError(`Invalid binary IPv4 address ${binaryIp}`)
+            throw new InvalidBinaryFormatError(binaryIp)
         }
 
         this.value = binaryIp
@@ -78,9 +78,9 @@ export default class BinaryFormat {
     }
 }
 
-class InvalidBinaryIpError extends Error {
+class InvalidBinaryFormatError extends Error {
     constructor(binaryIp: string) {
         super(`Invalid binary IPv4 address ${binaryIp}`)
-        this.name = 'InvalidBinaryIpError'
+        this.name = 'InvalidBinaryFormatError'
     }
 }
