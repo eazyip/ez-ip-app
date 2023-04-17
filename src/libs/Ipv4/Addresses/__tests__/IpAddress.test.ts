@@ -41,34 +41,34 @@ describe('IpAddress', () => {
         const ipAddress3 = ipAddress1.nextAddress()
         const ipAddress4 = ipAddress1.previousAddress()
 
-        it('less()', () => {
-            expect(ipAddress1.less(ipAddress2)).toBeFalsy()
-            expect(ipAddress1.less(ipAddress3)).toBeTruthy()
-            expect(ipAddress1.less(ipAddress4)).toBeFalsy()
+        it('lesserThan()', () => {
+            expect(ipAddress1.lesserThan(ipAddress2)).toBeFalsy()
+            expect(ipAddress1.lesserThan(ipAddress3)).toBeTruthy()
+            expect(ipAddress1.lesserThan(ipAddress4)).toBeFalsy()
         })
 
-        it('lessOrEqual()', () => {
-            expect(ipAddress1.lessOrEqual(ipAddress2)).toBeTruthy()
-            expect(ipAddress1.lessOrEqual(ipAddress3)).toBeTruthy()
-            expect(ipAddress1.lessOrEqual(ipAddress4)).toBeFalsy()
+        it('lesserThanOrEqualTo()', () => {
+            expect(ipAddress1.lesserThanOrEqualTo(ipAddress2)).toBeTruthy()
+            expect(ipAddress1.lesserThanOrEqualTo(ipAddress3)).toBeTruthy()
+            expect(ipAddress1.lesserThanOrEqualTo(ipAddress4)).toBeFalsy()
         })
 
-        it('equal()', () => {
-            expect(ipAddress1.equal(ipAddress2)).toBeTruthy()
-            expect(ipAddress1.equal(ipAddress3)).toBeFalsy()
-            expect(ipAddress1.equal(ipAddress4)).toBeFalsy()
+        it('equalTo()', () => {
+            expect(ipAddress1.equalTo(ipAddress2)).toBeTruthy()
+            expect(ipAddress1.equalTo(ipAddress3)).toBeFalsy()
+            expect(ipAddress1.equalTo(ipAddress4)).toBeFalsy()
         })
 
-        it('greaterOrEqual()', () => {
-            expect(ipAddress1.greaterOrEqual(ipAddress2)).toBeTruthy()
-            expect(ipAddress1.greaterOrEqual(ipAddress3)).toBeFalsy()
-            expect(ipAddress1.greaterOrEqual(ipAddress4)).toBeTruthy()
+        it('greaterThanOrEqualTo()', () => {
+            expect(ipAddress1.greaterThanOrEqualTo(ipAddress2)).toBeTruthy()
+            expect(ipAddress1.greaterThanOrEqualTo(ipAddress3)).toBeFalsy()
+            expect(ipAddress1.greaterThanOrEqualTo(ipAddress4)).toBeTruthy()
         })
 
-        it('greater()', () => {
-            expect(ipAddress1.greater(ipAddress2)).toBeFalsy()
-            expect(ipAddress1.greater(ipAddress3)).toBeFalsy()
-            expect(ipAddress1.greater(ipAddress4)).toBeTruthy()
+        it('greaterThan()', () => {
+            expect(ipAddress1.greaterThan(ipAddress2)).toBeFalsy()
+            expect(ipAddress1.greaterThan(ipAddress3)).toBeFalsy()
+            expect(ipAddress1.greaterThan(ipAddress4)).toBeTruthy()
         })
     })
 })

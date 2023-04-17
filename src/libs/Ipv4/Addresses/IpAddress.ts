@@ -15,6 +15,12 @@ export default class IpAddress {
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Relative address
+    |--------------------------------------------------------------------------
+    */
+
     nextAddress(): IpAddress {
         // TODO: try catch
         return new IpAddress(this.binaryValue.add(1))
@@ -25,23 +31,29 @@ export default class IpAddress {
         return new IpAddress(this.binaryValue.substract(1))
     }
 
-    less(address: IpAddress): boolean {
+    /*
+    |--------------------------------------------------------------------------
+    | Comparisons
+    |--------------------------------------------------------------------------
+    */
+
+    lesserThan(address: IpAddress): boolean {
         return this.binaryValue.base10Value < address.binaryValue.base10Value
     }
 
-    lessOrEqual(address: IpAddress): boolean {
+    lesserThanOrEqualTo(address: IpAddress): boolean {
         return this.binaryValue.base10Value <= address.binaryValue.base10Value
     }
 
-    equal(address: IpAddress): boolean {
+    equalTo(address: IpAddress): boolean {
         return this.binaryValue.base10Value === address.binaryValue.base10Value
     }
 
-    greaterOrEqual(address: IpAddress): boolean {
+    greaterThanOrEqualTo(address: IpAddress): boolean {
         return this.binaryValue.base10Value >= address.binaryValue.base10Value
     }
 
-    greater(address: IpAddress): boolean {
+    greaterThan(address: IpAddress): boolean {
         return this.binaryValue.base10Value > address.binaryValue.base10Value
     }
 }
