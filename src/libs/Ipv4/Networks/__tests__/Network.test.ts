@@ -115,4 +115,83 @@ describe('Network', () => {
             expect(network.getSubnet('test2')!.subnet).toEqual(expectedSubnet2)
         })
     })
+
+    describe('containsSubnet', () => {
+        const network = new Network(
+            new IpAddress(new DecimalFormat('192.168.1.160')), // -> .191
+            new Mask(new DecimalFormat('255.255.255.224'))
+        )
+
+        it('contains its self', () => {
+            expect(network.containsSubnet(network)).toBeTruthy()
+        })
+
+        it('returns true for smaller fully contained subnets', () => {
+            expect(
+                network.containsSubnet(
+                    new Network(
+                        new IpAddress(new DecimalFormat('192.168.1.168')), // -> .175
+                        new Mask(new DecimalFormat('255.255.255.248'))
+                    )
+                )
+            ).toBeTruthy()
+
+            expect(
+                network.containsSubnet(
+                    new Network(
+                        new IpAddress(new DecimalFormat('192.168.1.160')), // -> 167
+                        new Mask(new DecimalFormat('255.255.255.248'))
+                    )
+                )
+            ).toBeTruthy()
+
+            expect(
+                network.containsSubnet(
+                    new Network(
+                        new IpAddress(new DecimalFormat('192.168.1.184')), // -> 191
+                        new Mask(new DecimalFormat('255.255.255.248'))
+                    )
+                )
+            ).toBeTruthy()
+        })
+
+        it('returns false for uncontained networks/subnets', () => {
+            expect(
+                network.containsSubnet(
+                    new Network(
+                        new IpAddress(new DecimalFormat('192.168.1.128')), // -> .255
+                        new Mask(new DecimalFormat('255.255.255.128'))
+                    )
+                )
+            ).toBeFalsy()
+
+            expect(
+                network.containsSubnet(
+                    new Network(
+                        new IpAddress(new DecimalFormat('192.168.1.160')), // -> 191
+                        new Mask(new DecimalFormat('255.255.255.192'))
+                    )
+                )
+            ).toBeFalsy()
+        })
+    })
+
+    describe('containsAddress', () => {
+        const network = new Network(
+            new IpAddress(new DecimalFormat('192.168.1.160')), // -> .191
+            new Mask(new DecimalFormat('255.255.255.224'))
+        )
+
+        it.each([
+            { address: '192.168.1.159', contained: false },
+            { address: '192.168.1.160', contained: true },
+            { address: '192.168.1.188', contained: true },
+            { address: '192.168.1.191', contained: true },
+            { address: '192.168.1.192', contained: false }
+        ])('contains its self', ({ address, contained }) => {
+            expect(network.containsAddress(new IpAddress(new DecimalFormat(address)))).toBe(
+                contained
+            )
+        })
+    })
 })

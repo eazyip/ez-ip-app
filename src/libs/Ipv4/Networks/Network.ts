@@ -62,4 +62,18 @@ export default class Network {
     // removeSubnet(name: string) {
     //     this.subnets.delete(name)
     // }
+
+    containsSubnet(subnet: Network): boolean {
+        return (
+            this.networkAddress.lesserThanOrEqualTo(subnet.networkAddress) &&
+            this.broadcastAddress.greaterThanOrEqualTo(subnet.broadcastAddress)
+        )
+    }
+
+    containsAddress(address: IpAddress): boolean {
+        return (
+            this.networkAddress.lesserThanOrEqualTo(address) &&
+            this.broadcastAddress.greaterThanOrEqualTo(address)
+        )
+    }
 }
