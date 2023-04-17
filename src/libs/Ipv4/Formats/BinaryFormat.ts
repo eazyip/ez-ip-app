@@ -25,17 +25,15 @@ export default class BinaryFormat {
     }
 
     isMask(): boolean {
-        const zerosIndex = this.value.indexOf('0')
-        const onesIndex = this.value.lastIndexOf('1')
-
-        return onesIndex === -1 || zerosIndex === -1 || onesIndex + 1 === zerosIndex
+        return this.isSequentialBits(this.value.indexOf('0'), this.value.lastIndexOf('1'))
     }
 
-    isWildCard(): boolean {
-        const onesIndex = this.value.indexOf('1')
-        const zerosIndex = this.value.lastIndexOf('0')
+    isWildCardMask(): boolean {
+        return this.isSequentialBits(this.value.indexOf('1'), this.value.lastIndexOf('0'))
+    }
 
-        return onesIndex === -1 || zerosIndex === -1 || zerosIndex + 1 === onesIndex
+    private isSequentialBits(startIndex: number, endIndex: number): boolean {
+        return endIndex === -1 || startIndex === -1 || endIndex + 1 === startIndex
     }
 
     toDecimal(): DecimalFormat {

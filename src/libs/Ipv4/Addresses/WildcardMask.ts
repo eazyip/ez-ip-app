@@ -9,7 +9,7 @@ export default class WildcardMask extends IpAddress {
     constructor(address: DecimalFormat | BinaryFormat) {
         super(address)
 
-        if (!this.binaryValue.isWildCard()) {
+        if (!this.binaryValue.isWildCardMask()) {
             throw new Error(`Invalid wildcard mask value ${this.binaryValue.value}`)
         }
     }

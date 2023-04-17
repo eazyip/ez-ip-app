@@ -40,17 +40,29 @@ describe('BinaryFormat', () => {
         })
     })
 
-    describe('isWildCard', () => {
+    describe('isWildCardMask', () => {
         it('should return true for valid wildcard masks', () => {
-            expect(new BinaryFormat('11111111111111111111111111111111').isWildCard()).toBeTruthy()
-            expect(new BinaryFormat('00000000000000000000000000111111').isWildCard()).toBeTruthy()
-            expect(new BinaryFormat('00000000000000000000000000001111').isWildCard()).toBeTruthy()
-            expect(new BinaryFormat('00000000000000000000000000000000').isWildCard()).toBeTruthy()
+            expect(
+                new BinaryFormat('11111111111111111111111111111111').isWildCardMask()
+            ).toBeTruthy()
+            expect(
+                new BinaryFormat('00000000000000000000000000111111').isWildCardMask()
+            ).toBeTruthy()
+            expect(
+                new BinaryFormat('00000000000000000000000000001111').isWildCardMask()
+            ).toBeTruthy()
+            expect(
+                new BinaryFormat('00000000000000000000000000000000').isWildCardMask()
+            ).toBeTruthy()
         })
 
         it('should return false for invalid wildcard masks', () => {
-            expect(new BinaryFormat('11001100010101010101010101010101').isWildCard()).toBeFalsy()
-            expect(new BinaryFormat('11111111111111111111111000000000').isWildCard()).toBeFalsy()
+            expect(
+                new BinaryFormat('11001100010101010101010101010101').isWildCardMask()
+            ).toBeFalsy()
+            expect(
+                new BinaryFormat('11111111111111111111111000000000').isWildCardMask()
+            ).toBeFalsy()
         })
     })
 })
