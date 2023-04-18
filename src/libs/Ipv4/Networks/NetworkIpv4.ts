@@ -5,7 +5,7 @@ import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import type NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
-export default class Network {
+export default class NetworkIpv4 {
     readonly mask: MaskIpv4
     readonly prefix: PrefixIpv4
     readonly size: number
@@ -16,7 +16,7 @@ export default class Network {
     readonly broadcastAddress: BroadcastAddressIpv4
 
     // private usedCapacity: number = 0
-    private subnets: Map<string, { subnet: Network; inRange: boolean }> = new Map()
+    private subnets: Map<string, { subnet: NetworkIpv4; inRange: boolean }> = new Map()
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: AddressIpv4, mask: MaskIpv4) {
@@ -47,14 +47,14 @@ export default class Network {
             ].subnet.broadcastAddress.nextAddress()
         }
 
-        this.addSubnet(name, new Network(subnetAddress, subnetMask))
+        this.addSubnet(name, new NetworkIpv4(subnetAddress, subnetMask))
     }
 
-    addSubnet(name: string, subnet: Network) {
+    addSubnet(name: string, subnet: NetworkIpv4) {
         this.subnets.set(name, { subnet, inRange: this.containsSubnet(subnet) })
     }
 
-    getSubnet(name: string): { subnet: Network; inRange: boolean } | undefined {
+    getSubnet(name: string): { subnet: NetworkIpv4; inRange: boolean } | undefined {
         return this.subnets.get(name)
     }
 
@@ -62,7 +62,7 @@ export default class Network {
     //     this.subnets.delete(name)
     // }
 
-    containsSubnet(subnet: Network): boolean {
+    containsSubnet(subnet: NetworkIpv4): boolean {
         return (
             this.networkAddress.lesserThanOrEqualTo(subnet.networkAddress) &&
             this.broadcastAddress.greaterThanOrEqualTo(subnet.broadcastAddress)

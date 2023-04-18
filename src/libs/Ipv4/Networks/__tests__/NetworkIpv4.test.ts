@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import Network from '@/libs/Ipv4/Networks/Network'
+import NetworkIpv4 from '@/libs/Ipv4/Networks/NetworkIpv4'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
-describe('Network', () => {
+describe('NetworkIpv4', () => {
     describe('subnet construction+getters', () => {
         it.each([
             {
@@ -66,7 +66,7 @@ describe('Network', () => {
                 lastHostIp,
                 broadcastIp
             }) => {
-                const network = new Network(
+                const network = new NetworkIpv4(
                     new AddressIpv4(new DecimalFormat(inputIp)),
                     new MaskIpv4(new DecimalFormat(mask))
                 )
@@ -84,7 +84,7 @@ describe('Network', () => {
 
     describe('addSubnetBySize', () => {
         it('add subnets to the network', () => {
-            const network = new Network(
+            const network = new NetworkIpv4(
                 new NetworkAddress(new DecimalFormat('10.0.0.0')),
                 new MaskIpv4(new DecimalFormat('255.255.255.192'))
             )
@@ -93,12 +93,12 @@ describe('Network', () => {
 
             expect(() => network.addSubnetBySize('test2', 8)).toThrow()
 
-            const expectedSubnet1 = new Network(
+            const expectedSubnet1 = new NetworkIpv4(
                 new NetworkAddress(new DecimalFormat('10.0.0.0')),
                 new MaskIpv4(new DecimalFormat('255.255.255.248'))
             )
 
-            const expectedSubnet2 = new Network(
+            const expectedSubnet2 = new NetworkIpv4(
                 new NetworkAddress(new DecimalFormat('10.0.0.8')),
                 new MaskIpv4(new DecimalFormat('255.255.255.128'))
             )
@@ -109,7 +109,7 @@ describe('Network', () => {
     })
 
     describe('containsSubnet', () => {
-        const network = new Network(
+        const network = new NetworkIpv4(
             new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> .191
             new MaskIpv4(new DecimalFormat('255.255.255.224'))
         )
@@ -121,7 +121,7 @@ describe('Network', () => {
         it('returns true for smaller fully contained subnets', () => {
             expect(
                 network.containsSubnet(
-                    new Network(
+                    new NetworkIpv4(
                         new AddressIpv4(new DecimalFormat('192.168.1.168')), // -> .175
                         new MaskIpv4(new DecimalFormat('255.255.255.248'))
                     )
@@ -130,7 +130,7 @@ describe('Network', () => {
 
             expect(
                 network.containsSubnet(
-                    new Network(
+                    new NetworkIpv4(
                         new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> 167
                         new MaskIpv4(new DecimalFormat('255.255.255.248'))
                     )
@@ -139,7 +139,7 @@ describe('Network', () => {
 
             expect(
                 network.containsSubnet(
-                    new Network(
+                    new NetworkIpv4(
                         new AddressIpv4(new DecimalFormat('192.168.1.184')), // -> 191
                         new MaskIpv4(new DecimalFormat('255.255.255.248'))
                     )
@@ -150,7 +150,7 @@ describe('Network', () => {
         it('returns false for uncontained networks/subnets', () => {
             expect(
                 network.containsSubnet(
-                    new Network(
+                    new NetworkIpv4(
                         new AddressIpv4(new DecimalFormat('192.168.1.128')), // -> .255
                         new MaskIpv4(new DecimalFormat('255.255.255.128'))
                     )
@@ -159,7 +159,7 @@ describe('Network', () => {
 
             expect(
                 network.containsSubnet(
-                    new Network(
+                    new NetworkIpv4(
                         new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> 191
                         new MaskIpv4(new DecimalFormat('255.255.255.192'))
                     )
@@ -169,7 +169,7 @@ describe('Network', () => {
     })
 
     describe('containsAddress', () => {
-        const network = new Network(
+        const network = new NetworkIpv4(
             new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> .191
             new MaskIpv4(new DecimalFormat('255.255.255.224'))
         )

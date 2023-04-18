@@ -1,9 +1,9 @@
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
-import Network from '@/libs/Ipv4/Networks/Network'
+import NetworkIpv4 from '@/libs/Ipv4/Networks/NetworkIpv4'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
-export default class ClassfulNetwork extends Network {
+export default class ClassfulNetwork extends NetworkIpv4 {
     readonly class: string
 
     constructor(anyIp: AddressIpv4) {
