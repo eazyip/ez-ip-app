@@ -2,12 +2,12 @@ import type MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import type WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import type BroadcastAddressIpv4 from '@/libs/Ipv4/Addresses/BroadcastAddressIpv4'
 import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
-import Prefix from '@/libs/Ipv4/Addresses/Prefix'
+import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
 export default class Network {
     readonly mask: MaskIpv4
-    readonly prefix: Prefix
+    readonly prefix: PrefixIpv4
     readonly size: number
     readonly wildcardMask: WildcardMask
     readonly networkAddress: NetworkAddress
@@ -35,7 +35,7 @@ export default class Network {
             throw new Error('Subnet name already in use')
         }
 
-        const subnetPrefix = new Prefix(Math.floor(32 - Math.log2(subnetSize + 2)))
+        const subnetPrefix = new PrefixIpv4(Math.floor(32 - Math.log2(subnetSize + 2)))
         const subnetMask = subnetPrefix.makeMask()
 
         let subnetAddress

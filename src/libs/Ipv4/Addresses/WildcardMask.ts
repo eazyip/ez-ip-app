@@ -3,7 +3,7 @@ import type BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import BroadcastAddressIpv4 from '@/libs/Ipv4/Addresses/BroadcastAddressIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
-import Prefix from '@/libs/Ipv4/Addresses/Prefix'
+import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 
 export default class WildcardMask extends AddressIpv4 {
     constructor(address: DecimalFormat | BinaryFormat) {
@@ -22,8 +22,8 @@ export default class WildcardMask extends AddressIpv4 {
         return new BroadcastAddressIpv4(this.binaryValue.bitwiseOr(ip.binaryValue))
     }
 
-    makePrefix(): Prefix {
-        return new Prefix(
+    makePrefix(): PrefixIpv4 {
+        return new PrefixIpv4(
             this.binaryValue.value.split('').reduce((sum, bit) => sum + (bit === '0' ? 1 : 0), 0)
         )
     }

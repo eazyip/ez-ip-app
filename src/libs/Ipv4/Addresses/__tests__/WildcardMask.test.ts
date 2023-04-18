@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
-import Prefix from '@/libs/Ipv4/Addresses/Prefix'
+import Prefix from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
