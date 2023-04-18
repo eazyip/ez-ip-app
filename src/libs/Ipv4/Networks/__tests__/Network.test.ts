@@ -4,7 +4,7 @@ import Network from '@/libs/Ipv4/Networks/Network'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
-import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
+import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
 describe('Network', () => {
     describe('subnet construction+getters', () => {

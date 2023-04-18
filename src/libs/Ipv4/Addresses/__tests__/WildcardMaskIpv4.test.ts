@@ -5,7 +5,7 @@ import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import Prefix from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
+import NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
 describe('WildcardMaskIpv4', () => {
     describe('constructor', () => {
@@ -34,7 +34,7 @@ describe('WildcardMaskIpv4', () => {
                     )
                     const expectedMask = new MaskIpv4(new DecimalFormat(mask))
                     const expectedPrefix = new Prefix(prefix)
-                    const expectedBroadcastAddress = new NetworkAddress(
+                    const expectedBroadcastAddress = new NetworkAddressIpv4(
                         new DecimalFormat(BroadcastAddress)
                     )
 

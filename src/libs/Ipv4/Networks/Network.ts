@@ -3,14 +3,14 @@ import type WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
 import type BroadcastAddressIpv4 from '@/libs/Ipv4/Addresses/BroadcastAddressIpv4'
 import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
-import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
+import type NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
 export default class Network {
     readonly mask: MaskIpv4
     readonly prefix: PrefixIpv4
     readonly size: number
     readonly wildcardMask: WildcardMaskIpv4
-    readonly networkAddress: NetworkAddress
+    readonly networkAddress: NetworkAddressIpv4
     readonly firstHostAddress: AddressIpv4
     readonly lastHostAddress: AddressIpv4
     readonly broadcastAddress: BroadcastAddressIpv4

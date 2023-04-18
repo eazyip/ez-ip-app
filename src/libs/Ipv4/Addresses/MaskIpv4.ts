@@ -2,7 +2,7 @@ import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import type BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
-import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
+import NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 
 export default class MaskIpv4 extends AddressIpv4 {
@@ -18,8 +18,8 @@ export default class MaskIpv4 extends AddressIpv4 {
         return new WildcardMaskIpv4(this.binaryValue.invert())
     }
 
-    makeNetworkAddress(ip: AddressIpv4): NetworkAddress {
-        return new NetworkAddress(this.binaryValue.bitwiseAnd(ip.binaryValue))
+    makeNetworkAddress(ip: AddressIpv4): NetworkAddressIpv4 {
+        return new NetworkAddressIpv4(this.binaryValue.bitwiseAnd(ip.binaryValue))
     }
 
     makePrefix(): PrefixIpv4 {
