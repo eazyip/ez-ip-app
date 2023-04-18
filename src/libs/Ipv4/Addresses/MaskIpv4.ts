@@ -5,7 +5,7 @@ import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 
-export default class Mask extends AddressIpv4 {
+export default class MaskIpv4 extends AddressIpv4 {
     constructor(address: DecimalFormat | BinaryFormat) {
         super(address)
 

@@ -1,21 +1,21 @@
 import { describe, expect, it } from 'vitest'
 
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
-import Mask from '@/libs/Ipv4/Addresses/Mask'
+import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
-describe('Mask', () => {
+describe('MaskIpv4', () => {
     describe('constructor', () => {
         it('thorws exception when invalid mask value', () => {
             const ip = new DecimalFormat('255.255.13.0')
-            expect(() => new Mask(ip)).toThrow()
+            expect(() => new MaskIpv4(ip)).toThrow()
         })
     })
 
-    describe('Mask construction+getters', () => {
+    describe('MaskIpv4 construction+getters', () => {
         it.each([
             {
                 mask: '255.255.255.0',
@@ -27,8 +27,8 @@ describe('Mask', () => {
         ])(
             'should correctly calculate prefix, wildcard mask, and network address %s',
             ({ mask, wildCardMask, prefix, hostAddress, networkAddress }) => {
-                const maskFromDecimal = new Mask(new DecimalFormat(mask))
-                const maskFromBinary = new Mask(new DecimalFormat(mask).toBinary())
+                const maskFromDecimal = new MaskIpv4(new DecimalFormat(mask))
+                const maskFromBinary = new MaskIpv4(new DecimalFormat(mask).toBinary())
                 const expectedWildcard = new WildcardMask(new DecimalFormat(wildCardMask))
                 const expectedPrefix = new Prefix(prefix)
                 const expectedNetworkAddress = new NetworkAddress(new DecimalFormat(networkAddress))

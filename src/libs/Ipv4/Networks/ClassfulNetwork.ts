@@ -1,4 +1,4 @@
-import Mask from '@/libs/Ipv4/Addresses/Mask'
+import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import Network from '@/libs/Ipv4/Networks/Network'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
@@ -23,7 +23,7 @@ export default class ClassfulNetwork extends Network {
         throw new Error(`Invalid IP address: ${anyIp.decimalValue.value}`)
     }
 
-    public static _resolveMaskFromClass(classType: string): Mask {
+    public static _resolveMaskFromClass(classType: string): MaskIpv4 {
         const maskMap = new Map<string, string>([
             ['A', '255.0.0.0'],
             ['B', '255.255.0.0'],
@@ -32,6 +32,6 @@ export default class ClassfulNetwork extends Network {
             ['E', '248.0.0.0'] // ! N/A (these are reserved for future use)
         ])
 
-        return new Mask(new DecimalFormat(maskMap.get(classType)!))
+        return new MaskIpv4(new DecimalFormat(maskMap.get(classType)!))
     }
 }

@@ -1,4 +1,4 @@
-import type Mask from '@/libs/Ipv4/Addresses/Mask'
+import type MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import type WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import type BroadcastAddressIpv4 from '@/libs/Ipv4/Addresses/BroadcastAddressIpv4'
 import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
@@ -6,7 +6,7 @@ import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
 export default class Network {
-    readonly mask: Mask
+    readonly mask: MaskIpv4
     readonly prefix: Prefix
     readonly size: number
     readonly wildcardMask: WildcardMask
@@ -19,7 +19,7 @@ export default class Network {
     private subnets: Map<string, { subnet: Network; inRange: boolean }> = new Map()
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
-    constructor(anyIp: AddressIpv4, mask: Mask) {
+    constructor(anyIp: AddressIpv4, mask: MaskIpv4) {
         this.mask = mask
         this.prefix = this.mask.makePrefix()
         this.size = this.prefix.size

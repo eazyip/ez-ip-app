@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
-import Mask from '@/libs/Ipv4/Addresses/Mask'
+import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
@@ -30,7 +30,7 @@ describe('WildcardMask', () => {
                     const wildCardFromBinary = new WildcardMask(
                         new DecimalFormat(wildCardMask).toBinary()
                     )
-                    const expectedMask = new Mask(new DecimalFormat(mask))
+                    const expectedMask = new MaskIpv4(new DecimalFormat(mask))
                     const expectedPrefix = new Prefix(prefix)
                     const expectedBroadcastAddress = new NetworkAddress(
                         new DecimalFormat(BroadcastAddress)

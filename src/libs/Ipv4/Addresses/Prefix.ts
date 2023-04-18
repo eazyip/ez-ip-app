@@ -1,5 +1,5 @@
 import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
-import Mask from '@/libs/Ipv4/Addresses/Mask'
+import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 
 export default class Prefix {
@@ -15,8 +15,8 @@ export default class Prefix {
         this.size = Math.pow(2, 32 - this.value) - 2
     }
 
-    makeMask(): Mask {
-        return new Mask(new BinaryFormat('1'.repeat(this.value).padEnd(32, '0')))
+    makeMask(): MaskIpv4 {
+        return new MaskIpv4(new BinaryFormat('1'.repeat(this.value).padEnd(32, '0')))
     }
 
     makeWildcard(): WildcardMask {
