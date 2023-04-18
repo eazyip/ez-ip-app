@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import ClassfulNetwork from '@/libs/Ipv4/Networks/ClassfulNetwork'
+
+import NetworkIpv4Classful from '@/libs/Ipv4/Networks/NetworkIpv4Classful'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 
-describe('Network', () => {
+describe('NetworkIpv4Classful', () => {
     describe('subnet construction+getters', () => {
         it.each([
             {
@@ -56,7 +57,7 @@ describe('Network', () => {
                 lastHostIp,
                 broadcastIp
             }) => {
-                const network = new ClassfulNetwork(new AddressIpv4(new DecimalFormat(inputIp)))
+                const network = new NetworkIpv4Classful(new AddressIpv4(new DecimalFormat(inputIp)))
 
                 expect(network.class).toEqual(expectedClass)
                 expect(network.mask.decimalValue.value).toEqual(mask)

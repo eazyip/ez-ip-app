@@ -3,13 +3,13 @@ import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import NetworkIpv4 from '@/libs/Ipv4/Networks/NetworkIpv4'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
-export default class ClassfulNetwork extends NetworkIpv4 {
+export default class NetworkIpv4Classful extends NetworkIpv4 {
     readonly class: string
 
     constructor(anyIp: AddressIpv4) {
-        super(anyIp, ClassfulNetwork._resolveMaskFromClass(ClassfulNetwork._resolveClass(anyIp)))
+        super(anyIp, NetworkIpv4Classful.maskFromClass(NetworkIpv4Classful._resolveClass(anyIp)))
 
-        this.class = ClassfulNetwork._resolveClass(anyIp)
+        this.class = NetworkIpv4Classful._resolveClass(anyIp)
     }
 
     public static _resolveClass(anyIp: AddressIpv4): string {
@@ -23,7 +23,7 @@ export default class ClassfulNetwork extends NetworkIpv4 {
         throw new Error(`Invalid IP address: ${anyIp.decimalValue.value}`)
     }
 
-    public static _resolveMaskFromClass(classType: string): MaskIpv4 {
+    public static maskFromClass(classType: string): MaskIpv4 {
         const maskMap = new Map<string, string>([
             ['A', '255.0.0.0'],
             ['B', '255.255.0.0'],
