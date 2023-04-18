@@ -1,4 +1,4 @@
-import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 
 export default class BinaryFormatIpv4 {
     readonly value: string
@@ -21,8 +21,8 @@ export default class BinaryFormatIpv4 {
         return true
     }
 
-    toDecimal(): DecimalFormat {
-        return new DecimalFormat(
+    toDecimal(): DecimalFormatIpv4 {
+        return new DecimalFormatIpv4(
             this.octets.map((octet) => parseInt(octet, 2).toString()).join('.')
         )
     }

@@ -4,13 +4,13 @@ import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import Prefix from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
-import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
 describe('MaskIpv4', () => {
     describe('constructor', () => {
         it('thorws exception when invalid mask value', () => {
-            const ip = new DecimalFormat('255.255.13.0')
+            const ip = new DecimalFormatIpv4('255.255.13.0')
             expect(() => new MaskIpv4(ip)).toThrow()
         })
     })
@@ -27,12 +27,12 @@ describe('MaskIpv4', () => {
         ])(
             'should correctly calculate prefix, wildcard mask, and network address %s',
             ({ mask, wildCardMask, prefix, hostAddress, networkAddress }) => {
-                const maskFromDecimal = new MaskIpv4(new DecimalFormat(mask))
-                const maskFromBinary = new MaskIpv4(new DecimalFormat(mask).toBinary())
-                const expectedWildcard = new WildcardMaskIpv4(new DecimalFormat(wildCardMask))
+                const maskFromDecimal = new MaskIpv4(new DecimalFormatIpv4(mask))
+                const maskFromBinary = new MaskIpv4(new DecimalFormatIpv4(mask).toBinary())
+                const expectedWildcard = new WildcardMaskIpv4(new DecimalFormatIpv4(wildCardMask))
                 const expectedPrefix = new Prefix(prefix)
                 const expectedNetworkAddress = new NetworkAddressIpv4(
-                    new DecimalFormat(networkAddress)
+                    new DecimalFormatIpv4(networkAddress)
                 )
 
                 expect(maskFromDecimal).toEqual(maskFromBinary)
@@ -40,7 +40,7 @@ describe('MaskIpv4', () => {
                 expect(maskFromDecimal.makePrefix()).toEqual(expectedPrefix)
                 expect(
                     maskFromDecimal.makeNetworkAddress(
-                        new AddressIpv4(new DecimalFormat(hostAddress))
+                        new AddressIpv4(new DecimalFormatIpv4(hostAddress))
                     )
                 ).toEqual(expectedNetworkAddress)
             }

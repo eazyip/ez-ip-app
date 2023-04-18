@@ -1,4 +1,4 @@
-import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import type DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import type BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import BroadcastAddressIpv4 from '@/libs/Ipv4/Addresses/BroadcastAddressIpv4'
@@ -6,7 +6,7 @@ import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 
 export default class WildcardMaskIpv4 extends AddressIpv4 {
-    constructor(address: DecimalFormat | BinaryFormatIpv4) {
+    constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4) {
         super(address)
 
         if (!this.binaryValue.isWildCardMask()) {

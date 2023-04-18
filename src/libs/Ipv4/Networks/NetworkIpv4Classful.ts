@@ -1,7 +1,7 @@
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import NetworkIpv4 from '@/libs/Ipv4/Networks/NetworkIpv4'
-import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 
 export default class NetworkIpv4Classful extends NetworkIpv4 {
     readonly class: string
@@ -32,6 +32,6 @@ export default class NetworkIpv4Classful extends NetworkIpv4 {
             ['E', '248.0.0.0'] // ! N/A (these are reserved for future use)
         ])
 
-        return new MaskIpv4(new DecimalFormat(maskMap.get(classType)!))
+        return new MaskIpv4(new DecimalFormatIpv4(maskMap.get(classType)!))
     }
 }

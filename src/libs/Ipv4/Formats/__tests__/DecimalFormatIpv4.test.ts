@@ -1,32 +1,32 @@
-import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 import { describe, expect, it } from 'vitest'
 
-describe('DecimalFormat', () => {
+describe('DecimalFormatIpv4', () => {
     describe('constructor', () => {
         it('should throw an error if binary IP is not 4 octets', () => {
             expect(() => {
-                new DecimalFormat('1.2.3.4.5')
+                new DecimalFormatIpv4('1.2.3.4.5')
             }).toThrowError()
 
             expect(() => {
-                new DecimalFormat('1.2.3')
+                new DecimalFormatIpv4('1.2.3')
             }).toThrowError()
         })
 
         it('should throw an error if binary IP contains octet not in range [0 - 255]', () => {
             expect(() => {
-                new DecimalFormat('1.2.3.f')
+                new DecimalFormatIpv4('1.2.3.f')
             }).toThrowError()
 
             expect(() => {
-                new DecimalFormat('1.2.3.256')
+                new DecimalFormatIpv4('1.2.3.256')
             }).toThrowError()
         })
 
         it('should set the value, dotted, arr, and decimal properties correctly', () => {
-            const df = new DecimalFormat('192.168.1.3')
+            const df = new DecimalFormatIpv4('192.168.1.3')
 
             expect(df.value).toEqual('192.168.1.3')
             expect(df.octets).toEqual([192, 168, 1, 3])

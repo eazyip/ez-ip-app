@@ -1,5 +1,5 @@
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
-import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 
 import { describe, expect, it } from 'vitest'
 
@@ -22,7 +22,7 @@ describe('BinaryFormatIpv4', () => {
             expect(bf.value).toEqual('11001100010101010101010101010101')
             expect(bf.dotted).toEqual('11001100.01010101.01010101.01010101')
             expect(bf.octets).toEqual(['11001100', '01010101', '01010101', '01010101'])
-            expect(bf.toDecimal()).toEqual(new DecimalFormat('204.85.85.85'))
+            expect(bf.toDecimal()).toEqual(new DecimalFormatIpv4('204.85.85.85'))
         })
     })
 

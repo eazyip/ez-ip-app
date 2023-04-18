@@ -1,12 +1,12 @@
-import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
+import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import type BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 export default class AddressIpv4 {
-    readonly decimalValue: DecimalFormat
+    readonly decimalValue: DecimalFormatIpv4
     readonly binaryValue: BinaryFormatIpv4
 
-    constructor(address: DecimalFormat | BinaryFormatIpv4) {
-        if (address instanceof DecimalFormat) {
+    constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4) {
+        if (address instanceof DecimalFormatIpv4) {
             this.decimalValue = address
             this.binaryValue = this.decimalValue.toBinary()
         } else {
