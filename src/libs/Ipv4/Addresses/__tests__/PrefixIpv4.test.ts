@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
-import WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
+import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
-describe('WildcardMask', () => {
+describe('WildcardMaskIpv4', () => {
     describe('constructor', () => {
         it('thorws exception when invalid prefix value', () => {
             expect(() => new PrefixIpv4(33)).toThrow()
@@ -26,7 +26,7 @@ describe('WildcardMask', () => {
                 ({ mask, wildCardMask, prefixValue, size }) => {
                     const prefix = new PrefixIpv4(prefixValue)
                     const expectedMask = new MaskIpv4(new DecimalFormat(mask))
-                    const expectedWildcard = new WildcardMask(new DecimalFormat(wildCardMask))
+                    const expectedWildcard = new WildcardMaskIpv4(new DecimalFormat(wildCardMask))
 
                     expect(prefix.makeMask()).toEqual(expectedMask)
                     expect(prefix.makeWildcard()).toEqual(expectedWildcard)
