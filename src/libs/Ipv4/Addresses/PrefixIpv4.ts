@@ -1,4 +1,4 @@
-import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
+import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
 
@@ -19,12 +19,12 @@ export default class PrefixIpv4 {
     }
 
     makeMask(): MaskIpv4 {
-        return new MaskIpv4(new BinaryFormat('1'.repeat(this.value).padEnd(this.maxValue, '0')))
+        return new MaskIpv4(new BinaryFormatIpv4('1'.repeat(this.value).padEnd(this.maxValue, '0')))
     }
 
     makeWildcard(): WildcardMaskIpv4 {
         return new WildcardMaskIpv4(
-            new BinaryFormat('0'.repeat(this.value).padEnd(this.maxValue, '1'))
+            new BinaryFormatIpv4('0'.repeat(this.value).padEnd(this.maxValue, '1'))
         )
     }
 }

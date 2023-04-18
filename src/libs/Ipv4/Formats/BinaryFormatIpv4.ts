@@ -1,11 +1,11 @@
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
-export default class BinaryFormat {
+export default class BinaryFormatIpv4 {
     readonly value: string
     readonly base10Value: number
 
     constructor(binaryIp: string) {
-        if (!BinaryFormat.isValid(binaryIp)) {
+        if (!BinaryFormatIpv4.isValid(binaryIp)) {
             throw new InvalidBinaryFormatError(binaryIp)
         }
 
@@ -51,24 +51,24 @@ export default class BinaryFormat {
     |--------------------------------------------------------------------------
     */
 
-    add(value: number): BinaryFormat {
+    add(value: number): BinaryFormatIpv4 {
         if (this.base10Value === 4294967295) {
             throw new Error(
                 `The binary value ${this.value} cannot be incremented by ${value.toString(2)}`
             )
         }
 
-        return new BinaryFormat((this.base10Value + value).toString(2).padStart(32, '0'))
+        return new BinaryFormatIpv4((this.base10Value + value).toString(2).padStart(32, '0'))
     }
 
-    substract(value: number): BinaryFormat {
+    substract(value: number): BinaryFormatIpv4 {
         if (this.base10Value - value < 0) {
             throw new Error(
                 `The binary value ${this.value} cannot be decremented by ${value.toString(2)}`
             )
         }
 
-        return new BinaryFormat((this.base10Value - value).toString(2).padStart(32, '0'))
+        return new BinaryFormatIpv4((this.base10Value - value).toString(2).padStart(32, '0'))
     }
 
     /*
@@ -77,24 +77,24 @@ export default class BinaryFormat {
     |--------------------------------------------------------------------------
     */
 
-    bitwiseAnd(ip: BinaryFormat): BinaryFormat {
-        return new BinaryFormat(
+    bitwiseAnd(ip: BinaryFormatIpv4): BinaryFormatIpv4 {
+        return new BinaryFormatIpv4(
             Array.from(ip.value, (bit, index) => parseInt(bit) & parseInt(this.value[index])).join(
                 ''
             )
         )
     }
 
-    bitwiseOr(ip: BinaryFormat): BinaryFormat {
-        return new BinaryFormat(
+    bitwiseOr(ip: BinaryFormatIpv4): BinaryFormatIpv4 {
+        return new BinaryFormatIpv4(
             Array.from(ip.value, (bit, index) => parseInt(bit) | parseInt(this.value[index])).join(
                 ''
             )
         )
     }
 
-    invert(): BinaryFormat {
-        return new BinaryFormat(
+    invert(): BinaryFormatIpv4 {
+        return new BinaryFormatIpv4(
             this.value
                 .split('')
                 .map((bit) => parseInt(bit) ^ 1)

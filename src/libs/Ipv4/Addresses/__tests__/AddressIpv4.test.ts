@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
+import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 describe('AddressIpv4', () => {
     describe('constructor', () => {

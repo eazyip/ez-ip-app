@@ -1,5 +1,5 @@
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
+import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 import { describe, expect, it } from 'vitest'
 
@@ -30,7 +30,7 @@ describe('DecimalFormat', () => {
 
             expect(df.value).toEqual('192.168.1.3')
             expect(df.octets).toEqual([192, 168, 1, 3])
-            expect(df.toBinary()).toEqual(new BinaryFormat('11000000101010000000000100000011'))
+            expect(df.toBinary()).toEqual(new BinaryFormatIpv4('11000000101010000000000100000011'))
         })
     })
 })

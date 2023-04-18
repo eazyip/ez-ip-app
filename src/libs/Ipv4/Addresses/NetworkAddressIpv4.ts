@@ -1,9 +1,9 @@
 import type DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import type BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
+import type BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 
 export default class NetworkAddressIpv4 extends AddressIpv4 {
-    constructor(address: DecimalFormat | BinaryFormat) {
+    constructor(address: DecimalFormat | BinaryFormatIpv4) {
         super(address)
 
         // TODO: validate ?
