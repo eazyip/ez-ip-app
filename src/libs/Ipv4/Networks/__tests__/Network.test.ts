@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import Network from '@/libs/Ipv4/Networks/Network'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
+import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import Mask from '@/libs/Ipv4/Addresses/Mask'
 import NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
@@ -67,7 +67,7 @@ describe('Network', () => {
                 broadcastIp
             }) => {
                 const network = new Network(
-                    new IpAddress(new DecimalFormat(inputIp)),
+                    new AddressIpv4(new DecimalFormat(inputIp)),
                     new Mask(new DecimalFormat(mask))
                 )
 
@@ -110,7 +110,7 @@ describe('Network', () => {
 
     describe('containsSubnet', () => {
         const network = new Network(
-            new IpAddress(new DecimalFormat('192.168.1.160')), // -> .191
+            new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> .191
             new Mask(new DecimalFormat('255.255.255.224'))
         )
 
@@ -122,7 +122,7 @@ describe('Network', () => {
             expect(
                 network.containsSubnet(
                     new Network(
-                        new IpAddress(new DecimalFormat('192.168.1.168')), // -> .175
+                        new AddressIpv4(new DecimalFormat('192.168.1.168')), // -> .175
                         new Mask(new DecimalFormat('255.255.255.248'))
                     )
                 )
@@ -131,7 +131,7 @@ describe('Network', () => {
             expect(
                 network.containsSubnet(
                     new Network(
-                        new IpAddress(new DecimalFormat('192.168.1.160')), // -> 167
+                        new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> 167
                         new Mask(new DecimalFormat('255.255.255.248'))
                     )
                 )
@@ -140,7 +140,7 @@ describe('Network', () => {
             expect(
                 network.containsSubnet(
                     new Network(
-                        new IpAddress(new DecimalFormat('192.168.1.184')), // -> 191
+                        new AddressIpv4(new DecimalFormat('192.168.1.184')), // -> 191
                         new Mask(new DecimalFormat('255.255.255.248'))
                     )
                 )
@@ -151,7 +151,7 @@ describe('Network', () => {
             expect(
                 network.containsSubnet(
                     new Network(
-                        new IpAddress(new DecimalFormat('192.168.1.128')), // -> .255
+                        new AddressIpv4(new DecimalFormat('192.168.1.128')), // -> .255
                         new Mask(new DecimalFormat('255.255.255.128'))
                     )
                 )
@@ -160,7 +160,7 @@ describe('Network', () => {
             expect(
                 network.containsSubnet(
                     new Network(
-                        new IpAddress(new DecimalFormat('192.168.1.160')), // -> 191
+                        new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> 191
                         new Mask(new DecimalFormat('255.255.255.192'))
                     )
                 )
@@ -170,7 +170,7 @@ describe('Network', () => {
 
     describe('containsAddress', () => {
         const network = new Network(
-            new IpAddress(new DecimalFormat('192.168.1.160')), // -> .191
+            new AddressIpv4(new DecimalFormat('192.168.1.160')), // -> .191
             new Mask(new DecimalFormat('255.255.255.224'))
         )
 
@@ -181,7 +181,7 @@ describe('Network', () => {
             { address: '192.168.1.191', contained: true },
             { address: '192.168.1.192', contained: false }
         ])('contains its self', ({ address, contained }) => {
-            expect(network.containsAddress(new IpAddress(new DecimalFormat(address)))).toBe(
+            expect(network.containsAddress(new AddressIpv4(new DecimalFormat(address)))).toBe(
                 contained
             )
         })

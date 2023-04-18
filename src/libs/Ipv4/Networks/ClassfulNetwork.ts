@@ -1,18 +1,18 @@
 import Mask from '@/libs/Ipv4/Addresses/Mask'
-import type IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
+import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import Network from '@/libs/Ipv4/Networks/Network'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 
 export default class ClassfulNetwork extends Network {
     readonly class: string
 
-    constructor(anyIp: IpAddress) {
+    constructor(anyIp: AddressIpv4) {
         super(anyIp, ClassfulNetwork._resolveMaskFromClass(ClassfulNetwork._resolveClass(anyIp)))
 
         this.class = ClassfulNetwork._resolveClass(anyIp)
     }
 
-    public static _resolveClass(anyIp: IpAddress): string {
+    public static _resolveClass(anyIp: AddressIpv4): string {
         const firstOctet = anyIp.decimalValue.octets[0]
 
         if (firstOctet >= 0 && firstOctet <= 127) return 'A'

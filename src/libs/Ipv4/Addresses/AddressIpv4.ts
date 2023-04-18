@@ -1,7 +1,7 @@
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
 import type BinaryFormat from '@/libs/Ipv4/Formats/BinaryFormat'
 
-export default class IpAddress {
+export default class AddressIpv4 {
     readonly decimalValue: DecimalFormat
     readonly binaryValue: BinaryFormat
 
@@ -21,14 +21,14 @@ export default class IpAddress {
     |--------------------------------------------------------------------------
     */
 
-    nextAddress(): IpAddress {
+    nextAddress(): AddressIpv4 {
         // TODO: try catch
-        return new IpAddress(this.binaryValue.add(1))
+        return new AddressIpv4(this.binaryValue.add(1))
     }
 
-    previousAddress(): IpAddress {
+    previousAddress(): AddressIpv4 {
         // TODO: try catch
-        return new IpAddress(this.binaryValue.substract(1))
+        return new AddressIpv4(this.binaryValue.substract(1))
     }
 
     /*
@@ -37,23 +37,23 @@ export default class IpAddress {
     |--------------------------------------------------------------------------
     */
 
-    lesserThan(address: IpAddress): boolean {
+    lesserThan(address: AddressIpv4): boolean {
         return this.binaryValue.base10Value < address.binaryValue.base10Value
     }
 
-    lesserThanOrEqualTo(address: IpAddress): boolean {
+    lesserThanOrEqualTo(address: AddressIpv4): boolean {
         return this.binaryValue.base10Value <= address.binaryValue.base10Value
     }
 
-    equalTo(address: IpAddress): boolean {
+    equalTo(address: AddressIpv4): boolean {
         return this.binaryValue.base10Value === address.binaryValue.base10Value
     }
 
-    greaterThanOrEqualTo(address: IpAddress): boolean {
+    greaterThanOrEqualTo(address: AddressIpv4): boolean {
         return this.binaryValue.base10Value >= address.binaryValue.base10Value
     }
 
-    greaterThan(address: IpAddress): boolean {
+    greaterThan(address: AddressIpv4): boolean {
         return this.binaryValue.base10Value > address.binaryValue.base10Value
     }
 }

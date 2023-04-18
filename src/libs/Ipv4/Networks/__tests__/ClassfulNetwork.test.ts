@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import ClassfulNetwork from '@/libs/Ipv4/Networks/ClassfulNetwork'
 import DecimalFormat from '@/libs/Ipv4/Formats/DecimalFormat'
-import IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
+import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 
 describe('Network', () => {
     describe('subnet construction+getters', () => {
@@ -56,7 +56,7 @@ describe('Network', () => {
                 lastHostIp,
                 broadcastIp
             }) => {
-                const network = new ClassfulNetwork(new IpAddress(new DecimalFormat(inputIp)))
+                const network = new ClassfulNetwork(new AddressIpv4(new DecimalFormat(inputIp)))
 
                 expect(network.class).toEqual(expectedClass)
                 expect(network.mask.decimalValue.value).toEqual(mask)

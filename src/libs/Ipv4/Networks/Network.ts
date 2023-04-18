@@ -1,7 +1,7 @@
 import type Mask from '@/libs/Ipv4/Addresses/Mask'
 import type WildcardMask from '@/libs/Ipv4/Addresses/WildcardMask'
 import type BroadcastAddress from '@/libs/Ipv4/Addresses/BroadcastAddress'
-import type IpAddress from '@/libs/Ipv4/Addresses/IpAddress'
+import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import Prefix from '@/libs/Ipv4/Addresses/Prefix'
 import type NetworkAddress from '@/libs/Ipv4/Addresses/NetworkAddress'
 
@@ -11,14 +11,15 @@ export default class Network {
     readonly size: number
     readonly wildcardMask: WildcardMask
     readonly networkAddress: NetworkAddress
-    readonly firstHostAddress: IpAddress
-    readonly lastHostAddress: IpAddress
+    readonly firstHostAddress: AddressIpv4
+    readonly lastHostAddress: AddressIpv4
     readonly broadcastAddress: BroadcastAddress
 
+    // private usedCapacity: number = 0
     private subnets: Map<string, { subnet: Network; inRange: boolean }> = new Map()
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
-    constructor(anyIp: IpAddress, mask: Mask) {
+    constructor(anyIp: AddressIpv4, mask: Mask) {
         this.mask = mask
         this.prefix = this.mask.makePrefix()
         this.size = this.prefix.size
@@ -68,7 +69,7 @@ export default class Network {
         )
     }
 
-    containsAddress(address: IpAddress): boolean {
+    containsAddress(address: AddressIpv4): boolean {
         return (
             this.networkAddress.lesserThanOrEqualTo(address) &&
             this.broadcastAddress.greaterThanOrEqualTo(address)
