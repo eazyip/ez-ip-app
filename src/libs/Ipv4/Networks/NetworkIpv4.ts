@@ -58,9 +58,10 @@ export default class NetworkIpv4 {
         return this.subnets.get(name)
     }
 
-    // removeSubnet(name: string) {
-    //     this.subnets.delete(name)
-    // }
+    removeSubnet(name: string) {
+        // TODO: compact ?
+        this.subnets.delete(name)
+    }
 
     containsSubnet(subnet: NetworkIpv4): boolean {
         return (
