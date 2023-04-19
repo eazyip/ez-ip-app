@@ -1,10 +1,10 @@
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
-export default class DecimalFormat {
+export default class DecimalFormatIpv4 {
     readonly value: string
 
     constructor(decimalIp: string) {
-        if (!DecimalFormat.isValid(decimalIp)) {
+        if (!DecimalFormatIpv4.isValid(decimalIp)) {
             throw new InvalidDecimalIpError(`Invalid decimal IPv4 address ${decimalIp}`)
         }
 

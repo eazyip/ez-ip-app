@@ -6,7 +6,7 @@ import NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 
 export default class MaskIpv4 extends AddressIpv4 {
-    constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4) {
+    constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4 | string) {
         super(address)
 
         if (!this.binaryValue.isMask()) {

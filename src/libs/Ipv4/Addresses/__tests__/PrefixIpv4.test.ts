@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
-import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 
 describe('WildcardMaskIpv4', () => {
     describe('constructor', () => {
@@ -25,10 +24,8 @@ describe('WildcardMaskIpv4', () => {
                 'should correctly calculate mask, wildcard mask, and size address %s',
                 ({ mask, wildCardMask, prefixValue, size }) => {
                     const prefix = new PrefixIpv4(prefixValue)
-                    const expectedMask = new MaskIpv4(new DecimalFormatIpv4(mask))
-                    const expectedWildcard = new WildcardMaskIpv4(
-                        new DecimalFormatIpv4(wildCardMask)
-                    )
+                    const expectedMask = new MaskIpv4(mask)
+                    const expectedWildcard = new WildcardMaskIpv4(wildCardMask)
 
                     expect(prefix.makeMask()).toEqual(expectedMask)
                     expect(prefix.makeWildcard()).toEqual(expectedWildcard)

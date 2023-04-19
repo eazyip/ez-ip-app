@@ -4,14 +4,12 @@ import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
-import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
 describe('WildcardMaskIpv4', () => {
     describe('constructor', () => {
         it('thorws exception when invalid mask value', () => {
-            const ip = new DecimalFormatIpv4('255.255.13.0')
-            expect(() => new WildcardMaskIpv4(ip)).toThrow()
+            expect(() => new WildcardMaskIpv4('255.255.13.0')).toThrow()
         })
 
         describe('WildcardMaskIpv4 construction+getters', () => {
@@ -26,26 +24,16 @@ describe('WildcardMaskIpv4', () => {
             ])(
                 'should correctly calculate prefix, wildcard mask, and broadcast address %s',
                 ({ mask, wildCardMask, prefix, hostAddress, BroadcastAddress }) => {
-                    const wildCardFromDecimal = new WildcardMaskIpv4(
-                        new DecimalFormatIpv4(wildCardMask)
-                    )
-                    const wildCardFromBinary = new WildcardMaskIpv4(
-                        new DecimalFormatIpv4(wildCardMask).toBinary()
-                    )
-                    const expectedMask = new MaskIpv4(new DecimalFormatIpv4(mask))
+                    const wildCard = new WildcardMaskIpv4(wildCardMask)
+                    const expectedMask = new MaskIpv4(mask)
                     const expectedPrefix = new PrefixIpv4(prefix)
-                    const expectedBroadcastAddress = new NetworkAddressIpv4(
-                        new DecimalFormatIpv4(BroadcastAddress)
-                    )
+                    const expectedBroadcastAddress = new NetworkAddressIpv4(BroadcastAddress)
 
-                    expect(wildCardFromDecimal).toEqual(wildCardFromBinary)
-                    expect(wildCardFromDecimal.makeMask()).toEqual(expectedMask)
-                    expect(wildCardFromDecimal.makePrefix()).toEqual(expectedPrefix)
-                    expect(
-                        wildCardFromDecimal.makeBroadcastAddress(
-                            new AddressIpv4(new DecimalFormatIpv4(hostAddress))
-                        )
-                    ).toEqual(expectedBroadcastAddress)
+                    expect(wildCard.makeMask()).toEqual(expectedMask)
+                    expect(wildCard.makePrefix()).toEqual(expectedPrefix)
+                    expect(wildCard.makeBroadcastAddress(new AddressIpv4(hostAddress))).toEqual(
+                        expectedBroadcastAddress
+                    )
                 }
             )
         })

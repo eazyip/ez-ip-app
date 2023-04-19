@@ -2,20 +2,25 @@ import { describe, expect, it } from 'vitest'
 
 import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
-import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 describe('AddressIpv4', () => {
     describe('constructor', () => {
         it('intantiates', () => {
-            const ip = new DecimalFormatIpv4('192.168.1.2')
-            expect(new AddressIpv4(ip)).toEqual(new AddressIpv4(ip.toBinary()))
+            const valBin = '11000000101010000000000100000010'
+            const valDec = '192.168.1.2'
+
+            const ip = new DecimalFormatIpv4(valDec)
+
+            expect(new AddressIpv4(valBin)).toEqual(new AddressIpv4(ip.toBinary()))
+            expect(new AddressIpv4(valDec)).toEqual(new AddressIpv4(ip.toBinary()))
+            expect(new AddressIpv4(valBin)).toEqual(new AddressIpv4(valDec))
         })
     })
 
     describe('nextAddress() and previousAddress()', () => {
-        const address1 = new AddressIpv4(new DecimalFormatIpv4('192.168.1.1'))
-        const address2 = new AddressIpv4(new DecimalFormatIpv4('255.255.255.255'))
-        const address3 = new AddressIpv4(new DecimalFormatIpv4('0.0.0.0'))
+        const address1 = new AddressIpv4('192.168.1.1')
+        const address2 = new AddressIpv4('255.255.255.255')
+        const address3 = new AddressIpv4('0.0.0.0')
 
         it('Next address of non-boundary IP', () => {
             const nextAddress = address1.nextAddress()
@@ -37,8 +42,8 @@ describe('AddressIpv4', () => {
     })
 
     describe('AddressIpv4 comparison methods', () => {
-        const address1 = new AddressIpv4(new DecimalFormatIpv4('192.168.1.1'))
-        const address2 = new AddressIpv4(new BinaryFormatIpv4('11000000101010000000000100000001'))
+        const address1 = new AddressIpv4('192.168.1.1')
+        const address2 = new AddressIpv4('11000000101010000000000100000001')
         const address3 = address1.nextAddress()
         const address4 = address1.previousAddress()
 
