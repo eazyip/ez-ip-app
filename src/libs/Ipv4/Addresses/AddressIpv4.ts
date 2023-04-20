@@ -4,6 +4,7 @@ import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 export default class AddressIpv4 {
     readonly decimalValue: DecimalFormatIpv4
     readonly binaryValue: BinaryFormatIpv4
+    // TODO: label (default and from constructor)
 
     constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4 | string) {
         if (typeof address === 'string') {

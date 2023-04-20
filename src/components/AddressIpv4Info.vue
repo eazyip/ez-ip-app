@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <p>{{ label }}</p>
-        <ul>
-            <li class="bg-slate-300 p-1 m-1 rounded-sm text-sm font-mono">
+    <div class="flex flex-wrap gap-1 items-center">
+        <p class="w-32">{{ label }}</p>
+        <ul class="flex flex-wrap gap-1 items-center">
+            <li class="w-32 p-1 bg-slate-300 rounded-sm text-sm font-mono">
                 {{ address.decimalValue.value || '' }}
             </li>
-            <li class="bg-slate-300 p-1 m-1 rounded-sm text-sm font-mono">
+            <li class="w-72 p-1 m-1 bg-slate-300 rounded-sm text-sm font-mono">
                 {{ address.binaryValue.dotted || '' }}
             </li>
         </ul>

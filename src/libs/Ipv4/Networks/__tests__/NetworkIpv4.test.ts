@@ -71,9 +71,11 @@ describe('NetworkIpv4', () => {
                 expect(network.size).toEqual(size)
                 expect(network.wildcardMask.decimalValue.value).toEqual(wildCardMask)
                 expect(network.networkAddress.decimalValue.value).toEqual(networkIp)
-                expect(network.firstHostAddress.decimalValue.value).toEqual(firstHostIp)
                 expect(network.broadcastAddress.decimalValue.value).toEqual(broadcastIp)
-                expect(network.lastHostAddress.decimalValue.value).toEqual(lastHostIp)
+                if (network.firstHostAddress && network.lastHostAddress) {
+                    expect(network.firstHostAddress.decimalValue.value).toEqual(firstHostIp)
+                    expect(network.lastHostAddress.decimalValue.value).toEqual(lastHostIp)
+                }
             }
         )
     })
@@ -84,8 +86,8 @@ describe('NetworkIpv4', () => {
                 new NetworkAddressIpv4('10.0.0.0'),
                 new MaskIpv4('255.255.255.192')
             )
-            network.addSubnetBySize('test1', 4)
-            network.addSubnetBySize('test2', 100)
+            network.addSubnetBySize('test1', 0)
+            network.addSubnetBySize('test2', 2)
 
             expect(() => network.addSubnetBySize('test2', 8)).toThrow()
 

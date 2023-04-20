@@ -29,7 +29,7 @@ export default class NetworkIpv4 {
         this.broadcastAddress = this.wildcardMask.makeBroadcastAddress(anyIp)
 
         // TODO: unit test
-        if (this.size <= 2) {
+        if (this.prefix.value < 31 && this.prefix.value > 0) {
             this.firstHostAddress = this.networkAddress.makeFirstHostAddress()
             this.lastHostAddress = this.broadcastAddress.makeLastHostAddress()
         }
@@ -47,9 +47,9 @@ export default class NetworkIpv4 {
         if (this.subnets.size === 0) {
             subnetAddress = this.networkAddress
         } else {
-            subnetAddress = Array.from(this.subnets.values())[
-                this.subnets.size - 1
-            ].subnet.broadcastAddress.nextAddress()
+            const lastSubnet = Array.from(this.subnets.values())[this.subnets.size - 1]
+
+            subnetAddress = lastSubnet.subnet.broadcastAddress.nextAddress()
         }
 
         this.addSubnet(name, new NetworkIpv4(subnetAddress, subnetMask))
