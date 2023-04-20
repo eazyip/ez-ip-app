@@ -1,3 +1,7 @@
-<template>app</template>
+<template>
+    <NetworkIpv4Classful />
+</template>
 
-<style></style>
+<script setup lang="ts">
+import NetworkIpv4Classful from '@/components/NetworkIpv4Classful.vue'
+</script>
