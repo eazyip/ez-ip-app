@@ -1,6 +1,7 @@
 <template>
     <div class="p-2 border-green-700 border-2">
         <h1 class="text-xl">Network</h1>
+        <p class="text-sm">Detect network and display its info</p>
 
         <label for="inputName">IP: </label>
 
@@ -21,12 +22,12 @@
         />
 
         <div v-if="network.network">
-            <AddressInfo :address="network.network.networkAddress" label="networkAddress" />
-            <AddressInfo :address="network.network.firstHostAddress" label="firstHostAddress" />
-            <AddressInfo :address="network.network.lastHostAddress" label="lastHostAddress" />
-            <AddressInfo :address="network.network.broadcastAddress" label="broadcastAddress" />
-            <AddressInfo :address="network.network.mask" label="mask" />
-            <AddressInfo :address="network.network.wildcardMask" label="wildcardMask" />
+            <AddressIpv4Info :address="network.network.networkAddress" label="networkAddress" />
+            <AddressIpv4Info :address="network.network.firstHostAddress" label="firstHostAddress" />
+            <AddressIpv4Info :address="network.network.lastHostAddress" label="lastHostAddress" />
+            <AddressIpv4Info :address="network.network.broadcastAddress" label="broadcastAddress" />
+            <AddressIpv4Info :address="network.network.mask" label="mask" />
+            <AddressIpv4Info :address="network.network.wildcardMask" label="wildcardMask" />
             <div>prefix: {{ network.network.prefix.value }}</div>
             <div>size: {{ network.network.prefix.size }}</div>
         </div>
@@ -42,10 +43,11 @@ import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 
-import AddressInfo from '@/components/AddressInfo.vue'
+import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
 
 // TODO: make value copiable
-// TODO: expand to AddressInfoModal with all values formats
+// TODO: expand to AddressIpv4InfoModal with all values formats
+// TODO: support more input instead of mask (prefix|wildcard|mask) -> use toggler ?
 
 // ======================================================================
 
@@ -63,13 +65,11 @@ const updateNetwork = (ip: string, mask: string): void => {
         (!DecimalFormatIpv4.isValid(mask) && !BinaryFormatIpv4.isValid(mask))
     ) {
         network.network = null
-
         return
     }
 
     if (!new AddressIpv4(mask).binaryValue.isMask()) {
         network.network = null
-
         return
     }
 

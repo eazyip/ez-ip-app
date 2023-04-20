@@ -1,6 +1,7 @@
 <template>
     <div class="p-2 border-green-700 border-2">
         <h1 class="text-xl">Classful network</h1>
+        <p class="text-sm">Detect network class and display its info</p>
 
         <label for="inputName">IP: </label>
 
@@ -12,12 +13,12 @@
         />
 
         <div v-if="network.network">
-            <AddressInfo :address="network.network.networkAddress" label="networkAddress" />
-            <AddressInfo :address="network.network.firstHostAddress" label="firstHostAddress" />
-            <AddressInfo :address="network.network.lastHostAddress" label="lastHostAddress" />
-            <AddressInfo :address="network.network.broadcastAddress" label="broadcastAddress" />
-            <AddressInfo :address="network.network.mask" label="mask" />
-            <AddressInfo :address="network.network.wildcardMask" label="wildcardMask" />
+            <AddressIpv4Info :address="network.network.networkAddress" label="networkAddress" />
+            <AddressIpv4Info :address="network.network.firstHostAddress" label="firstHostAddress" />
+            <AddressIpv4Info :address="network.network.lastHostAddress" label="lastHostAddress" />
+            <AddressIpv4Info :address="network.network.broadcastAddress" label="broadcastAddress" />
+            <AddressIpv4Info :address="network.network.mask" label="mask" />
+            <AddressIpv4Info :address="network.network.wildcardMask" label="wildcardMask" />
             <div>prefix: {{ network.network.prefix.value }}</div>
             <div>size: {{ network.network.prefix.size }}</div>
             <div>class: {{ network.network.class }}</div>
@@ -33,7 +34,7 @@ import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
-import AddressInfo from '@/components/AddressInfo.vue'
+import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
 
 // ======================================================================
 
@@ -45,12 +46,13 @@ const inputIp = ref('10.0.0.1')
 const network: Network = reactive({ network: null })
 
 const updateClassfulNetwork = (newValue: string): any => {
-    if (DecimalFormatIpv4.isValid(newValue) || BinaryFormatIpv4.isValid(newValue)) {
-        const address = new AddressIpv4(newValue)
-        network.network = new NetworkIpv4Classful(address)
-    } else {
+    if (!DecimalFormatIpv4.isValid(newValue) && !BinaryFormatIpv4.isValid(newValue)) {
         network.network = null
+        return
     }
+
+    const address = new AddressIpv4(newValue)
+    network.network = new NetworkIpv4Classful(address)
 }
 
 onMounted(() => {
