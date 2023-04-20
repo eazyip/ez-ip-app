@@ -3,10 +3,10 @@
         <p>{{ label }}</p>
         <ul>
             <li class="bg-slate-300 p-1 m-1 rounded-sm text-sm font-mono">
-                {{ address?.decimalValue.value || '' }}
+                {{ address.decimalValue.value || '' }}
             </li>
             <li class="bg-slate-300 p-1 m-1 rounded-sm text-sm font-mono">
-                {{ address?.binaryValue.dotted || '' }}
+                {{ address.binaryValue.dotted || '' }}
             </li>
         </ul>
     </div>
@@ -22,7 +22,7 @@ import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 defineProps({
     address: {
         type: Object as () => AddressIpv4,
-        required: false
+        required: true
     },
     label: {
         type: String,

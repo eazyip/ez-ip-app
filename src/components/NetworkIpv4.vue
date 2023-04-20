@@ -22,14 +22,7 @@
         />
 
         <div v-if="network.network">
-            <AddressIpv4Info :address="network.network.networkAddress" label="networkAddress" />
-            <AddressIpv4Info :address="network.network.firstHostAddress" label="firstHostAddress" />
-            <AddressIpv4Info :address="network.network.lastHostAddress" label="lastHostAddress" />
-            <AddressIpv4Info :address="network.network.broadcastAddress" label="broadcastAddress" />
-            <AddressIpv4Info :address="network.network.mask" label="mask" />
-            <AddressIpv4Info :address="network.network.wildcardMask" label="wildcardMask" />
-            <div>prefix: {{ network.network.prefix.value }}</div>
-            <div>size: {{ network.network.prefix.size }}</div>
+            <NetworkIpv4Info :network="network.network" />
         </div>
     </div>
 </template>
@@ -43,7 +36,7 @@ import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 
-import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
+import NetworkIpv4Info from '@/components/NetworkIpv4Info.vue'
 
 // TODO: make value copiable
 // TODO: expand to AddressIpv4InfoModal with all values formats

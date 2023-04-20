@@ -13,14 +13,7 @@
         />
 
         <div v-if="network.network">
-            <AddressIpv4Info :address="network.network.networkAddress" label="networkAddress" />
-            <AddressIpv4Info :address="network.network.firstHostAddress" label="firstHostAddress" />
-            <AddressIpv4Info :address="network.network.lastHostAddress" label="lastHostAddress" />
-            <AddressIpv4Info :address="network.network.broadcastAddress" label="broadcastAddress" />
-            <AddressIpv4Info :address="network.network.mask" label="mask" />
-            <AddressIpv4Info :address="network.network.wildcardMask" label="wildcardMask" />
-            <div>prefix: {{ network.network.prefix.value }}</div>
-            <div>size: {{ network.network.prefix.size }}</div>
+            <NetworkIpv4Info :network="network.network" />
             <div>class: {{ network.network.class }}</div>
         </div>
     </div>
@@ -34,7 +27,7 @@ import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
-import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
+import NetworkIpv4Info from '@/components/NetworkIpv4Info.vue'
 
 // ======================================================================
 
