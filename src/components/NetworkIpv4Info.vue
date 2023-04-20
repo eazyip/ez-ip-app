@@ -1,7 +1,15 @@
 <template>
     <AddressIpv4Info :address="network.networkAddress" label="networkAddress" />
-    <AddressIpv4Info :address="network.firstHostAddress" label="firstHostAddress" />
-    <AddressIpv4Info :address="network.lastHostAddress" label="lastHostAddress" />
+    <AddressIpv4Info
+        v-if="network.firstHostAddress"
+        :address="network.firstHostAddress"
+        label="firstHostAddress"
+    />
+    <AddressIpv4Info
+        v-if="network.lastHostAddress"
+        :address="network.lastHostAddress"
+        label="lastHostAddress"
+    />
     <AddressIpv4Info :address="network.broadcastAddress" label="broadcastAddress" />
     <AddressIpv4Info :address="network.mask" label="mask" />
     <AddressIpv4Info :address="network.wildcardMask" label="wildcardMask" />

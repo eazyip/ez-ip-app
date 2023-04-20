@@ -11,8 +11,8 @@ export default class NetworkIpv4 {
     readonly size: number
     readonly wildcardMask: WildcardMaskIpv4
     readonly networkAddress: NetworkAddressIpv4
-    readonly firstHostAddress: AddressIpv4
-    readonly lastHostAddress: AddressIpv4
+    readonly firstHostAddress: AddressIpv4 | null = null
+    readonly lastHostAddress: AddressIpv4 | null = null
     readonly broadcastAddress: BroadcastAddressIpv4
 
     // private usedCapacity: number = 0
@@ -20,14 +20,19 @@ export default class NetworkIpv4 {
 
     // TODO: support more signatures (anyIp can be binary or array, can give prefix instead of mask ...)
     constructor(anyIp: AddressIpv4, mask: MaskIpv4) {
+        // TODO: cover prefix 32|0 cases -> this is a host
         this.mask = mask
         this.prefix = this.mask.makePrefix()
         this.size = this.prefix.size
         this.wildcardMask = this.mask.makeWildcard()
         this.networkAddress = this.mask.makeNetworkAddress(anyIp)
-        this.firstHostAddress = this.networkAddress.makeFirstHostAddress()
         this.broadcastAddress = this.wildcardMask.makeBroadcastAddress(anyIp)
-        this.lastHostAddress = this.broadcastAddress.makeLastHostAddress()
+
+        // TODO: unit test
+        if (this.size <= 2) {
+            this.firstHostAddress = this.networkAddress.makeFirstHostAddress()
+            this.lastHostAddress = this.broadcastAddress.makeLastHostAddress()
+        }
     }
 
     addSubnetBySize(name: string, subnetSize: number) {
@@ -61,6 +66,14 @@ export default class NetworkIpv4 {
     removeSubnet(name: string) {
         // TODO: compact ?
         this.subnets.delete(name)
+    }
+
+    getSubnets() {
+        return this.subnets
+    }
+
+    getSubnetsCount() {
+        return this.subnets.size
     }
 
     containsSubnet(subnet: NetworkIpv4): boolean {
