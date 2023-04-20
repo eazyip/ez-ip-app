@@ -4,6 +4,16 @@ import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import { describe, expect, it } from 'vitest'
 
 describe('DecimalFormatIpv4', () => {
+    describe('isValid', () => {
+        it('validates', () => {
+            expect(DecimalFormatIpv4.isValid('127.0.0.')).toBeFalsy()
+            expect(DecimalFormatIpv4.isValid('127.0.0')).toBeFalsy()
+            expect(DecimalFormatIpv4.isValid('127.0.0.256')).toBeFalsy()
+            expect(DecimalFormatIpv4.isValid('127.0.0.-')).toBeFalsy()
+            expect(DecimalFormatIpv4.isValid('127.0.0.0')).toBeTruthy()
+        })
+    })
+
     describe('constructor', () => {
         it('should throw an error if binary IP is not 4 octets', () => {
             expect(() => {
