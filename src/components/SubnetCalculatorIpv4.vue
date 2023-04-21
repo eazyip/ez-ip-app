@@ -42,6 +42,11 @@
                 class="m-3 border bg-lime-100"
             >
                 <!-- rm/edit subnet -->
+                <form @submit.prevent="removeSubnet(subnet[0])">
+                    <input type="hidden" name="subnetName" :value="subnet[0]" />
+                    <button class="bg-red-600 text-white">RM</button>
+                </form>
+
                 <h2>{{ subnet[0] }} in range {{ subnet[1].inRange }}</h2>
                 <NetworkIpv4Info :network="subnet[1].subnet" />
             </div>
@@ -114,6 +119,10 @@ const addSubnet = () => {
 
     newSubnetName.value = ''
     newSubnetSize.value = 0
+}
+
+const removeSubnet = (subnetName: string) => {
+    network.network!.removeSubnet(subnetName)
 }
 
 onMounted(() => {
