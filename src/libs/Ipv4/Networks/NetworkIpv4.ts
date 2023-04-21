@@ -35,41 +35,68 @@ export default class NetworkIpv4 {
         }
     }
 
-    addSubnetBySize(name: string, subnetSize: number) {
-        if (this.subnets.has(name)) {
+    containsSubnet(subnet: NetworkIpv4): boolean {
+        return (
+            this.networkAddress.lesserThanOrEqualTo(subnet.networkAddress) &&
+            this.broadcastAddress.greaterThanOrEqualTo(subnet.broadcastAddress)
+        )
+    }
+
+    containsAddress(address: AddressIpv4): boolean {
+        return (
+            this.networkAddress.lesserThanOrEqualTo(address) &&
+            this.broadcastAddress.greaterThanOrEqualTo(address)
+        )
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Subnetting
+    |--------------------------------------------------------------------------
+    */
+
+    addSubnetBySize(newSubnetName: string, newSubnetSize: number) {
+        if (this.subnets.has(newSubnetName)) {
             throw new Error('Subnet name already in use')
         }
 
-        const subnetPrefix = new PrefixIpv4(Math.floor(32 - Math.log2(subnetSize + 2)))
-        const subnetMask = subnetPrefix.makeMask()
+        const newSubnetPrefix = new PrefixIpv4(Math.floor(32 - Math.log2(newSubnetSize + 2)))
+        const newSubnetMask = newSubnetPrefix.makeMask()
 
-        let subnetAddress
+        this.addSubnet(
+            newSubnetName,
+            new NetworkIpv4(this.resolveNewSubnetAddress(newSubnetPrefix.size), newSubnetMask)
+        )
+    }
+
+    addSubnet(newSubnetName: string, newSubnet: NetworkIpv4) {
+        this.subnets.set(newSubnetName, {
+            subnet: newSubnet,
+            inRange: this.containsSubnet(newSubnet)
+        })
+    }
+
+    private resolveNewSubnetAddress(nextSubnetSize: number): AddressIpv4 {
         if (this.subnets.size === 0) {
-            subnetAddress = this.networkAddress
-        } else {
-            const lastSubnet = Array.from(this.subnets.values())[this.subnets.size - 1]
-
-            do {
-                subnetAddress = lastSubnet.subnet.networkAddress.nextAddress(subnetPrefix.size + 2)
-            } while (subnetAddress.lesserThanOrEqualTo(lastSubnet.subnet.broadcastAddress))
-            // ! logical hole
-            // network is 10.0.0.0/24
-            // last subnet is 10.0.0.0/30 -> broadcast = 10.0.0.4
-            // if we add subnet size=14 -> prefi=28 -> mask=255.255.255.240
-            //  next address to 10.0.0.4 is [10.0.0.5]
-            //  [255.255.255.240 & 10.0.0.5] gives networkAddress=10.0.0.0
-            //  Which overlaps with previous network
-            // * solution
-            // previous subnet networkAddres + current subnet size +2 until > previous subnet broadcastAddres
-            // 10.0.0.0 ++(14+2) until bigger than 10.0.0.4
+            return this.networkAddress
         }
 
-        this.addSubnet(name, new NetworkIpv4(subnetAddress, subnetMask))
+        const lastSubnet = this.lastSubnet()!
+
+        return lastSubnet.broadcastAddress.nextAddress(nextSubnetSize)
     }
 
-    addSubnet(name: string, subnet: NetworkIpv4) {
-        this.subnets.set(name, { subnet, inRange: this.containsSubnet(subnet) })
+    lastSubnet(): null | NetworkIpv4 {
+        if (this.subnets.size === 0) {
+            return null
+        }
+
+        return Array.from(this.subnets.values()).pop()!.subnet
     }
+
+    // TODO: sort on edit
+
+    // --------------------------------------------------------------------------
 
     getSubnet(name: string): { subnet: NetworkIpv4; inRange: boolean } | undefined {
         return this.subnets.get(name)
@@ -86,19 +113,5 @@ export default class NetworkIpv4 {
 
     getSubnetsCount() {
         return this.subnets.size
-    }
-
-    containsSubnet(subnet: NetworkIpv4): boolean {
-        return (
-            this.networkAddress.lesserThanOrEqualTo(subnet.networkAddress) &&
-            this.broadcastAddress.greaterThanOrEqualTo(subnet.broadcastAddress)
-        )
-    }
-
-    containsAddress(address: AddressIpv4): boolean {
-        return (
-            this.networkAddress.lesserThanOrEqualTo(address) &&
-            this.broadcastAddress.greaterThanOrEqualTo(address)
-        )
     }
 }
