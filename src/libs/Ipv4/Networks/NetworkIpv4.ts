@@ -49,7 +49,19 @@ export default class NetworkIpv4 {
         } else {
             const lastSubnet = Array.from(this.subnets.values())[this.subnets.size - 1]
 
-            subnetAddress = lastSubnet.subnet.broadcastAddress.nextAddress()
+            do {
+                subnetAddress = lastSubnet.subnet.networkAddress.nextAddress(subnetPrefix.size + 2)
+            } while (subnetAddress.lesserThanOrEqualTo(lastSubnet.subnet.broadcastAddress))
+            // ! logical hole
+            // network is 10.0.0.0/24
+            // last subnet is 10.0.0.0/30 -> broadcast = 10.0.0.4
+            // if we add subnet size=14 -> prefi=28 -> mask=255.255.255.240
+            //  next address to 10.0.0.4 is [10.0.0.5]
+            //  [255.255.255.240 & 10.0.0.5] gives networkAddress=10.0.0.0
+            //  Which overlaps with previous network
+            // * solution
+            // previous subnet networkAddres + current subnet size +2 until > previous subnet broadcastAddres
+            // 10.0.0.0 ++(14+2) until bigger than 10.0.0.4
         }
 
         this.addSubnet(name, new NetworkIpv4(subnetAddress, subnetMask))

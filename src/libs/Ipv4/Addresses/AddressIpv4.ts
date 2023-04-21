@@ -30,9 +30,10 @@ export default class AddressIpv4 {
     |--------------------------------------------------------------------------
     */
 
-    nextAddress(): AddressIpv4 {
+    nextAddress(step: number = 1): AddressIpv4 {
+        // ? step > 0
         // TODO: try catch
-        return new AddressIpv4(this.binaryValue.add(1))
+        return new AddressIpv4(this.binaryValue.add(step))
     }
 
     previousAddress(): AddressIpv4 {
