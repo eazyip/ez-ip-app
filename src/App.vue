@@ -1,13 +1,16 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
     <header>
-        <div class="wrapper">
+        <div>
             <nav>
-                <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/app">App</RouterLink>
+                <NavItem route="/">Home</NavItem>
+                <NavItem route="/app">App</NavItem>
+                <div class="pl-4">
+                    <NavItem route="/app/ipv4/address-classful-analyses"
+                        >address-classful-analyses</NavItem
+                    >
+                    <NavItem route="/app/ipv4/address-analyses">address-analyses</NavItem>
+                    <NavItem route="/app/ipv4/subnet-calculator">subnet-calculator</NavItem>
+                </div>
             </nav>
         </div>
     </header>
@@ -15,4 +18,8 @@ import { RouterLink, RouterView } from 'vue-router'
     <RouterView />
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+
+import NavItem from '@/components/NavItem.vue'
+</script>
