@@ -14,6 +14,8 @@ export default class NetworkIpv4 {
     readonly firstHostAddress: AddressIpv4 | null = null
     readonly lastHostAddress: AddressIpv4 | null = null
     readonly broadcastAddress: BroadcastAddressIpv4
+    // TODO: add size needed by user to calculate unused space
+    // TODO: support saving host addresses and calculate acually used/free space
 
     // private usedCapacity: number = 0
     private subnets: Map<string, { subnet: NetworkIpv4; inRange: boolean }> = new Map()
@@ -94,7 +96,22 @@ export default class NetworkIpv4 {
         return Array.from(this.subnets.values()).pop()!.subnet
     }
 
-    // TODO: sort on edit
+    // TODO: unit test + optimize?
+    sortSubnets(): void {
+        // ! need to make a copy
+        const sortedSubnets = [...this.subnets.entries()].sort(
+            (a, b) => b[1].subnet.size - a[1].subnet.size
+        )
+
+        this.subnets = new Map()
+
+        sortedSubnets.forEach((subnetEntry) => {
+            // ! need to re-instantiate subnet
+            this.addSubnetBySize(subnetEntry[0], subnetEntry[1].subnet.size)
+        })
+    }
+
+    // TODO: edit
 
     // --------------------------------------------------------------------------
 

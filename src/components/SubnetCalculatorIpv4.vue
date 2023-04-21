@@ -33,7 +33,11 @@
                 <input v-model="newSubnetName" type="text" class="border-2 border-black" />
                 size
                 <input v-model="newSubnetSize" type="number" class="border-2 border-black" />
-                <button type="submit" class="p-1 bg-black text-white rounder-sm">add</button>
+                <button type="submit" class="p-1 bg-green-600 text-white rounder-sm">add</button>
+            </form>
+
+            <form @submit.prevent="network.network.sortSubnets()">
+                <button type="submit" class="p-1 bg-blue-600 text-white rounder-sm">Sort</button>
             </form>
 
             <div
@@ -41,7 +45,8 @@
                 :key="index"
                 class="m-3 border bg-lime-100"
             >
-                <!-- rm/edit subnet -->
+                <!-- edit subnet -->
+
                 <form @submit.prevent="removeSubnet(subnet[0])">
                     <input type="hidden" name="subnetName" :value="subnet[0]" />
                     <button class="bg-red-600 text-white">RM</button>
