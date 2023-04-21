@@ -1,8 +1,8 @@
 ## IPv4
 
 -   32 bits value
--   Binary format contains only 0 and 1
--   Decimal format has 4 octets separated by 3 dots
+
+IP addresses can be represented in different numbering systems for different purposes, such as **binary** for bitwise operations, **octal** for simplifying calculations (add/substract), **decimal** for human readability, and **hexadecimal** for compactness.
 
 ### Bits
 
@@ -10,7 +10,11 @@
 | -------- | -------- | -------- | -------- | -------- | -------- | -------- | ------- | -------- |
 | 0        | 1        | 2        | 4        | 8        | 16       | 32       | 64      | 128      |
 
-### Mask
+### Conversions
+
+![network-addressing-info-graph](./network-addressing-info-graph.png)
+
+#### Mask
 
 Ones to the left (network part) and zeroes to the right (hosts part)
 
@@ -33,7 +37,7 @@ Ones to the left (network part) and zeroes to the right (hosts part)
 
 > Only these decimal numbers may appear in a mask: `0`, `128`, `192`, `224`, `240`, `248`, `252`, `254`, `255`
 
-### Wildcard Mask
+#### Wildcard Mask
 
 Reverse of mask
 
@@ -55,7 +59,7 @@ Reverse of mask
 
 > Only these decimal numbers may appear in a wildcard mask: `255`, `127`, `63`, `31`, `15`, `7`, `3`, `1`, `0`
 
-### Prefix
+#### Prefix
 
 Count of ones in a mask
 
@@ -65,7 +69,7 @@ Count of ones in a mask
 11111111111111111111111100000000 -> 24
 ```
 
-### Size
+#### Size
 
 How many hosts a network can contain (not including network and broadcast addresses)
 
@@ -74,7 +78,7 @@ How many hosts a network can contain (not including network and broadcast addres
 (2^(32 - prefix)) - 2
 ```
 
-### Network address
+#### Network address
 
 Any address bitwise AND mask
 
@@ -91,7 +95,7 @@ Any address bitwise AND mask
 
 > network addresses always end with 0 in binary
 
-### First host
+#### First host
 
 Network address +1
 
@@ -99,7 +103,7 @@ Network address +1
 192.168.1.0/24 -> 192.168.1.1
 ```
 
-### Broadcast address
+#### Broadcast address
 
 Any address bitwise OR wildcard mask
 
@@ -114,7 +118,7 @@ Any address bitwise OR wildcard mask
 192.168.1.0 OR 0.0.0.255 -> 192.168.1.255
 ```
 
-### Last host
+#### Last host
 
 Broadcast address -1
 
