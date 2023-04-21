@@ -86,30 +86,37 @@ describe('NetworkIpv4', () => {
                 new NetworkAddressIpv4('10.0.0.0'),
                 new MaskIpv4('255.255.255.192')
             ) // 10.0.0.0 -> 10.0.0.63
-            network.addSubnetBySize('test1', 2) // 10.0.0.0 -> 10.0.0.3
-            network.addSubnetBySize('test2', 19) // 10.0.0.32 -> 10.0.0.63
-            network.addSubnetBySize('test3', 4) // 10.0.0.64 -> 10.0.0.67
+            network.addSubnetBySize('test1', 0) // 10.0.0.0 -> 10.0.0.1
+            network.addSubnetBySize('test2', 2) // 10.0.0.4 -> 10.0.0.7
+            network.addSubnetBySize('test3', 19) // 10.0.0.32 -> 10.0.0.63
+            network.addSubnetBySize('test4', 4) // 10.0.0.64 -> 10.0.0.67
 
             expect(() => network.addSubnetBySize('test2', 8)).toThrow()
 
             const expectedSubnet1 = new NetworkIpv4(
                 new NetworkAddressIpv4('10.0.0.0'),
-                new MaskIpv4('255.255.255.252')
+                new MaskIpv4('255.255.255.254')
             )
 
             const expectedSubnet2 = new NetworkIpv4(
+                new NetworkAddressIpv4('10.0.0.4'),
+                new MaskIpv4('255.255.255.252')
+            )
+
+            const expectedSubnet3 = new NetworkIpv4(
                 new NetworkAddressIpv4('10.0.0.32'),
                 new MaskIpv4('255.255.255.224')
             )
 
-            const expectedSubnet3 = new NetworkIpv4(
+            const expectedSubnet4 = new NetworkIpv4(
                 new NetworkAddressIpv4('10.0.0.64'),
                 new MaskIpv4('255.255.255.248')
             )
 
             expect(network.getSubnet('test1')).toEqual({ subnet: expectedSubnet1, inRange: true })
             expect(network.getSubnet('test2')).toEqual({ subnet: expectedSubnet2, inRange: true })
-            expect(network.getSubnet('test3')).toEqual({ subnet: expectedSubnet3, inRange: false })
+            expect(network.getSubnet('test3')).toEqual({ subnet: expectedSubnet3, inRange: true })
+            expect(network.getSubnet('test4')).toEqual({ subnet: expectedSubnet4, inRange: false })
         })
     })
 

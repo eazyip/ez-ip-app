@@ -83,7 +83,7 @@ export default class NetworkIpv4 {
 
         const lastSubnet = this.lastSubnet()!
 
-        return lastSubnet.broadcastAddress.nextAddress(nextSubnetSize)
+        return lastSubnet.broadcastAddress.nextAddress(nextSubnetSize + 2)
     }
 
     lastSubnet(): null | NetworkIpv4 {
