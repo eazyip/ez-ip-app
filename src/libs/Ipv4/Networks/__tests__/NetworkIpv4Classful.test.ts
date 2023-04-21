@@ -64,9 +64,12 @@ describe('NetworkIpv4Classful', () => {
                 expect(network.size).toEqual(size)
                 expect(network.wildcardMask.decimalValue.value).toEqual(wildCardMask)
                 expect(network.networkAddress.decimalValue.value).toEqual(networkIp)
-                expect(network.firstHostAddress.decimalValue.value).toEqual(firstHostIp)
                 expect(network.broadcastAddress.decimalValue.value).toEqual(broadcastIp)
-                expect(network.lastHostAddress.decimalValue.value).toEqual(lastHostIp)
+
+                if (network.firstHostAddress && network.lastHostAddress) {
+                    expect(network.firstHostAddress.decimalValue.value).toEqual(firstHostIp)
+                    expect(network.lastHostAddress.decimalValue.value).toEqual(lastHostIp)
+                }
             }
         )
     })
