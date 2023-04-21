@@ -18,8 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
 import type NetworkIpv4 from '@/libs/Ipv4/Networks/NetworkIpv4'
 
 import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
