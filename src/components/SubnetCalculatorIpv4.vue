@@ -22,7 +22,7 @@
         />
 
         <div v-if="network.network">
-            <NetworkIpv4Info :network="network.network" />
+            <BaseNetworkIpv4Info :network="network.network" />
         </div>
 
         <hr class="border" />
@@ -68,7 +68,7 @@
                         X
                     </button>
 
-                    <NetworkIpv4Info :network="subnet[1].subnet" />
+                    <BaseNetworkIpv4Info :network="subnet[1].subnet" />
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@ import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 
-import NetworkIpv4Info from '@/components/NetworkIpv4Info.vue'
+import BaseNetworkIpv4Info from '@/components/BaseNetworkIpv4Info.vue'
 
 // TODO: make value copiable
 // TODO: expand to AddressIpv4InfoModal with all values formats

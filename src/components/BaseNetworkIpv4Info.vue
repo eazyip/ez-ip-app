@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import type NetworkIpv4 from '@/libs/Ipv4/Networks/NetworkIpv4'
+import type BaseNetworkIpv4 from '@/libs/Ipv4/Networks/BaseNetworkIpv4'
 
 import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
 
@@ -30,7 +30,7 @@ import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
 
 defineProps({
     network: {
-        type: Object as () => NetworkIpv4,
+        type: Object as () => BaseNetworkIpv4,
         required: true
     },
     label: {

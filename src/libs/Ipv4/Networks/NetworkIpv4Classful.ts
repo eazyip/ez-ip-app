@@ -1,16 +1,18 @@
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import type AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
-import NetworkIpv4 from '@/libs/Ipv4/Networks/NetworkIpv4'
 import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
+import BaseNetworkIpv4 from '@/libs/Ipv4/Networks/BaseNetworkIpv4'
 
 // TODO: extend from BaseNetworkIpv4 (doesnt have subnetting capabilities)
-export default class NetworkIpv4Classful extends NetworkIpv4 {
+export default class NetworkIpv4Classful extends BaseNetworkIpv4 {
     readonly class: string
 
     constructor(anyIp: AddressIpv4) {
-        super(anyIp, NetworkIpv4Classful.maskFromClass(NetworkIpv4Classful._resolveClass(anyIp)))
+        const networkClass = NetworkIpv4Classful._resolveClass(anyIp)
 
-        this.class = NetworkIpv4Classful._resolveClass(anyIp)
+        super(anyIp, NetworkIpv4Classful.maskFromClass(networkClass))
+
+        this.class = networkClass
     }
 
     public static _resolveClass(anyIp: AddressIpv4): string {

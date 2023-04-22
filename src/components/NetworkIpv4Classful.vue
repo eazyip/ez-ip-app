@@ -19,7 +19,7 @@
                     network.network.class
                 }}</span>
             </div>
-            <NetworkIpv4Info :network="network.network" />
+            <BaseNetworkIpv4Info :network="network.network" />
         </div>
     </div>
 </template>
@@ -32,7 +32,7 @@ import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
-import NetworkIpv4Info from '@/components/NetworkIpv4Info.vue'
+import BaseNetworkIpv4Info from '@/components/BaseNetworkIpv4Info.vue'
 
 // ======================================================================
 
