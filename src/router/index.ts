@@ -1,9 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
-import NetworkIpv4Classful from '@/components/NetworkIpv4Classful.vue'
-import NetworkIpv4 from '@/components/NetworkIpv4.vue'
-import SubnetCalculatorIpv4 from '@/components/SubnetCalculatorIpv4.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,17 +21,17 @@ const router = createRouter({
                 {
                     path: '/app/ipv4/address-classful-analyses',
                     name: 'ipv4-address-classful-analyses',
-                    component: NetworkIpv4Classful
+                    component: () => import('@/components/NetworkIpv4Classful.vue')
                 },
                 {
                     path: '/app/ipv4/address-analyses',
                     name: 'ipv4-address-analyses',
-                    component: NetworkIpv4
+                    component: () => import('@/components/NetworkIpv4.vue')
                 },
                 {
                     path: '/app/ipv4/subnet-calculator',
                     name: 'ipv4-subnet-calculator',
-                    component: SubnetCalculatorIpv4
+                    component: () => import('@/components/SubnetCalculatorIpv4.vue')
                 }
             ]
         }
