@@ -13,8 +13,13 @@
         />
 
         <div v-if="network.network">
+            <div>
+                class:
+                <span class="p-1 rounded-sm bg-slate-300 text-sm font-mono">{{
+                    network.network.class
+                }}</span>
+            </div>
             <NetworkIpv4Info :network="network.network" />
-            <div>class: {{ network.network.class }}</div>
         </div>
     </div>
 </template>

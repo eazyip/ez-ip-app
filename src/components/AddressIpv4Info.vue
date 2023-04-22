@@ -1,14 +1,14 @@
 <template>
     <div class="flex flex-wrap gap-1 items-center">
         <p class="w-36">{{ label ?? address.label }}</p>
-        <ul class="flex flex-wrap gap-1 items-center">
-            <li class="w-32 p-1 bg-slate-300 rounded-sm text-sm font-mono">
-                {{ address.decimalValue.value || '' }}
-            </li>
-            <li class="w-72 p-1 m-1 bg-slate-300 rounded-sm text-sm font-mono">
-                {{ address.binaryValue.dotted || '' }}
-            </li>
-        </ul>
+
+        <p class="p-1 bg-slate-300 rounded-sm text-sm font-mono">
+            {{ address.decimalValue.value || '' }}
+        </p>
+
+        <p class="p-1 bg-slate-300 rounded-sm text-sm font-mono">
+            {{ address.binaryValue.dotted || '' }}
+        </p>
     </div>
 </template>
 

@@ -1,12 +1,24 @@
 <template>
-    <AddressIpv4Info :address="network.networkAddress" />
-    <AddressIpv4Info v-if="network.firstHostAddress" :address="network.firstHostAddress" />
-    <AddressIpv4Info v-if="network.lastHostAddress" :address="network.lastHostAddress" />
-    <AddressIpv4Info :address="network.broadcastAddress" />
-    <AddressIpv4Info :address="network.mask" />
-    <AddressIpv4Info :address="network.wildcardMask" />
-    <div>prefix: {{ network.prefix.value }}</div>
-    <div>size: {{ network.prefix.size }}</div>
+    <div class="flex flex-col gap-1 p-1">
+        <div>
+            prefix:
+            <span class="p-1 rounded-sm bg-slate-300 text-sm font-mono">{{
+                network.prefix.value
+            }}</span>
+        </div>
+        <div>
+            size:
+            <span class="p-1 rounded-sm bg-slate-300 text-sm font-mono">{{
+                network.prefix.size
+            }}</span>
+        </div>
+        <AddressIpv4Info :address="network.networkAddress" />
+        <AddressIpv4Info v-if="network.firstHostAddress" :address="network.firstHostAddress" />
+        <AddressIpv4Info v-if="network.lastHostAddress" :address="network.lastHostAddress" />
+        <AddressIpv4Info :address="network.broadcastAddress" />
+        <AddressIpv4Info :address="network.mask" />
+        <AddressIpv4Info :address="network.wildcardMask" />
+    </div>
 </template>
 
 <script setup lang="ts">
