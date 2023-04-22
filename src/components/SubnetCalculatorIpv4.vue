@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 border-green-700 border-2">
+    <div class="p-2 border-green-700 border-4">
         <h1 class="text-xl">Subnet calculator</h1>
         <!-- <p class="text-sm">Detect network and display its info</p> -->
 
@@ -25,35 +25,51 @@
             <NetworkIpv4Info :network="network.network" />
         </div>
 
+        <hr class="border" />
+
         <div v-if="network.network">
-            <p>subnetting:</p>
+            <p>Subnetting:</p>
 
-            <form @submit.prevent="addSubnet">
-                name
-                <input v-model="newSubnetName" type="text" class="border-2 border-black" />
-                size
-                <input v-model="newSubnetSize" type="number" class="border-2 border-black" />
-                <button type="submit" class="p-1 bg-green-600 text-white rounder-sm">add</button>
-            </form>
+            <div class="flex gap-4">
+                <form @submit.prevent="addSubnet" class="flex gap-1 items-center">
+                    <label for=""> name </label>
+                    <input v-model="newSubnetName" type="text" class="rounded-sm border-2" />
 
-            <form @submit.prevent="network.network.sortSubnets()">
-                <button type="submit" class="p-1 bg-blue-600 text-white rounder-sm">Sort</button>
-            </form>
+                    <label for=""> size </label>
+                    <input v-model="newSubnetSize" type="number" class="w-16 rounded-sm border-2" />
 
-            <div
-                v-for="(subnet, index) in network.network.getSubnets()"
-                :key="index"
-                class="m-3 border bg-lime-100"
-            >
-                <!-- edit subnet -->
-
-                <form @submit.prevent="removeSubnet(subnet[0])">
-                    <input type="hidden" name="subnetName" :value="subnet[0]" />
-                    <button class="bg-red-600 text-white">RM</button>
+                    <button type="submit" class="p-1 rounder-sm bg-green-600 text-white">
+                        add
+                    </button>
                 </form>
 
-                <h2>{{ subnet[0] }} in range {{ subnet[1].inRange }}</h2>
-                <NetworkIpv4Info :network="subnet[1].subnet" />
+                <button
+                    @click="network.network!.sortSubnets()"
+                    class="p-1 rounder-sm bg-blue-600 text-white"
+                    type="submit"
+                >
+                    Sort
+                </button>
+            </div>
+
+            <div class="flex flex-col gap-1 p-1">
+                <div
+                    v-for="(subnet, index) in network.network.getSubnets()"
+                    :key="index"
+                    class="relative border"
+                    :class="[subnet[1].inRange ? '' : 'bg-red-50']"
+                >
+                    <!-- edit subnet -->
+
+                    <button
+                        @click="removeSubnet(subnet[0])"
+                        class="absolute right-0 top-0 w-6 p-1 bg-red-600 text-white"
+                    >
+                        X
+                    </button>
+
+                    <NetworkIpv4Info :network="subnet[1].subnet" />
+                </div>
             </div>
         </div>
     </div>
@@ -105,6 +121,12 @@ const updateNetwork = (ip: string, mask: string): void => {
     const address = new AddressIpv4(ip)
     const maskAddress = new MaskIpv4(mask)
     network.network = new NetworkIpv4(address, maskAddress)
+
+    network.network.addSubnetBySize('test-1', 0)
+    network.network.addSubnetBySize('test-2', 1)
+    network.network.addSubnetBySize('test-3', 5)
+    network.network.addSubnetBySize('test-8', 5)
+    network.network.addSubnetBySize('test-4', 11)
 }
 
 const addSubnet = () => {
