@@ -96,8 +96,8 @@ interface Network {
     network: NetworkIpv4 | null
 }
 
-const inputIp = ref('172.0.0.111')
-const inputMask = ref('255.255.255.224')
+const inputIp = ref('')
+const inputMask = ref('')
 
 const newSubnetName = ref('')
 const newSubnetSize = ref(0)
@@ -121,12 +121,6 @@ const updateNetwork = (ip: string, mask: string): void => {
     const address = new AddressIpv4(ip)
     const maskAddress = new MaskIpv4(mask)
     network.network = new NetworkIpv4(address, maskAddress)
-
-    network.network.addSubnetBySize('test-1', 0)
-    network.network.addSubnetBySize('test-2', 1)
-    network.network.addSubnetBySize('test-3', 5)
-    network.network.addSubnetBySize('test-8', 5)
-    network.network.addSubnetBySize('test-4', 11)
 }
 
 const addSubnet = () => {

@@ -40,7 +40,7 @@ interface Network {
     network: NetworkIpv4Classful | null
 }
 
-const inputIp = ref('10.0.0.1')
+const inputIp = ref('')
 const network: Network = reactive({ network: null })
 
 const updateClassfulNetwork = (newValue: string): any => {

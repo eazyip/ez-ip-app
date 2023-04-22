@@ -48,8 +48,8 @@ interface Network {
     network: NetworkIpv4 | null
 }
 
-const inputIp = ref('172.0.0.111')
-const inputMask = ref('255.255.255.224')
+const inputIp = ref('')
+const inputMask = ref('')
 const network: Network = reactive({ network: null })
 
 const updateNetwork = (ip: string, mask: string): void => {
