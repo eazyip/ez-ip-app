@@ -6,6 +6,8 @@ import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import type NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
 
 export default class NetworkIpv4 {
+    label: string = ''
+
     readonly mask: MaskIpv4
     readonly prefix: PrefixIpv4
     readonly size: number
@@ -32,10 +34,25 @@ export default class NetworkIpv4 {
 
         // TODO: unit test
         if (this.prefix.value < 31 && this.prefix.value > 0) {
-            this.firstHostAddress = this.networkAddress.makeFirstHostAddress()
-            this.lastHostAddress = this.broadcastAddress.makeLastHostAddress()
+            this.firstHostAddress = this.networkAddress
+                .makeFirstHostAddress()
+                .setLabel('First host address')
+            this.lastHostAddress = this.broadcastAddress
+                .makeLastHostAddress()
+                .setLabel('Last host address')
         }
     }
+
+    setLabel(label: string): NetworkIpv4 {
+        this.label = label
+        return this
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Contains
+    |--------------------------------------------------------------------------
+    */
 
     containsSubnet(subnet: NetworkIpv4): boolean {
         return (

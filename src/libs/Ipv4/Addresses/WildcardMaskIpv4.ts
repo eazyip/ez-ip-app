@@ -9,6 +9,8 @@ export default class WildcardMaskIpv4 extends AddressIpv4 {
     constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4 | string) {
         super(address)
 
+        this.label = 'Wildcard mask'
+
         if (!this.binaryValue.isWildCardMask()) {
             throw new Error(`Invalid wildcard mask value ${this.binaryValue.value}`)
         }
