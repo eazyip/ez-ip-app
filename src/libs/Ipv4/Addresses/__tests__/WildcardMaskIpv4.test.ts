@@ -4,7 +4,7 @@ import AddressIpv4 from '@/libs/Ipv4/Addresses/AddressIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 import PrefixIpv4 from '@/libs/Ipv4/Addresses/PrefixIpv4'
 import WildcardMaskIpv4 from '@/libs/Ipv4/Addresses/WildcardMaskIpv4'
-import NetworkAddressIpv4 from '@/libs/Ipv4/Addresses/NetworkAddressIpv4'
+import BroadcastAddressIpv4 from '@/libs/Ipv4/Addresses/BroadcastAddressIpv4'
 
 describe('WildcardMaskIpv4', () => {
     describe('constructor', () => {
@@ -27,7 +27,7 @@ describe('WildcardMaskIpv4', () => {
                     const wildCard = new WildcardMaskIpv4(wildCardMask)
                     const expectedMask = new MaskIpv4(mask)
                     const expectedPrefix = new PrefixIpv4(prefix)
-                    const expectedBroadcastAddress = new NetworkAddressIpv4(BroadcastAddress)
+                    const expectedBroadcastAddress = new BroadcastAddressIpv4(BroadcastAddress)
 
                     expect(wildCard.makeMask()).toEqual(expectedMask)
                     expect(wildCard.makePrefix()).toEqual(expectedPrefix)

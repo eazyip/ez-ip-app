@@ -6,6 +6,8 @@ export default class BroadcastAddressIpv4 extends AddressIpv4 {
     constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4 | string) {
         super(address)
 
+        this.label = 'Broadcast address'
+
         // TODO: validate ?
     }
 

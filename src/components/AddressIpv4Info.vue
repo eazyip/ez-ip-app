@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-wrap gap-1 items-center">
-        <p class="w-32">{{ label }}</p>
+        <p class="w-36">{{ label ?? address.label }}</p>
         <ul class="flex flex-wrap gap-1 items-center">
             <li class="w-32 p-1 bg-slate-300 rounded-sm text-sm font-mono">
                 {{ address.decimalValue.value || '' }}
@@ -24,7 +24,7 @@ defineProps({
     },
     label: {
         type: String,
-        required: true
+        required: false
     }
 })
 </script>

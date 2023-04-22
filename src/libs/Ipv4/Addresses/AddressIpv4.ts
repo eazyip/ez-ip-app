@@ -2,9 +2,10 @@ import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 export default class AddressIpv4 {
+    label: string = ''
+
     readonly decimalValue: DecimalFormatIpv4
     readonly binaryValue: BinaryFormatIpv4
-    // TODO: label (default and from constructor)
 
     constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4 | string) {
         if (typeof address === 'string') {
@@ -22,6 +23,11 @@ export default class AddressIpv4 {
             this.binaryValue = address
             this.decimalValue = this.binaryValue.toDecimal()
         }
+    }
+
+    setLabel(label: string): AddressIpv4 {
+        this.label = label
+        return this
     }
 
     /*

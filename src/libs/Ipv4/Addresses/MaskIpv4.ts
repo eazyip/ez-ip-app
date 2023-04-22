@@ -9,6 +9,8 @@ export default class MaskIpv4 extends AddressIpv4 {
     constructor(address: DecimalFormatIpv4 | BinaryFormatIpv4 | string) {
         super(address)
 
+        this.label = 'Mask'
+
         if (!this.binaryValue.isMask()) {
             throw new Error(`Invalid mask value ${this.binaryValue.value}`)
         }
