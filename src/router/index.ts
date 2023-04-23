@@ -21,17 +21,17 @@ const router = createRouter({
                 {
                     path: '/app/ipv4/address-classful-analyses',
                     name: 'ipv4-address-classful-analyses',
-                    component: () => import('@/components/NetworkIpv4Classful.vue')
+                    component: () => import('@/views/app/NetworkIpv4Classful.vue')
                 },
                 {
                     path: '/app/ipv4/address-analyses',
                     name: 'ipv4-address-analyses',
-                    component: () => import('@/components/NetworkIpv4.vue')
+                    component: () => import('@/views/app/NetworkIpv4.vue')
                 },
                 {
                     path: '/app/ipv4/subnet-calculator',
                     name: 'ipv4-subnet-calculator',
-                    component: () => import('@/components/SubnetCalculatorIpv4.vue')
+                    component: () => import('@/views/app/SubnetCalculatorIpv4.vue')
                 }
             ]
         }
