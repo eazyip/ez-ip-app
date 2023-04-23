@@ -19,21 +19,22 @@
         />
 
         <hr class="border" />
-        <AddressIs
+        <h2 class="text-xl">Input address details</h2>
+        <AddressIpv4Info
             v-if="network.network"
             :address="new AddressIpv4(inputIp)"
-            :network="network.network"
+            :label="network.network.resolveAddressLabel(new AddressIpv4(inputIp))"
         />
         <hr class="border" />
 
         <div v-if="network.network">
+            <h2 class="text-xl">Network details</h2>
             <BaseNetworkIpv4Info :network="network.network" />
         </div>
 
         <hr class="border" />
 
         <h2 class="text-xl">Subnet calculator</h2>
-        <!-- <p class="text-sm">Detect network and display its info</p> -->
 
         <div v-if="network.network">
             <p>Subnetting:</p>
@@ -93,7 +94,7 @@ import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 
 import BaseNetworkIpv4Info from '@/components/BaseNetworkIpv4Info.vue'
-import AddressIs from '@/components/AddressIs.vue'
+import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
 
 // TODO: make value copiable
 // TODO: expand to AddressIpv4InfoModal with all values formats

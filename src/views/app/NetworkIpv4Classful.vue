@@ -10,15 +10,15 @@
         />
 
         <hr class="border" />
-        <AddressIs
+        <h2 class="text-xl">Input address details</h2>
+        <AddressIpv4Info
             v-if="network.network"
             :address="new AddressIpv4(inputIp)"
-            :network="network.network"
+            :label="network.network.resolveAddressLabel(new AddressIpv4(inputIp))"
         />
         <hr class="border" />
 
-        <h2 class="text-xl">Classful network</h2>
-        <p class="text-sm">Detect network class and display its info</p>
+        <h2 class="text-xl">Classful network details</h2>
 
         <div v-if="network.network">
             <div>
@@ -41,7 +41,7 @@ import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 import BaseNetworkIpv4Info from '@/components/BaseNetworkIpv4Info.vue'
-import AddressIs from '@/components/AddressIs.vue'
+import AddressIpv4Info from '@/components/AddressIpv4Info.vue'
 
 // ======================================================================
 
