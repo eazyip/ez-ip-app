@@ -1,8 +1,5 @@
 <template>
     <div class="p-2 border-green-700 border-2">
-        <h1 class="text-xl">Classful network</h1>
-        <p class="text-sm">Detect network class and display its info</p>
-
         <label for="inputName">IP: </label>
 
         <input
@@ -11,6 +8,17 @@
             :class="network.network == null && inputIp ? 'text-red-500' : 'text-green-500'"
             class="border"
         />
+
+        <hr class="border" />
+        <AddressIs
+            v-if="network.network"
+            :address="new AddressIpv4(inputIp)"
+            :network="network.network"
+        />
+        <hr class="border" />
+
+        <h2 class="text-xl">Classful network</h2>
+        <p class="text-sm">Detect network class and display its info</p>
 
         <div v-if="network.network">
             <div>
@@ -33,6 +41,7 @@ import DecimalFormatIpv4 from '@/libs/Ipv4/Formats/DecimalFormatIpv4'
 import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 
 import BaseNetworkIpv4Info from '@/components/BaseNetworkIpv4Info.vue'
+import AddressIs from '@/components/AddressIs.vue'
 
 // ======================================================================
 

@@ -45,6 +45,26 @@ export default abstract class BaseNetworkIpv4 {
         return this
     }
 
+    resolveAddressLabel(address: AddressIpv4): string {
+        if (this.networkAddress.equalTo(address)) {
+            return this.networkAddress.label
+        }
+        if (this.broadcastAddress.equalTo(address)) {
+            return this.broadcastAddress.label
+        }
+        if (!this.lastHostAddress || !this.firstHostAddress) {
+            // ! throw
+            return ''
+        }
+        if (this.firstHostAddress.equalTo(address)) {
+            return this.firstHostAddress.label
+        }
+        if (this.lastHostAddress.equalTo(address)) {
+            return this.lastHostAddress.label
+        }
+        return 'Host address'
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Contains

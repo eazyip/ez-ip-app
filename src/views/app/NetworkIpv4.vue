@@ -1,7 +1,6 @@
 <template>
     <div class="p-2 border-green-700 border-2">
-        <h1 class="text-xl">Network</h1>
-        <p class="text-sm">Detect network and display its info</p>
+        <h2 class="text-xl">Address</h2>
 
         <label for="inputName">IP: </label>
 
@@ -21,6 +20,19 @@
             class="border"
         />
 
+        <hr class="border" />
+
+        <AddressIs
+            v-if="network.network"
+            :address="new AddressIpv4(inputIp)"
+            :network="network.network"
+        />
+
+        <hr class="border" />
+
+        <h2 class="text-xl">Network</h2>
+        <p class="text-sm">Detect network and display its info</p>
+
         <div v-if="network.network">
             <BaseNetworkIpv4Info :network="network.network" />
         </div>
@@ -37,6 +49,7 @@ import BinaryFormatIpv4 from '@/libs/Ipv4/Formats/BinaryFormatIpv4'
 import MaskIpv4 from '@/libs/Ipv4/Addresses/MaskIpv4'
 
 import BaseNetworkIpv4Info from '@/components/BaseNetworkIpv4Info.vue'
+import AddressIs from '@/components/AddressIs.vue'
 
 // TODO: make value copiable
 // TODO: expand to AddressIpv4InfoModal with all values formats
